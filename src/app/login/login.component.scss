@@ -1,0 +1,90 @@
+body {
+    background-image: url("../../assets/bckgrnd.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.example-card {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    mat-card {
+        width: 370px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.685);
+        display: inline-block;
+        .material-icons {
+            font-size: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -15%;
+            color: rgb(0, 217, 255);
+        }
+        .mat-card-title:not(:first-child),
+        .mat-card-subtitle:not(:first-child) {
+            margin-top: 43px;
+            text-align: center;
+            font-family: math;
+            color: rgb(0, 162, 255);
+            text-shadow: 1px 1px white;
+        }
+    }
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline input {
+    background-color: rgb(7 130 247) !important;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.mat-stroked-button {
+    background-color: rgb(0, 153, 255);
+    width: 100%;
+    letter-spacing: 3px !important;
+    border-radius: 20px;
+    margin-top: 6%;
+}
+
+.mat-stroked-button:hover {
+    font-weight: bolder !important;
+    letter-spacing: 10px !important;
+}
+
+.example-button-row {
+    display: table-cell;
+    width: 490px;
+}
+
+.example-button-row .mat-button-base {
+    margin: 10px 10px 10px 0;
+}
+
+.example-button-row {
+    display: table-cell;
+    width: 490px;
+}
+
+.error {
+    color: red;
+}
+
+// .login {
+//     height: 100%;
+//     width: 100%;
+//     // text-align: center;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     div {
+//         width: 400px;
+//         height: 500px;
+//         // margin-top: 20%;
+//         background: red;
+//         // display: inline-block;
+//     }
+// }

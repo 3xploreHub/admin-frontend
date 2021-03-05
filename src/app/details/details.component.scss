@@ -1,0 +1,38 @@
+#modal-content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: repeat(1fr, 3);
+}
+
+#modal-title {
+    font-size: 22px;
+}
+
+#modal-footer {
+    justify-self: left;
+    align-self: center;
+}
+
+#modal-body {
+    text-align: justify;
+}
+
+#modal-action-button {
+    margin-right: 30px;
+    background-color: #06f86b;
+    border-radius: 20px;
+}
+
+#modal-cancel-button {
+    color: #04cfdd;
+    background: transparent;
+}
+
+#modal-title {
+    text-align: center;
+}
+
+mat-grid-tile {
+    text-align: start;
+}

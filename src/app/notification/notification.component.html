@@ -1,0 +1,61 @@
+<mat-toolbar>
+    <mat-toolbar-row class="toolbar">
+        <div>
+            <span>Explorehub</span>
+            <span class="example-spacer"></span>
+            <div class="search">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Search</mat-label>
+                    <input type="text" aria-label="Search" matInput>
+                </mat-form-field>
+            </div>
+            <div class="tab">
+                <mat-tab-group>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <span class="service">Toursit Spot Operator </span>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <span class="service">Tourist Spot Service Contributor </span>
+                        </ng-template>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            <button mat-stroked-button class="button" [routerLink]="['/login']" routerLinkActive="router-link-active">Logout <span class="material-icons" >logout</span></button>
+        </div>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row class="status">
+        <div class="statlabel">
+            <button mat-button [routerLink]="['/notif/new']" id="new">New Notification</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-button [routerLink]="['/notif/pending']" id="pending">Pending</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-button [routerLink]="['/notif/booked']" id="booked">Booked</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-button [routerLink]="['/notif/declined']" id="declined">Declined</button>
+        </div>
+        <!-- <mat-tab-group mat-align-tabs="center" class="statlabel">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [routerLink]="['/notif/new']" id="new">New Notification </span>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [routerLink]="['/notif/pending']" id="pending">Pending</span>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [routerLink]="['/notif/booked']" id="booked">Booked </span>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [routerLink]="['/notif/declined']" id="declined">Declined </span>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group> -->
+    </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>

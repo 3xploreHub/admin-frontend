@@ -1,0 +1,35 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        <h1 id="modal-title">Basdaku Beach Resort</h1>
+    </header>
+    <section id="modal-body">
+        <mat-grid-list cols="2" rowHeight="6:1">
+            <mat-grid-tile>
+                Owners Name: Jhon Jhonny
+            </mat-grid-tile>
+            <mat-grid-tile>
+                Contact Number: 0000009999
+            </mat-grid-tile>
+            <mat-grid-tile>
+                Entrance fee: 150
+            </mat-grid-tile>
+            <mat-grid-tile>
+                Location: Basdaku, Moalboal, Cebu
+            </mat-grid-tile>
+            <mat-grid-tile>
+                Email: 0000009999
+            </mat-grid-tile>
+            <mat-grid-tile>
+                Opening Time: 150
+            </mat-grid-tile>
+        </mat-grid-list>
+    </section>
+    <footer id="modal-footer">
+        <button mat-button color="primary" id="modal-cancel-button" (click)="closeModal()">
+                <span class="material-icons">keyboard_arrow_left</span>Back</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button id="modal-booked-button" (click)="bookedFunction()">Booked
+                <span class="material-icons">event_available</span></button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button id="modal-declined-button" (click)="declinedFunction()">Declined
+                <span class="material-icons">event_busy</span></button>
+    </footer>
+</div>
