@@ -1,5 +1,8 @@
+import { AdminService } from './../service/admin.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,19 +10,37 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 
 export class LoginComponent implements OnInit {
-  public emailMessage = false
-  public passwordMessage = false
-  constructor(private formBuilder: FormBuilder  ) { }
+
+  constructor(private authService: AdminService, private router: Router) { }
+
   public credentialsForm = {
-    email: "",
+    username: "",
     password: ""
   }
-
+  public serverErrorMessages = "";
   ngOnInit() {
+
   }
-  onSubmit(value:string){
-    console.log("value",value);
-    
+  onSubmit() {
+    var partialDataHandler;
+    this.authService.login(this.credentialsForm).subscribe((user) => {
+      partialDataHandler = user
+      if (partialDataHandler.status != false) {
+        this.authService.setToken(user['token'])
+        this.router.navigate(['notif']);
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: partialDataHandler.sms,
+        })
+        this.router.navigate(['']);
+      }
+    });
   }
-  
+
+  goToAboutPage() {
+    this.router.navigate(['About']); // here "About" is name not path
+  }
+
 }

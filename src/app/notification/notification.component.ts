@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AdminService } from './../service/admin.service';
 import { Component, OnInit } from '@angular/core';
 // import { Pipe, PipeTransform } from '@angular/core';
 // @Pipe({ name: 'appFilter' })
@@ -13,7 +15,7 @@ export class NotificationComponent implements OnInit {
     "Jessa Mae"
   ]
   public newNotif: boolean = true;
-  constructor() { }
+  constructor(private adminService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +24,10 @@ export class NotificationComponent implements OnInit {
     // this.data.filter = value.trim().toLocaleUpperCase()
 
 
+  }
+  logOut(){
+    this.adminService.deleteToken();
+    this.router.navigate(['login'])
   }
 }
 

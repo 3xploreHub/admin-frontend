@@ -2,6 +2,7 @@ import { DeclinedComponent } from './declined/declined.component';
 import { BookedComponent } from './booked/booked.component';
 import { PendingComponent } from './pending/pending.component';
 import { NewNotificationComponent } from './new-notification/new-notification.component';
+import { AuthGuard } from './auth/auth.guard';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,7 +19,7 @@ const routes: Routes = [
       {path:"pending",component:PendingComponent},
       {path:"booked",component:BookedComponent},
       {path:"declined",component:DeclinedComponent},
-    ]
+    ],canActivate:[AuthGuard]
 },
 
 

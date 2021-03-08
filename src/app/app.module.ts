@@ -1,3 +1,6 @@
+
+import { AdminService } from './service/admin.service';
+import { AuthGuard } from './auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -5,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 // import { FilterPipe } from './pipes/filter.pipe';
 
@@ -27,6 +31,12 @@ import { BookedComponent } from './booked/booked.component';
 import { DeclinedComponent } from './declined/declined.component';
 import { PendingDetailsComponent } from './pending-details/pending-details.component';
 
+
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +52,7 @@ import { PendingDetailsComponent } from './pending-details/pending-details.compo
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -54,9 +65,12 @@ import { PendingDetailsComponent } from './pending-details/pending-details.compo
     MatDialogModule,
     MatGridListModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    AdminService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

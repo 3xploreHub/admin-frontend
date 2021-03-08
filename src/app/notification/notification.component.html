@@ -23,7 +23,7 @@
                     </mat-tab>
                 </mat-tab-group>
             </div>
-            <button mat-stroked-button class="button" [routerLink]="['/login']" routerLinkActive="router-link-active">Logout <span class="material-icons" >logout</span></button>
+            <button mat-stroked-button class="button" (click)="logOut()">Logout <span class="material-icons" >logout</span></button>
         </div>
     </mat-toolbar-row>
 
