@@ -5,8 +5,14 @@
 
 export const environment = {
   apiUrl: "http://localhost:3000/api",
-  production: false
+  production: false,
+
+
+  pusher: {
+    key: '925632214c543de24e27',
+  }
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

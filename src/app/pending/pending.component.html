@@ -1,26 +1,34 @@
 <div>
     <h1>Pending Request</h1>
-    <table id="pending">
-        <tr>
-            <th></th>
-            <th>Name of Tourist Spot</th>
-            <th>Owners Name</th>
-            <th>Location</th>
-            <th>Date Process</th>
-        </tr>
-        <tr (click)="openModal()">
-            <td><span class="material-icons ">email</span></td>
-            <td>Basdaku Beach Resort</td>
-            <td>Jhon Jhonny</td>
-            <td>Moalboal Cebu</td>
-            <td>March 10,2020 | 12:00pm</td>
-        </tr>
-        <tr>
-            <td><span class="material-icons ">email</span></td>
-            <td>Basdaku Beach Resort</td>
-            <td>Jhon Jhonny</td>
-            <td>Moalboal Cebu</td>
-            <td>March 11,2020 | 9:00am</td>
-        </tr>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="head"></th>
+            <td mat-cell *matCellDef="let element"><span class="material-icons ">email</span> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="touristSpotName">
+            <th mat-header-cell *matHeaderCellDef class="head"> Tourist Spot Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.touristSpotName}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="ownersName">
+            <th mat-header-cell *matHeaderCellDef class="head"> Owners Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.ownersName}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef class="head"> Location </th>
+            <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateProcess">
+            <th mat-header-cell *matHeaderCellDef class="head"> Date Process </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateProcess}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openModal()"></tr>
     </table>
 </div>

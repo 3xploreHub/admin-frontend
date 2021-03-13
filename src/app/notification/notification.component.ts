@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { AdminService } from './../service/admin.service';
 import { Component, OnInit } from '@angular/core';
+
 // import { Pipe, PipeTransform } from '@angular/core';
 // @Pipe({ name: 'appFilter' })
 @Component({
@@ -10,14 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class NotificationComponent implements OnInit {
-
+  
   public data = [
     "Jessa Mae"
   ]
-  public newNotif: boolean = true;
-  constructor(private adminService: AdminService, private router: Router) { }
+  
 
+  public newNotif: boolean = true;
+  constructor(private adminService: AdminService, private router: Router, ) { }
   ngOnInit(): void {
+    
   }
 
   filter(value: string) {
@@ -25,11 +28,14 @@ export class NotificationComponent implements OnInit {
 
 
   }
-  logOut(){
+  logOut() {
     this.adminService.deleteToken();
     this.router.navigate(['login'])
   }
+
+
 }
+
 
 // @Component({
 //   selector: 'view-details',

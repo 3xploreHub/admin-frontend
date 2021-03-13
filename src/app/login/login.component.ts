@@ -1,7 +1,9 @@
+import { DialogService } from './../service/dialog.service';
 import { AdminService } from './../service/admin.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-login',
@@ -11,8 +13,11 @@ import Swal from 'sweetalert2'
 
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AdminService, private router: Router) { }
+  constructor(private authService: AdminService, private router: Router,
+     private dialogService: DialogService ) { }
 
+  public eye :boolean=false
+  public passwordOrText='password'
   public credentialsForm = {
     username: "",
     password: ""
@@ -29,14 +34,13 @@ export class LoginComponent implements OnInit {
         this.authService.setToken(user['token'])
         this.router.navigate(['notif']);
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: partialDataHandler.sms,
-        })
+        this.dialogService.openConfirmedDialog(partialDataHandler.sms)
         this.router.navigate(['']);
       }
     });
+  }
+  showAndHide(){
+   this.eye =!this.eye
   }
 
   goToAboutPage() {

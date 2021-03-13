@@ -1,35 +1,26 @@
 h1 {
     text-align: center;
-    // font-family: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
     color: #0399f0f8;
-    font-family: math;
+    margin-top: 20px;
 }
 
-.notif {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
+table,
+{
     width: 90%;
-    margin-left: 5%;
-}
-
-.notif td {
-    border-bottom: 1px solid rgba(128, 128, 128, 0.521);
-    padding: 10px;
     text-align: center;
+    align-items: center;
+    margin: auto
 }
 
-// .notif tr {
-//     margin-left: 10%;
-// }
-.notif tr:hover {
-    background-color: #1299e857;
+.head {
+    text-align: center;
+    align-items: center;
 }
 
-.notif th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: rgb(10, 151, 245);
-    color: white;
-    text-align: Center;
+tr.mat-row:hover {
+    background: rgba(9, 150, 206, 0.568);
+}
+
+tr.mat-header-row {
+    background: rgb(9, 150, 206);
 }
