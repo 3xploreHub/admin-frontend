@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DetailsComponent } from './../details/details.component';
-import {MatTableDataSource} from '@angular/material/table'
-import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table'
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PusherService } from '../pusher.service';
 
 
 export interface PeriodicElement {
-  id:number;
+  id: number;
   touristSpotName: string;
   ownersName: string;
   location: string;
@@ -15,8 +15,8 @@ export interface PeriodicElement {
 
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {id:1, touristSpotName:" Basdaku Beach Resort", ownersName: 'Jhonny Bravo', location: "Moalboal, Cebu", dateProcess: "10/2/21"},
- 
+  { id: 1, touristSpotName: " Basdaku Beach Resort", ownersName: 'Jhonny Bravo', location: "Moalboal, Cebu", dateProcess: "10/2/21" },
+
 ];
 
 @Component({
@@ -25,15 +25,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./new-notification.component.scss']
 })
 export class NewNotificationComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'touristSpotName', 'ownersName', 'location','dateProcess'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA) ;
-  constructor(public dialog: MatDialog,private pusherService: PusherService) { }
+  displayedColumns: string[] = ['id', 'touristSpotName', 'ownersName', 'location', 'dateProcess'];
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  constructor(public dialog: MatDialog, private pusherService: PusherService) { }
 
   ngOnInit(): void {
     //pusher
     this.pusherService.messagesChannel.bind('my-event', (message) => {
       ELEMENT_DATA.push(message)
-      console.log(typeof message);
       this.dataSource.data = ELEMENT_DATA;
     });
   }
@@ -43,7 +42,7 @@ export class NewNotificationComponent implements OnInit {
     dialogConfig.id = "modal-component";
     dialogConfig.height = "550px";
     dialogConfig.width = "700px";
-    dialogConfig.backdropClass="backdropBackground";
+    dialogConfig.backdropClass = "backdropBackground";
     const modalDialog = this.dialog.open(DetailsComponent, dialogConfig);
   }
   // applyFilter(filterValue:string){

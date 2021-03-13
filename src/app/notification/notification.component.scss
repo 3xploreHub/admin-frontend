@@ -32,7 +32,7 @@
         background-color: rgb(0, 153, 255);
         letter-spacing: 2px !important;
         left: 67px;
-        top: -5px;
+        // top: -5px;
     }
 }
 
@@ -76,4 +76,10 @@
 .service {
     color: white;
     font-weight: inherit;
+}
+
+.mat-raised-button {
+    background: rgb(0, 153, 255);
+    color: white;
+    margin-left: 13%;
 }

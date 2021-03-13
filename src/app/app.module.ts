@@ -4,7 +4,6 @@ import { AuthGuard } from './auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { PusherService } from './pusher.service';
-import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +22,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 import { LoginComponent } from './login/login.component';
@@ -34,6 +34,8 @@ import { BookedComponent } from './booked/booked.component';
 import { DeclinedComponent } from './declined/declined.component';
 import { PendingDetailsComponent } from './pending-details/pending-details.component';
 import { MatDialogComponent } from './mat-dialog/mat-dialog.component';
+import { AllNotifComponent } from './all-notif/all-notif.component';
+
 
 
 export function tokenGetter() {
@@ -51,7 +53,8 @@ export function tokenGetter() {
     BookedComponent,
     DeclinedComponent,
     PendingDetailsComponent,
-    MatDialogComponent
+    MatDialogComponent,
+    AllNotifComponent,
     // FilterPipe
   ],
   imports: [
@@ -70,7 +73,7 @@ export function tokenGetter() {
     MatGridListModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    MatBadgeModule,
     // Pusher
   ],
   providers: [

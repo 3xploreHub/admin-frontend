@@ -1,3 +1,5 @@
+
+import { AllNotifComponent } from './all-notif/all-notif.component';
 import { DeclinedComponent } from './declined/declined.component';
 import { BookedComponent } from './booked/booked.component';
 import { PendingComponent } from './pending/pending.component';
@@ -9,18 +11,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { NotificationComponent } from './notification/notification.component';
 
+
+
 const routes: Routes = [
-  { path: '',component:LoginComponent },
-  { path: 'login',component:LoginComponent }, 
-  { path: 'notif',component:NotificationComponent,
-    children:[
-      {path:'',component:NewNotificationComponent},
-      {path:"new",component:NewNotificationComponent},
-      {path:"pending",component:PendingComponent},
-      {path:"booked",component:BookedComponent},
-      {path:"declined",component:DeclinedComponent},
-    ],canActivate:[AuthGuard]
-},
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'notif', component: NotificationComponent,
+    children: [
+      { path: 'allNotif', component: AllNotifComponent, data: { isHidden: true } },
+      { path: '', component: NewNotificationComponent },
+      { path: "new", component: NewNotificationComponent },
+      { path: "pending", component: PendingComponent },
+      { path: "booked", component: BookedComponent },
+      { path: "declined", component: DeclinedComponent },
+
+    ], canActivate: [AuthGuard]
+
+  },
 
 
 ];

@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AdminService } from './../service/admin.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,16 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class NotificationComponent implements OnInit {
-  
-  public data = [
-    "Jessa Mae"
-  ]
-  
+  hideShow: boolean = false
+  public data: any
+
+
 
   public newNotif: boolean = true;
-  constructor(private adminService: AdminService, private router: Router, ) { }
+  constructor(private adminService: AdminService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
-    
+
+    this.data = this.route.snapshot.firstChild ?.data.isHidden;
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.data = this.route.snapshot.firstChild ?.data.isHidden;
+      }
+    });
+
   }
 
   filter(value: string) {
@@ -32,7 +38,15 @@ export class NotificationComponent implements OnInit {
     this.adminService.deleteToken();
     this.router.navigate(['login'])
   }
-
+  // toAllNotif() {
+  //   if (!this.hideShow) {
+  //     this.hideShow = true;
+  //     console.log("adto");
+  //    return this.router.navigate(['/notif/allNotif'])
+  //   } else {
+  //     return this.hideShow = false;
+  //   }
+  // }
 
 }
 
