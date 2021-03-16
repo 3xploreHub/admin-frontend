@@ -10,6 +10,8 @@
     background: rgb(4, 128, 230);
     color: white;
     font-weight: 18px;
+    // position: fixed;
+    // z-index: 10;
     span {
         padding: 2%;
         position: relative;
@@ -41,6 +43,15 @@
     background: #1299e857;
     justify-content: center;
     text-align: center;
+    top: 60px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    // position: fixed;
+    // z-index: 10;
+    //
     // margin-top: 3vh;
     // .statlabel {
     //     // margin-top: 1%;
@@ -82,4 +93,14 @@
     background: rgb(0, 153, 255);
     color: white;
     margin-left: 13%;
+}
+
+.badge {
+    margin-left: -3%;
+}
+
+.container {
+    position: fixed;
+    z-index: 10;
+    top: 0
 }

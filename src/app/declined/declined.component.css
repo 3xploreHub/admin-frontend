@@ -2,7 +2,7 @@ h1 {
     text-align: center;
     /* font-family: 500 20px/32px Roboto, "Helvetica Neue", sans-serif; */
     color: #0399f0f8;
-    margin-top: 20px;
+    margin-top: 136px;
 }
 
 table {
@@ -17,9 +17,10 @@ table {
     align-items: center;
 }
 
-tr.mat-row:hover {
+
+/* tr.mat-row:hover {
     background: rgba(9, 150, 206, 0.568);
-}
+} */
 
 tr.mat-header-row {
     background: rgb(9, 150, 206);

@@ -2,6 +2,7 @@
     width: 230px;
     margin-left: 3%;
     margin-bottom: 3%;
+    box-shadow: 1px 2px 2px 1px grey;
 }
 
 .container {
@@ -18,4 +19,8 @@
 
 h1 {
     text-align: center;
+    font-family: serif;
+    color: #126cad;
+    text-decoration: underline;
+    margin-top: 75px;
 }

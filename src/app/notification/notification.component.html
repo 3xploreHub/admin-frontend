@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar class="container">
     <mat-toolbar-row class="toolbar">
         <div>
             <span>Explorehub</span>
@@ -22,9 +22,9 @@
                         </ng-template>
                     </mat-tab>
                 </mat-tab-group> -->
-                <button [routerLink]="['/notif/allNotif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent">Notification</button> p
+                <button [routerLink]="['/notif/allNotif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Notification</button> p
 
-                <button [routerLink]="['/notif']" mat-stroked-button matBadge="8" matBadgePosition="after" matBadgeColor="accent">Bookings</button>
+                <button [routerLink]="['/notif']" mat-stroked-button matBadgeColor="accent" class="badge">Bookings</button>
             </div>
             <button mat-stroked-button class="button" (click)="logOut()">Logout <span class="material-icons" >logout</span></button>
         </div>

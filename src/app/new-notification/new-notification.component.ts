@@ -34,6 +34,7 @@ export class NewNotificationComponent implements OnInit {
     this.pusherService.messagesChannel.bind('my-event', (message) => {
       ELEMENT_DATA.push(message)
       this.dataSource.data = ELEMENT_DATA;
+      console.log(message)
     });
   }
   openModal() {
