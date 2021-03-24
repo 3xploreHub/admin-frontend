@@ -1,50 +1,71 @@
+import { ActivatedRoute } from '@angular/router';
+import { AdminService } from './../service/admin.service';
 import { Component, OnInit } from '@angular/core';
 import { DetailsComponent } from './../details/details.component';
-import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PusherService } from '../pusher.service';
+import { MatTableDataSource } from '@angular/material/table'
 
 
-export interface PeriodicElement {
-  id: number;
-  touristSpotName: string;
-  ownersName: string;
-  location: string;
-  dateProcess: string;
-}
+
+// export interface BookingAccount {
+//   id: number;
+//   fullName: string;
+//   location: string;
+//   dateProcess: string;
+// }
 
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { id: 1, touristSpotName: " Basdaku Beach Resort", ownersName: 'Jhonny Bravo', location: "Moalboal, Cebu", dateProcess: "10/2/21" },
+// const ELEMENT_DATA: PeriodicElement[] = [
+//   { id: 1, fullName: 'Jhonny Bravo', location: "Moalboal, Cebu", dateProcess: "10/2/21" },
 
-];
+// ];
 
 @Component({
   selector: 'app-new-notification',
   templateUrl: './new-notification.component.html',
   styleUrls: ['./new-notification.component.scss']
 })
-export class NewNotificationComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'touristSpotName', 'ownersName', 'location', 'dateProcess'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  constructor(public dialog: MatDialog, private pusherService: PusherService) { }
 
+
+export class NewNotificationComponent implements OnInit {
+  
+  bookingAccount :any;
+  displayedColumns: string[] = ['id','fullName', 'location', 'dateProcess'];
+  dataSource: MatTableDataSource<any>;
+  constructor(public dialog: MatDialog, private pusherService: PusherService,
+     private adminService: AdminService,public route: ActivatedRoute,) {
+      this.adminService.touristAccount("Unfinished").subscribe((data) => {
+        this.bookingAccount = data
+        this.dataSource = new MatTableDataSource<any>(this.bookingAccount)
+        console.log("Account",this.bookingAccount);   
+      } 
+    )
+      }
+   
   ngOnInit(): void {
     //pusher
-    this.pusherService.messagesChannel.bind('my-event', (message) => {
-      ELEMENT_DATA.push(message)
-      this.dataSource.data = ELEMENT_DATA;
-      console.log(message)
-    });
+    // this.pusherService.messagesChannel.bind('my-event', (message) => {
+    //   ELEMENT_DATA.push(message)
+    //   this.dataSource.data = ELEMENT_DATA;
+    //   console.log(message)
+    // });
+   
   }
-  openModal() {
+  
+  openModal(id:any) {
+    console.log({id});
+   
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
     dialogConfig.height = "550px";
     dialogConfig.width = "700px";
     dialogConfig.backdropClass = "backdropBackground";
+    dialogConfig.data = id
+    
     const modalDialog = this.dialog.open(DetailsComponent, dialogConfig);
+
   }
   // applyFilter(filterValue:string){
   //   this.dataSource.filter = filterValue.trim().toLowerCase();

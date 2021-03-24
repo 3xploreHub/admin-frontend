@@ -12,7 +12,6 @@ export interface PeriodicElement {
   ownersName: string;
   location: string;
   dateProcess: string;
-  
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [

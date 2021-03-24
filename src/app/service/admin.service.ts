@@ -43,4 +43,16 @@ export class AdminService {
       return false
     }
   }
+
+  viewBooking(bookingId){
+    return this.http.get(`${this.apiUrl}/viewBooking/${bookingId}`);
+  }
+  touristAccount(bookingStatus){
+    return this.http.get(`${this.apiUrl}/touristAccount/${bookingStatus}`)
+  }
+  pendingBooking(bookingId){
+    return this.http.get(`${this.apiUrl}/pendingBooking/${bookingId}`);
+  }
+  
 }
+
