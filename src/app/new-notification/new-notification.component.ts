@@ -29,20 +29,20 @@ import { MatTableDataSource } from '@angular/material/table'
 
 
 export class NewNotificationComponent implements OnInit {
-  
-  bookingAccount :any;
-  displayedColumns: string[] = ['id','fullName', 'location', 'dateProcess'];
+
+  bookingAccount: any;
+  displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog, private pusherService: PusherService,
-     private adminService: AdminService,public route: ActivatedRoute,) {
-      this.adminService.touristAccount("Unfinished").subscribe((data) => {
-        this.bookingAccount = data
-        this.dataSource = new MatTableDataSource<any>(this.bookingAccount)
-        console.log("Account",this.bookingAccount);   
-      } 
+    private adminService: AdminService, public route: ActivatedRoute, ) {
+    this.adminService.touristAccount("Unfinished").subscribe((data) => {
+      this.bookingAccount = data
+      this.dataSource = new MatTableDataSource<any>(this.bookingAccount)
+      console.log("Account", this.bookingAccount);
+    }
     )
-      }
-   
+  }
+
   ngOnInit(): void {
     //pusher
     // this.pusherService.messagesChannel.bind('my-event', (message) => {
@@ -52,23 +52,19 @@ export class NewNotificationComponent implements OnInit {
     // });
    
   }
-  
-  openModal(id:any) {
-    console.log({id});
-   
+
+  openModal(id: any) {
+    console.log({ id });
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
     dialogConfig.height = "550px";
-    dialogConfig.width = "700px";
+    dialogConfig.width = "600px";
     dialogConfig.backdropClass = "backdropBackground";
     dialogConfig.data = id
-    
-    const modalDialog = this.dialog.open(DetailsComponent, dialogConfig);
 
+    const modalDialog = this.dialog.open(DetailsComponent, dialogConfig);
   }
-  // applyFilter(filterValue:string){
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-  // }
 
 }

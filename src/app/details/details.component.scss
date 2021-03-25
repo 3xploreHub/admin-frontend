@@ -12,6 +12,12 @@
 #modal-footer {
     justify-self: left;
     align-self: center;
+    position: sticky;
+    bottom: -24px;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #efefef;
+    background-color: white;
 }
 
 #modal-body {
@@ -31,8 +37,45 @@
 
 #modal-title {
     text-align: center;
+    font-weight: bold;
+    color: #0e4a81;
+    margin-bottom: 4px;
+    font-size: 20px;
 }
 
 mat-grid-tile {
     text-align: start;
+}
+
+.container {
+    box-sizing: border-box;
+    text-align: left !important;
+    margin: auto;
+    width: 66%;
+}
+
+.fieldsHolder {
+    background-color: #e7e9f5;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin: 12px;
+    border-radius: 5px;
+}
+
+#label {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    color: #0e4a81;
+    margin-bottom: 4px;
+    font-size: 16px;
+}
+
+#value {
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 100 !important;
+    padding-left: 8px;
+    color: #778596;
 }
