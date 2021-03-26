@@ -9,8 +9,10 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
+  public booking =[]
   public bookingData = [];
   public selectedService = [];
+  public page=[]
   constructor(public dialogRef: MatDialogRef<DetailsComponent>,
     private route:ActivatedRoute,
     private adminService:AdminService,
@@ -19,31 +21,26 @@ export class DetailsComponent implements OnInit {
 
     ) { }
   ngOnInit() {
-    
+    this.booking = Array.of(this.data) 
     this.bookingData = this.data.bookingInfo
     this.selectedService = this.data.selectedServices
+    this.page = Array.of(this.data.pageId.creator)
+
+
     console.log("bookingData: ",this.bookingData);
     console.log("service: ",this.selectedService);
+    console.log("page: ",this.page);
 
-    // this.
-
-    // this.adminService.viewBooking(bookingId).subscribe(data=>{
-    //   console.log("Booking data: ",data);
-    // });
-    // this.route.paramMap.subscribe(param => {
-    //   const bookingId = param.get("bookingId");
-    //   this.adminService.viewBooking(bookingId).subscribe(
-    //     ( bookingData) => {
-    //       console.log(bookingData);
-    //     }
-    //   )
-    // })
-    // console.log("ahfdoufh");
     
   }
   
 
-  actionFunction() {
+  actionFunction(id) {
+    console.log(id);
+    // this.adminService.getPendingBooking(id).subscribe((data)=>{
+    //   console.log(data);
+    // })
+    
     // this.adminService.pendingBooking(bookingId).subscribe()
     this.router.navigate(['/notif/pending'])
     this.closeModal();

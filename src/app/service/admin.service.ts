@@ -44,14 +44,12 @@ export class AdminService {
     }
   }
 
-  viewBooking(bookingId){
-    return this.http.get(`${this.apiUrl}/viewBooking/${bookingId}`);
+  
+  getAllBookings(bookingStatus){
+    return this.http.get(`${this.apiUrl}/getAllBookings/${bookingStatus}`)
   }
-  touristAccount(bookingStatus){
-    return this.http.get(`${this.apiUrl}/touristAccount/${bookingStatus}`)
-  }
-  pendingBooking(bookingId){
-    return this.http.get(`${this.apiUrl}/pendingBooking/${bookingId}`);
+  getPendingBooking(bookingId){
+    return this.http.get(`${this.apiUrl}/getPendingBooking/${bookingId}`);
   }
   
 }

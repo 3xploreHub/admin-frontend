@@ -1,23 +1,32 @@
 <mat-dialog-content>
     <div id="modal-content-wrapper">
-        <header id="modal-header" *ngFor="let item of selectedService">
-            <h1 id="modal-title">{{ item.serviceGroupName }}</h1>
-        </header>
+        <div class="selectedItem boxShadowed2">
+            <div class="groupName" *ngFor="let item of selectedService">
+                <p id="modal-title">{{ item.serviceGroupName }}</p>
+                <hr>
+                <p id="serviceName">Service Name</p>
+            </div>
+            <div class="item">
+                <div class="itemInfo" *ngFor="let item of page">
+                    <p id="owner">Owner: &nbsp;{{ item.fullName }}</p>
+                </div>
+            </div>
+        </div>
         <section *ngFor="let item of bookingData">
             <div class='container'>
                 <div class="fieldsHolder">
-                    <p id="label">{{ item.label }}</p>
-                    <p id="value">{{ item.value }}</p>
+                    <p class="label">{{ item.label }}</p>
+                    <p class="value">{{ item.value }}</p>
                 </div>
             </div>
         </section>
     </div>
 </mat-dialog-content>
-<mat-dialog-actions id="modal-footer" align="start">
+<mat-dialog-actions id="modal-footer" align="start" *ngFor="let item of booking">
     <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
             <span class="material-icons">keyboard_arrow_left</span>Back
     </button>
-    <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-action-button" (click)="actionFunction()">
+    <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-action-button" (click)="actionFunction(item._id)">
             On Process
             <span class="material-icons">sync</span>
     </button>

@@ -35,14 +35,13 @@ export class NewNotificationComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog, private pusherService: PusherService,
     private adminService: AdminService, public route: ActivatedRoute, ) {
-    this.adminService.touristAccount("Unfinished").subscribe((data) => {
+    this.adminService.getAllBookings("Unfinished").subscribe((data) => {
       this.bookingAccount = data
       this.dataSource = new MatTableDataSource<any>(this.bookingAccount)
       console.log("Account", this.bookingAccount);
     }
     )
   }
-
   ngOnInit(): void {
     //pusher
     // this.pusherService.messagesChannel.bind('my-event', (message) => {
@@ -52,14 +51,13 @@ export class NewNotificationComponent implements OnInit {
     // });
    
   }
-
   openModal(id: any) {
     console.log({ id });
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
-    dialogConfig.height = "550px";
+    dialogConfig.height = "650px";
     dialogConfig.width = "600px";
     dialogConfig.backdropClass = "backdropBackground";
     dialogConfig.data = id
