@@ -1,35 +1,38 @@
-<div id="modal-content-wrapper">
-    <header id="modal-header">
-        <h1 id="modal-title">Basdaku Beach Resort</h1>
-    </header>
-    <!-- <section id="modal-body">
-        <mat-grid-list cols="2" rowHeight="6:1">
-            <mat-grid-tile>
-                Owners Name: Jhon Jhonny
-            </mat-grid-tile>
-            <mat-grid-tile>
-                Contact Number: 0000009999
-            </mat-grid-tile>
-            <mat-grid-tile>
-                Entrance fee: 150
-            </mat-grid-tile>
-            <mat-grid-tile>
-                Location: Basdaku, Moalboal, Cebu
-            </mat-grid-tile>
-            <mat-grid-tile>
-                Email: 0000009999
-            </mat-grid-tile>
-            <mat-grid-tile>
-                Opening Time: 150
-            </mat-grid-tile>
-        </mat-grid-list>
-    </section> -->
-    <footer id="modal-footer">
-        <button mat-button color="primary" id="modal-cancel-button" (click)="closeModal()">
-                <span class="material-icons">keyboard_arrow_left</span>Back</button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button id="modal-booked-button" (click)="bookedFunction()">Booked
-                <span class="material-icons">event_available</span></button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button id="modal-declined-button" (click)="declinedFunction()">Declined
-                <span class="material-icons">event_busy</span></button>
-    </footer>
-</div>
+<mat-dialog-content>
+    <div id="modal-content-wrapper">
+        <div class="selectedItem boxShadowed2">
+            <div class="groupName" *ngFor="let item of selectedService">
+                <p id="modal-title">{{ item.serviceGroupName }}</p>
+                <hr>
+                <p id="serviceName">Service Name</p>
+            </div>
+            <div class="item">
+                <div class="itemInfo" *ngFor="let item of page">
+                    <p class="label">Owner</p>
+                    <p class="value"> {{ item.fullName }}</p>
+                    <div *ngFor="let item of itemDetails">
+                        <p class="label">{{ item.defaultName }}</p>
+                        <p class="value">{{ item.text }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section *ngFor="let item of bookingData">
+            <div class='container'>
+                <div class="fieldsHolder">
+                    <p class="label">{{ item.label }}</p>
+                    <p class="value">{{ item.value }}</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions id="modal-footer" align="start" *ngFor="let item of booking">
+    <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
+            <span class="material-icons">keyboard_arrow_left</span>Back
+    </button>
+    <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-booked-button" (click)="bookedFunction(item._id)">Booked
+            <span class="material-icons">event_available</span></button>&nbsp;&nbsp;&nbsp;
+    <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-declined-button" (click)="declinedFunction(item._id)">Declined
+            <span class="material-icons">event_busy</span></button>
+</mat-dialog-actions>

@@ -1,14 +1,19 @@
 <mat-dialog-content>
     <div id="modal-content-wrapper">
-        <div class="selectedItem boxShadowed2">
-            <div class="groupName" *ngFor="let item of selectedService">
+        <div class="selectedItem boxShadowed2" *ngFor="let item of selectedService">
+            <div class="groupName">
                 <p id="modal-title">{{ item.serviceGroupName }}</p>
                 <hr>
                 <p id="serviceName">Service Name</p>
             </div>
             <div class="item">
                 <div class="itemInfo" *ngFor="let item of page">
-                    <p id="owner">Owner: &nbsp;{{ item.fullName }}</p>
+                    <p class="label">Owner</p>
+                    <p class="value"> {{ item.fullName }}</p>
+                    <!-- <div *ngFor="let item of itemDetails">
+                            <p class="label">{{ item.defaultName }}</p>
+                            <p class="value">{{ item.text }}</p>
+                        </div> -->
                 </div>
             </div>
         </div>

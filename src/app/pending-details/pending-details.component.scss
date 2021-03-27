@@ -24,9 +24,13 @@
     text-align: justify;
 }
 
-#modal-action-button {
-    margin-right: 30px;
+#modal-booked-button {
     background-color: #06f86b;
+    border-radius: 20px;
+}
+
+#modal-declined-button {
+    background-color: #f83606;
     border-radius: 20px;
 }
 
@@ -92,10 +96,6 @@ mat-grid-tile {
     padding-bottom: 1px;
     width: 80%;
     margin: auto;
-    margin-bottom: 3%;
-    .itemGroup {
-        margin-bottom: 3%;
-    }
     .groupName {
         padding: 7px;
         background-color: rgb(0, 160, 235);

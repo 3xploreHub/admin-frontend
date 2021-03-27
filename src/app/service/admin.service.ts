@@ -48,8 +48,14 @@ export class AdminService {
   getAllBookings(bookingStatus){
     return this.http.get(`${this.apiUrl}/getAllBookings/${bookingStatus}`)
   }
-  getPendingBooking(bookingId){
-    return this.http.get(`${this.apiUrl}/getPendingBooking/${bookingId}`);
+  getOnProcessBooking(bookingId){
+    return this.http.get(`${this.apiUrl}/getOnProcessBooking/${bookingId}`)
+  }
+  getBookedDetails(bookingId){
+    return this.http.get(`${this.apiUrl}/getBookedDetails/${bookingId}`)
+  }
+  getDeclineBookings(bookingId){
+    return this.http.get(`${this.apiUrl}/getDeclineBookings/${bookingId}`)
   }
   
 }

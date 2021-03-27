@@ -35,10 +35,9 @@ export class NewNotificationComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog, private pusherService: PusherService,
     private adminService: AdminService, public route: ActivatedRoute, ) {
-    this.adminService.getAllBookings("Unfinished").subscribe((data) => {
+    this.adminService.getAllBookings("Pending").subscribe((data) => {
       this.bookingAccount = data
       this.dataSource = new MatTableDataSource<any>(this.bookingAccount)
-      console.log("Account", this.bookingAccount);
     }
     )
   }
@@ -52,16 +51,18 @@ export class NewNotificationComponent implements OnInit {
    
   }
   openModal(id: any) {
-    console.log({ id });
-
+    let status = id.status
+    
+    console.log("status: ", status);
+    
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
     dialogConfig.height = "650px";
     dialogConfig.width = "600px";
     dialogConfig.backdropClass = "backdropBackground";
-    dialogConfig.data = id
-
+    dialogConfig.data = id;
+    // dialogConfig.data = status
     const modalDialog = this.dialog.open(DetailsComponent, dialogConfig);
   }
 
