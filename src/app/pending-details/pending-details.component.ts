@@ -13,7 +13,6 @@ export class PendingDetailsComponent implements OnInit {
   public booking =[]
   public bookingData = [];
   public selectedService = [];
-  public itemDetails = [];
   public page=[]
   constructor(public dialogRef: MatDialogRef<PendingDetailsComponent>,
     private route:ActivatedRoute,
@@ -27,26 +26,12 @@ export class PendingDetailsComponent implements OnInit {
     this.bookingData = this.data.bookingInfo
     this.selectedService = this.data.selectedServices
     this.page = Array.of(this.data.pageId.creator)
-    this.itemDetails = this.data.selectedServices[0].data
+    let bookingStatus = this.booking[0].status
+    console.log(bookingStatus);
+    
     
   }
-  bookedFunction(id) {
-    console.log(id);
-    
-    this.adminService.getBookedDetails(id).subscribe((data)=>{
-      console.log("booked: ",data);
-      
-    })
-    this.router.navigate(['/notif/booked'])
-    this.closeModal();
-  }
-  declinedFunction(id) {
-    this.adminService.getDeclineBookings(id).subscribe((data)=>{
-      
-    })
-    this.router.navigate(['/notif/declined'])
-    this.closeModal();
-  }
+ 
 
   closeModal() {
     this.dialogRef.close();

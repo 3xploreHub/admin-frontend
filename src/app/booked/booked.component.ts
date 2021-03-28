@@ -1,8 +1,9 @@
 import { AdminService } from './../service/admin.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit } from '@angular/core';
+import { BookedDetailsComponent } from '../booked-details/booked-details.component';
 
 
 @Component({
@@ -24,6 +25,16 @@ export class BookedComponent implements OnInit {
     )
   }
   ngOnInit(): void {
+  }
+  openModal(id) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    dialogConfig.height = "550px";
+    dialogConfig.width = "700px";
+    dialogConfig.backdropClass="backdropBackground";
+    dialogConfig.data = id;
+    const modalDialog = this.dialog.open(BookedDetailsComponent, dialogConfig);
   }
 
 }

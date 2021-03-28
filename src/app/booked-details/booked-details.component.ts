@@ -3,18 +3,19 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss'],
+  selector: 'app-booked-details',
+  templateUrl: './booked-details.component.html',
+  styleUrls: ['./booked-details.component.css']
 })
-export class DetailsComponent implements OnInit {
- 
+export class BookedDetailsComponent implements OnInit {
+
   public booking = []
   public bookingData = [];
   public selectedService = [];
   public page = []
-  constructor(public dialogRef: MatDialogRef<DetailsComponent>,
+  constructor(public dialogRef: MatDialogRef<BookedDetailsComponent>,
     private route: ActivatedRoute,
     private adminService: AdminService,
     private router: Router,
@@ -33,33 +34,4 @@ export class DetailsComponent implements OnInit {
     console.log(this.booking);
   }
 
-
-  actionFunction(id) {
-    console.log(id);
-    this.adminService.getOnProcessBooking(id).subscribe((data) => {
-    })
-    this.router.navigate(['/notif/pending'])
-    this.closeModal();
-  }
-  bookedFunction(id) {
-    console.log(id);
-    
-    this.adminService.getBookedDetails(id).subscribe((data)=>{
-      console.log("booked: ",data);
-      
-    })
-    this.router.navigate(['/notif/booked'])
-    this.closeModal();
-  }
-  declinedFunction(id) {
-    this.adminService.getDeclineBookings(id).subscribe((data)=>{
-      
-    })
-    this.router.navigate(['/notif/declined'])
-    this.closeModal();
-  }
-
-  closeModal() {
-    this.dialogRef.close();
-  }
 }

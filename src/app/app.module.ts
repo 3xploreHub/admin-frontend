@@ -35,6 +35,8 @@ import { DeclinedComponent } from './declined/declined.component';
 import { PendingDetailsComponent } from './pending-details/pending-details.component';
 import { MatDialogComponent } from './mat-dialog/mat-dialog.component';
 import { AllNotifComponent } from './all-notif/all-notif.component';
+import { BookedDetailsComponent } from './booked-details/booked-details.component';
+import { DeclinedDetailsComponent } from './declined-details/declined-details.component';
 
 
 
@@ -55,6 +57,8 @@ export function tokenGetter() {
     PendingDetailsComponent,
     MatDialogComponent,
     AllNotifComponent,
+    BookedDetailsComponent,
+    DeclinedDetailsComponent,
     // FilterPipe
   ],
   imports: [

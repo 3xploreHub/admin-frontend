@@ -38,6 +38,7 @@ export class NewNotificationComponent implements OnInit {
     this.adminService.getAllBookings("Pending").subscribe((data) => {
       this.bookingAccount = data
       this.dataSource = new MatTableDataSource<any>(this.bookingAccount)
+      
     }
     )
   }
