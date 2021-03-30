@@ -16,23 +16,23 @@ export class BookedComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog,
-    private adminService: AdminService, public route: ActivatedRoute, ) {
-    this.adminService.getAllBookings("Booked").subscribe((data) => {
-      this.bookingAccount = data
-      this.dataSource = new MatTableDataSource<any>(this.bookingAccount)
-      console.log("Account", this.bookingAccount);
+              private adminService: AdminService, public route: ActivatedRoute, ) {
+    this.adminService.getAllBookings('Booked').subscribe((data) => {
+      this.bookingAccount = data;
+      this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
+      console.log('Account', this.bookingAccount);
     }
-    )
+    );
   }
   ngOnInit(): void {
   }
   openModal(id) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.id = "modal-component";
-    dialogConfig.height = "550px";
-    dialogConfig.width = "700px";
-    dialogConfig.backdropClass="backdropBackground";
+    dialogConfig.disableClose = false;
+    dialogConfig.id = 'modal-component';
+    dialogConfig.height = '650px';
+    dialogConfig.width = '600px';
+    dialogConfig.backdropClass = 'backdropBackground';
     dialogConfig.data = id;
     const modalDialog = this.dialog.open(BookedDetailsComponent, dialogConfig);
   }

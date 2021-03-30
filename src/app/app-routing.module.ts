@@ -22,10 +22,10 @@ const routes: Routes = [
     children: [
       { path: 'allNotif', component: AllNotifComponent, data: { isHidden: true } },
       { path: '', component: NewNotificationComponent },
-      { path: "new", component: NewNotificationComponent },
-      { path: "pending", component: PendingComponent },
-      { path: "booked", component: BookedComponent },
-      { path: "declined", component: DeclinedComponent },
+      { path: 'new', component: NewNotificationComponent },
+      { path: 'pending', component: PendingComponent },
+      { path: 'booked', component: BookedComponent },
+      { path: 'declined', component: DeclinedComponent },
 
     ], canActivate: [AuthGuard]
 

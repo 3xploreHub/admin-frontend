@@ -11,26 +11,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class BookedDetailsComponent implements OnInit {
 
-  public booking = []
+  public booking = [];
   public bookingData = [];
   public selectedService = [];
-  public page = []
+  public page = [];
   constructor(public dialogRef: MatDialogRef<BookedDetailsComponent>,
-    private route: ActivatedRoute,
-    private adminService: AdminService,
-    private router: Router,
-    @Inject(MAT_DIALOG_DATA) public data
+              private route: ActivatedRoute,
+              private adminService: AdminService,
+              private router: Router,
+              @Inject(MAT_DIALOG_DATA) public data
 
   ) { }
   ngOnInit() {
-    this.booking = Array.of(this.data)
-    this.bookingData = this.data.bookingInfo
-    this.selectedService = this.data.selectedServices
-    this.page = Array.of(this.data.pageId.creator)
-    console.log("jessa: ", this.selectedService);
-    
-    let bookingStatus = this.booking[0].status
-    console.log("status: ",bookingStatus);
+    this.booking = Array.of(this.data);
+    this.bookingData = this.data.bookingInfo;
+    this.selectedService = this.data.selectedServices;
+    this.page = Array.of(this.data.pageId.creator);
+    console.log('jessa: ', this.selectedService);
+
+    const bookingStatus = this.booking[0].status;
+    console.log('status: ', bookingStatus);
     console.log(this.booking);
   }
 

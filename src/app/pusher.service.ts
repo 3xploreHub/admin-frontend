@@ -12,15 +12,15 @@ export class PusherService {
   private apiUrl = `${environment.apiUrl}/admin`;
   pusher: any;
   messagesChannel: any;
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.pusher = new Pusher('925632214c543de24e27', {
       cluster: 'ap1',
-      authEndpoint:`${this.apiUrl}/auth`,
+      authEndpoint: `${this.apiUrl}/auth`,
     });
     this.messagesChannel = this.pusher.subscribe('my-channel');
   }
 
   // pusher(){
-  //   return 
+  //   return
   // }
 }

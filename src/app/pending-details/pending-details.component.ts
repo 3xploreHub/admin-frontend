@@ -10,31 +10,23 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 export class PendingDetailsComponent implements OnInit {
 
-  public booking =[]
+  public booking = [];
   public bookingData = [];
   public selectedService = [];
-  public page=[]
+  public page = [];
   constructor(public dialogRef: MatDialogRef<PendingDetailsComponent>,
-    private route:ActivatedRoute,
-    private adminService:AdminService,
-    private router:Router,
     @Inject(MAT_DIALOG_DATA) public data
 
-    ) { }
+  ) { }
   ngOnInit() {
-    this.booking = Array.of(this.data) 
-    this.bookingData = this.data.bookingInfo
-    this.selectedService = this.data.selectedServices
-    this.page = Array.of(this.data.pageId.creator)
-    let bookingStatus = this.booking[0].status
+    this.booking = Array.of(this.data);
+    this.bookingData = this.data.bookingInfo;
+    this.selectedService = this.data.selectedServices;
+    this.page = Array.of(this.data.pageId.creator);
+    const bookingStatus = this.booking[0].status;
     console.log(bookingStatus);
-    
-    
   }
- 
-
   closeModal() {
     this.dialogRef.close();
   }
-
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminService } from './../service/admin.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { PendingDetailsComponent } from './../pending-details/pending-details.component';
-import { MatDialog,MatDialogConfig} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -17,25 +17,25 @@ export class PendingComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog,
     private adminService: AdminService, public route: ActivatedRoute, ) {
-    this.adminService.getAllBookings("OnProcess").subscribe((data) => {
-      this.bookingAccount = data
-      this.dataSource = new MatTableDataSource<any>(this.bookingAccount)
-      console.log("Account", this.bookingAccount);
+    this.adminService.getAllBookings('OnProcess').subscribe((data) => {
+      this.bookingAccount = data;
+      this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
+      console.log('Account', this.bookingAccount);
     }
-    )
+    );
   }
   ngOnInit(): void {
   }
   openModal(id) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.id = "modal-component";
-    dialogConfig.height = "550px";
-    dialogConfig.width = "700px";
-    dialogConfig.backdropClass="backdropBackground";
+    dialogConfig.disableClose = false;
+    dialogConfig.id = 'modal-component';
+    dialogConfig.height = '650px';
+    dialogConfig.width = '600px';
+    dialogConfig.backdropClass = 'backdropBackground';
     dialogConfig.data = id;
     const modalDialog = this.dialog.open(PendingDetailsComponent, dialogConfig);
   }
 
-  
+
 }

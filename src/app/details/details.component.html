@@ -19,6 +19,7 @@
                 </div>
             </div>
         </div>
+
         <section *ngFor="let item of bookingData">
             <div class='container'>
                 <div class="fieldsHolder">
@@ -33,25 +34,59 @@
     <mat-dialog-actions id="modal-footer" align="start" *ngFor="let item of booking">
 
         <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
-            <span class="material-icons">keyboard_arrow_left</span>Back
-    </button>
-        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-action-button" (click)="actionFunction(item._id)">
+            <span class="material-icons">keyboard_arrow_left</span>Back</button>
+        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-action-button" (click)="toOnProcess(item._id)">
             On Process
             <span class="material-icons">sync</span>
-    </button>
+         </button>
 
     </mat-dialog-actions>
 </div>
 
 <div *ngIf="booking[0].status === 'OnProcess'">
-    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let idItem of booking">
+    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let process of booking">
 
         <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
                 <span class="material-icons">keyboard_arrow_left</span>Back
         </button>
-        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-booked-button" (click)="bookedFunction(idItem._id)">Booked
+        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-booked-button" (click)="toBooked(process._id)">Booked
                 <span class="material-icons">event_available</span></button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-declined-button" (click)="declinedFunction(idItem._id)">Declined
+        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-declined-button" (click)="declinedFunction(process._id)">Declined
                 <span class="material-icons">event_busy</span></button>
+        <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
+                        restore</span></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="toPending(process._id)">New Bookings</button>
+
+        </mat-menu>
+    </mat-dialog-actions>
+</div>
+<div *ngIf="booking[0].status === 'Booked'">
+    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let booked of booking">
+        <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
+            <span class="material-icons">keyboard_arrow_left</span>Back
+        </button>
+        <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
+            restore</span></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="toOnProcess(booked._id)">On Process</button>
+            <button mat-menu-item (click)="toPending(booked._id)">New Bookings</button>
+
+        </mat-menu>
+
+    </mat-dialog-actions>
+</div>
+<div *ngIf="booking[0].status === 'Rejected'">
+    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let declined of booking">
+
+        <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
+            <span class="material-icons">keyboard_arrow_left</span>Back</button>
+        <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
+                restore</span></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="toBooked(declined._id)">Booked</button>
+            <button mat-menu-item (click)="toOnProcess(declined._id)">On Process</button>
+            <button mat-menu-item (click)="toPending(declined._id)">New Bookings</button>
+        </mat-menu>
     </mat-dialog-actions>
 </div>

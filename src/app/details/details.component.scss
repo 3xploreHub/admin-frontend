@@ -24,6 +24,12 @@
     text-align: justify;
 }
 
+.returnTo {
+    margin-right: 30px;
+    background-color: #06f0f8;
+    border-radius: 20px;
+}
+
 #modal-action-button {
     margin-right: 30px;
     background-color: #06f86b;
@@ -62,6 +68,11 @@ mat-grid-tile {
     text-align: left !important;
     margin: auto;
     width: 66%;
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: flex-start;
+    // flex-wrap: wrap;
+    // margin-top: 11%;
 }
 
 .fieldsHolder {
@@ -70,6 +81,10 @@ mat-grid-tile {
     padding: 10px 14px;
     margin: 12px;
     border-radius: 5px;
+    // width: 150px;
+    // margin-left: 3%;
+    // margin-bottom: 3%;
+    // box-shadow: 1px 2px 2px 1px grey;
 }
 
 .label {

@@ -23,6 +23,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatBadgeModule} from '@angular/material/badge';
+import { MatMenuModule} from '@angular/material/menu';
+
 
 
 import { LoginComponent } from './login/login.component';
@@ -37,6 +39,8 @@ import { MatDialogComponent } from './mat-dialog/mat-dialog.component';
 import { AllNotifComponent } from './all-notif/all-notif.component';
 import { BookedDetailsComponent } from './booked-details/booked-details.component';
 import { DeclinedDetailsComponent } from './declined-details/declined-details.component';
+import { NotifDetailsComponent } from './notif-details/notif-details.component';
+
 
 
 
@@ -59,6 +63,7 @@ export function tokenGetter() {
     AllNotifComponent,
     BookedDetailsComponent,
     DeclinedDetailsComponent,
+    NotifDetailsComponent,
     // FilterPipe
   ],
   imports: [
@@ -78,6 +83,7 @@ export function tokenGetter() {
     FormsModule,
     ReactiveFormsModule,
     MatBadgeModule,
+    MatMenuModule
     // Pusher
   ],
   providers: [
@@ -86,6 +92,6 @@ export function tokenGetter() {
     PusherService
   ],
   bootstrap: [AppComponent],
-  entryComponents:[MatDialogComponent]
+  entryComponents: [MatDialogComponent]
 })
 export class AppModule { }

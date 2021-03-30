@@ -11,12 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class NotificationComponent implements OnInit {
-  hideShow: boolean = false
-  public data: any
+  hideShow = false;
+  public data: any;
 
 
 
-  public newNotif: boolean = true;
+  public newNotif = true;
   constructor(private adminService: AdminService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
 
@@ -36,7 +36,7 @@ export class NotificationComponent implements OnInit {
   }
   logOut() {
     this.adminService.deleteToken();
-    this.router.navigate(['login'])
+    this.router.navigate(['login']);
   }
   // toAllNotif() {
   //   if (!this.hideShow) {
