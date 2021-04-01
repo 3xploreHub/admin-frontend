@@ -6,32 +6,18 @@
             <div class="search">
                 <mat-form-field class="example-full-width">
                     <mat-label>Search</mat-label>
-                    <input type="text" aria-label="Search" matInput>
+                    <input type="text" [(ngModel)]="keyWord" aria-label="Search" (keyup)="searchThis($event)" matInput>
+                    <!-- (dataEmit)="filter($event)" [passData]="data" -->
                 </mat-form-field>
             </div>
             <div class="tab">
-                <!-- <mat-tab-group>
-                    <mat-tab>
-                        <ng-template mat-tab-label>
-                            <span class="service">Toursit Spot Operator </span>
-                        </ng-template>
-                    </mat-tab>
-                    <mat-tab>
-                        <ng-template mat-tab-label>
-                            <span class="service">Tourist Spot Service Contributor </span>
-                        </ng-template>
-                    </mat-tab>
-                </mat-tab-group> -->
-                <button [routerLink]="['/notif/allNotif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Notification</button> p
-
-                <button [routerLink]="['/notif']" mat-stroked-button matBadgeColor="accent" class="badge">Bookings</button>
+                <button [routerLink]="['/notif/allNotif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Notification Pages</button>
+                <button [routerLink]="['/notif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
             </div>
             <button mat-stroked-button class="button" (click)="logOut()">Logout <span class="material-icons" >logout</span></button>
         </div>
     </mat-toolbar-row>
-
     <mat-toolbar-row class="status" *ngIf="!data">
-        <!-- <app-tabs></app-tabs> -->
         <div class="statlabel">
             <button mat-button [routerLink]="['/notif/new']" id="new">New Bookings</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button mat-button [routerLink]="['/notif/pending']" id="pending">On Processed</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

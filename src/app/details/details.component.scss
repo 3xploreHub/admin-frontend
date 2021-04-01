@@ -1,20 +1,38 @@
 #modal-content-wrapper {
-    width: 100%;
-    height: 100%;
     display: grid;
+    // width: 600px;
+    box-sizing: border-box;
+    padding: 0 !important;
     grid-template-rows: repeat(1fr, 3);
+}
+
+.modalContainer {
+    position: relative;
+    background: rgb(244, 246, 248);
+    height: 650px;
+    width: 600px;
+    overflow: auto;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    // margin: 10px 15px;
+}
+
+.mat-dialog-container {
+    padding: 0 !important;
 }
 
 #modal-title {
     font-size: 22px;
 }
 
-#modal-footer {
+.modal-footer {
     justify-self: left;
     align-self: center;
-    position: sticky;
+    // position: sticky;
     bottom: -24px;
     left: 0;
+    padding: 10px;
+    box-sizing: border-box;
     width: 100%;
     border-top: 1px solid #efefef;
     background-color: white;
@@ -59,15 +77,33 @@
     font-size: 20px;
 }
 
+.pageName {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    color: #0e4a81;
+    margin-bottom: 15px;
+    font-size: 23px;
+    text-align: center;
+}
+
 mat-grid-tile {
     text-align: start;
+}
+
+mat-dialog-content {
+    max-height: none !important;
 }
 
 .container {
     box-sizing: border-box;
     text-align: left !important;
+    background-color: #ffff;
+    border-radius: 4px;
     margin: auto;
-    width: 66%;
+    padding: 10px 20px;
+    width: 100%;
+    overflow: hidden;
     // display: flex;
     // flex-direction: row;
     // justify-content: flex-start;
@@ -76,15 +112,31 @@ mat-grid-tile {
 }
 
 .fieldsHolder {
-    background-color: #e7e9f5;
-    border-radius: 10px;
-    padding: 10px 14px;
-    margin: 12px;
-    border-radius: 5px;
+    // background-color: #e7e9f5;
+    // border-radius: 10px;
+    padding: 17px 14px;
+    margin: 0 12px;
+    // border-top: 1px solid #ffff;
+    border-bottom: 1px solid rgb(224, 233, 245);
+    // border-radius: 5px;
     // width: 150px;
     // margin-left: 3%;
     // margin-bottom: 3%;
     // box-shadow: 1px 2px 2px 1px grey;
+}
+
+.containerHeader {
+    padding: 15px 20px;
+    font-size: 17px;
+    margin: 0;
+    color: rgb(47, 95, 150);
+    // border-bottom: 1px solid rgb(47, 107, 167);
+    font-weight: bold;
+    text-align: center;
+}
+
+.last {
+    border-bottom: none;
 }
 
 .label {
@@ -93,7 +145,7 @@ mat-grid-tile {
     margin: 0;
     color: #0e4a81;
     margin-bottom: 4px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .value {
@@ -115,7 +167,7 @@ mat-grid-tile {
     background-color: #ffff;
     overflow: hidden;
     padding-bottom: 1px;
-    width: 80%;
+    width: 100%;
     margin: auto;
     margin-bottom: 3%;
     .itemGroup {
@@ -150,4 +202,78 @@ mat-grid-tile {
 
 #owner {
     color: rgb(52, 67, 85);
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: #eff3f5;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: rgb(190, 213, 231);
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: rgb(153, 175, 192);
+}
+
+.pageInfo {
+    text-align: center;
+    color: #778596;
+    font-size: 16px;
+    padding: 0;
+    top: 0;
+}
+
+.tourist {
+    padding: 27px;
+    background-color: white;
+}
+
+.touristName {
+    font-size: 16px;
+    font-weight: bold
+}
+
+.address {
+    font-size: 14px;
+}
+
+.tourist[_ngcontent-gpe-c205] .cardPhotoHolder[_ngcontent-gpe-c205] .cardPhoto[_ngcontent-gpe-c205] {
+    height: 100%;
+    width: 100%;
+    background-color: lightsteelblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bookingService {
+    padding: 10px;
+    margin: 0;
+    // background-color: #ffff;
+    border-bottom: 1px solid lightsteelblue;
+    .serviceHeader {
+        font-size: 19px;
+        padding: 10px;
+        color: #485b6d;
+    }
 }

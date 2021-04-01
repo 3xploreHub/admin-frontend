@@ -27,3 +27,13 @@ tr.mat-row:hover {
 tr.mat-header-row {
     background: rgb(9, 150, 206);
 }
+
+#modal-component {
+    padding: 0;
+}
+
+.custom-modalbox {
+    mat-dialog-container {
+        padding: 0;
+    }
+}

@@ -9,11 +9,11 @@ import { HttpClient } from '@angular/common/http';
 export class AdminService {
   // public userIDToken = "";private helper: JwtHelperService,
   private apiUrl = `${environment.apiUrl}/admin`;
+  
+
 
   constructor(private http: HttpClient) {
   }
-
-
   login(credentials) {
     console.log(credentials);
     return this.http.post(`${this.apiUrl}/login`, credentials);
@@ -34,7 +34,6 @@ export class AdminService {
       return null;
     }
   }
-
   isLoggedIn() {
     const userPayload = this.getUserPayload();
     if (userPayload) {
@@ -48,20 +47,33 @@ export class AdminService {
   getAllBookings(bookingStatus){
     return this.http.get(`${this.apiUrl}/getAllBookings/${bookingStatus}`);
   }
-  getOnProcessBooking(bookingId){
-    return this.http.get(`${this.apiUrl}/getOnProcessBooking/${bookingId}`);
-  }
-  getBookedDetails(bookingId){
-    return this.http.get(`${this.apiUrl}/getBookedDetails/${bookingId}`);
-  }
-  getDeclineBookings(bookingId){
-    return this.http.get(`${this.apiUrl}/getDeclineBookings/${bookingId}`);
-  }
-  getPendingBookings(bookingId){
-    return this.http.get(`${this.apiUrl}/getPendingBookings/${bookingId}`);
-  }
+  // getOnProcessBooking(bookingId){
+  //   return this.http.get(`${this.apiUrl}/getOnProcessBooking/${bookingId}`);
+  // }
+  // getBookedDetails(bookingId){
+  //   return this.http.get(`${this.apiUrl}/getBookedDetails/${bookingId}`);
+  // }
+  // getDeclineBookings(bookingId){
+  //   return this.http.get(`${this.apiUrl}/getDeclineBookings/${bookingId}`);
+  // }
+  // getPendingBookings(bookingId){
+  //   return this.http.get(`${this.apiUrl}/getPendingBookings/${bookingId}`);
+  // }
   getAllPendingNotifications(pageStatus){
     return this.http.get(`${this.apiUrl}/getAllPendingNotifications/${pageStatus}`)
+  }
+  // getProcessPage(pageId){
+  //   return this.http.get(`${this.apiUrl}/getProcessPage/${pageId}`)
+  // }
+  // getOnlinePage(pageId){
+  //   return this.http.get(`${this.apiUrl}/getOnlinePage/${pageId}`)
+  // }
+
+  setPageStatus(data) {
+    return this.http.post(`${this.apiUrl}/setPageStatus`, data)
+  }
+  setBookingStatus(data){
+    return this.http.post(`${this.apiUrl}/setBookingStatus`,data)
   }
 
 }

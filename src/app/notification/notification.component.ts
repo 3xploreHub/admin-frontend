@@ -17,46 +17,31 @@ export class NotificationComponent implements OnInit {
 
 
   public newNotif = true;
+  keyWord: string = '';
   constructor(private adminService: AdminService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
-
     this.data = this.route.snapshot.firstChild ?.data.isHidden;
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.data = this.route.snapshot.firstChild ?.data.isHidden;
       }
     });
+    // dataEmit.filt
 
   }
 
-  filter(value: string) {
+  searchThis(event: any) {
     // this.data.filter = value.trim().toLocaleUpperCase()
-
+    this.keyWord = event.target.value
+    // console.log();supposedly wa ntoy gamit ang router-outlet kay nag routing namn
 
   }
   logOut() {
     this.adminService.deleteToken();
     this.router.navigate(['login']);
   }
-  // toAllNotif() {
-  //   if (!this.hideShow) {
-  //     this.hideShow = true;
-  //     console.log("adto");
-  //    return this.router.navigate(['/notif/allNotif'])
-  //   } else {
-  //     return this.hideShow = false;
-  //   }
-  // }
 
 }
-
-
-// @Component({
-//   selector: 'view-details',
-//   templateUrl: 'view-details.html',
-// })
-// export class ViewDetails {}
-
 
 
 

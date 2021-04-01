@@ -17,7 +17,7 @@ export class PendingComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog,
     private adminService: AdminService, public route: ActivatedRoute, ) {
-    this.adminService.getAllBookings('OnProcess').subscribe((data) => {
+    this.adminService.getAllBookings('Processing').subscribe((data) => {
       this.bookingAccount = data;
       this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
       console.log('Account', this.bookingAccount);
@@ -27,15 +27,12 @@ export class PendingComponent implements OnInit {
   ngOnInit(): void {
   }
   openModal(id) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.id = 'modal-component';
-    dialogConfig.height = '650px';
-    dialogConfig.width = '600px';
-    dialogConfig.backdropClass = 'backdropBackground';
-    dialogConfig.data = id;
-    const modalDialog = this.dialog.open(PendingDetailsComponent, dialogConfig);
+    this.dialog.open(PendingDetailsComponent, {
+      disableClose : false,
+      id : 'modal-component',
+      data : id,
+      panelClass : 'custom-modalbox'
+    });
   }
-
 
 }

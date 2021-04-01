@@ -1,92 +1,112 @@
-<mat-dialog-content>
+<div class="modalContainer">
     <div id="modal-content-wrapper">
-        <div class="selectedItem boxShadowed2" *ngFor="let item of selectedService">
-            <div class="groupName">
-                <p id="modal-title">{{ item.serviceGroupName }}</p>
-                <hr>
-                <p id="serviceName">Service Name</p>
-            </div>
-            <div class="item">
-                <div class="itemInfo" *ngFor="let _item of page">
-                    <p class="label">Owner</p>
-                    <p class="value"> {{ _item.fullName }}</p>
-                    <!-- <div *ngFor="let item of selectedService"> -->
-                    <div *ngFor="let element of item.data">
-                        <p class="label">{{ element.defaultName }}</p>
-                        <p class="value">{{ element.text }}</p>
+        <div *ngFor="let pageDetails of page">
+            <p class="pageName">{{ pageDetails.components.name }}</p>
+            <p class="pageInfo"> {{ pageDetails.components.location }}</p>
+            <p class="pageInfo">{{ pageDetails.creator.fullName }}</p>
+            <div class="tourist">
+                <div class="cardPhotoHolder">
+                    <div class="cardPhoto">
+                        <!-- [ngStyle]="{'background-image': 'url('+photo+')' }" -->
+                        <!-- <p *ngIf="!photo">No photo</p> -->
                     </div>
-                    <!-- </div> -->
+                </div>
+                <div class="touristInfo" *ngFor="let touristItem of booking">
+                    <div class="touristName">{{touristItem.tourist.fullName}}</div>
+                    <div class="address">{{touristItem.tourist.address}}</div>
+                </div>
+            </div>
+            <div class="bookingService">
+                <div class="serviceHeader">Booking Services</div>
+                <div class="selectedItem boxShadowed2" *ngFor="let item of selectedService">
+                    <div class="groupName">
+                        <p id="modal-title">{{ item.serviceGroupName }}</p>
+                        <hr>
+                        <p id="serviceName">Service Name</p>
+                    </div>
+                    <div class="item">
+                        <div class="itemInfo">
+                            <!-- <div *ngFor="let item of selectedService"> -->
+                            <div *ngFor="let element of item.data">
+                                <p class="label">{{ element.defaultName }}</p>
+                                <p class="value">{{ element.text }}</p>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <section *ngFor="let item of bookingData">
+        <section>
             <div class='container'>
-                <div class="fieldsHolder">
+                <div class="containerHeader">Booking Information</div>
+                <div class="fieldsHolder" *ngFor="let item of bookingData; let i = index" [class.last]="i == bookingData.length-1">
                     <p class="label">{{ item.label }}</p>
                     <p class="value">{{ item.value }}</p>
                 </div>
             </div>
         </section>
     </div>
-</mat-dialog-content>
-<div *ngIf="booking[0].status === 'Pending'">
-    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let item of booking">
+</div>
+
+<div class="modalFooter" *ngIf="booking[0].status === 'Pending'">
+    <div class="modal-footer" align="start" *ngFor="let item of booking">
 
         <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
             <span class="material-icons">keyboard_arrow_left</span>Back</button>
-        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-action-button" (click)="toOnProcess(item._id)">
+        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-action-button" (click)="toOnProcess(item)">
             On Process
             <span class="material-icons">sync</span>
          </button>
 
-    </mat-dialog-actions>
+    </div>
 </div>
 
-<div *ngIf="booking[0].status === 'OnProcess'">
-    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let process of booking">
+<div class="modalFooter" *ngIf="booking[0].status === 'Processing'">
+    <div class="modal-footer" align="start" *ngFor="let process of booking">
 
         <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
                 <span class="material-icons">keyboard_arrow_left</span>Back
-        </button>
-        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-booked-button" (click)="toBooked(process._id)">Booked
-                <span class="material-icons">event_available</span></button>&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-declined-button" (click)="declinedFunction(process._id)">Declined
-                <span class="material-icons">event_busy</span></button>
+            </button>
         <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
-                        restore</span></button>
+                    restore</span></button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="toPending(process._id)">New Bookings</button>
-
+            <button mat-menu-item (click)="toPending(process)">New Bookings</button>
         </mat-menu>
-    </mat-dialog-actions>
+        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-booked-button" (click)="toBooked(process)">Booked
+                <span class="material-icons">event_available</span></button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-declined-button" (click)="declinedFunction(process)">Declined
+                <span class="material-icons">event_busy</span></button>
+
+    </div>
 </div>
-<div *ngIf="booking[0].status === 'Booked'">
-    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let booked of booking">
+<div class="modalFooter" *ngIf="booking[0].status === 'Booked'">
+    <div class="modal-footer" align="start" *ngFor="let booked of booking">
         <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
             <span class="material-icons">keyboard_arrow_left</span>Back
         </button>
         <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
             restore</span></button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="toOnProcess(booked._id)">On Process</button>
-            <button mat-menu-item (click)="toPending(booked._id)">New Bookings</button>
+            <button mat-menu-item (click)="toOnProcess(booked)">On Process</button>
+            <button mat-menu-item (click)="toPending(booked)">New Bookings</button>
 
         </mat-menu>
 
-    </mat-dialog-actions>
+    </div>
 </div>
-<div *ngIf="booking[0].status === 'Rejected'">
-    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let declined of booking">
+<div class="modalFooter" *ngIf="booking[0].status === 'Rejected'">
+    <div class="modal-footer" align="start" *ngFor="let declined of booking">
 
         <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
             <span class="material-icons">keyboard_arrow_left</span>Back</button>
         <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
                 restore</span></button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="toBooked(declined._id)">Booked</button>
-            <button mat-menu-item (click)="toOnProcess(declined._id)">On Process</button>
-            <button mat-menu-item (click)="toPending(declined._id)">New Bookings</button>
+            <button mat-menu-item (click)="toBooked(declined)">Booked</button>
+            <button mat-menu-item (click)="toOnProcess(declined)">On Process</button>
+            <button mat-menu-item (click)="toPending(declined)">New Bookings</button>
         </mat-menu>
-    </mat-dialog-actions>
+    </div>
 </div>

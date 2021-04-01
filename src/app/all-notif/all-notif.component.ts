@@ -10,23 +10,30 @@ import { NotifDetailsComponent } from './../notif-details/notif-details.componen
 })
 
 export class AllNotifComponent implements OnInit {
-  public pages:any;
-  constructor(private router: Router, 
+  public pages: any;
+  public processData:any;
+  public onlineData:any
+  constructor(private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private adminService: AdminService
-    ) {
-      this.adminService.getAllPendingNotifications("Pending").subscribe((data)=>{
-        this.pages = data
-        console.log(this.pages);     
-      })
-     }
-  ngOnInit(): void {
-    
+  ) {
+    this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
+      this.pages = data
+    })
+    this.adminService.getAllPendingNotifications("Processing").subscribe((data) => {
+      this.processData = data
+    })
+    this.adminService.getAllPendingNotifications("Online").subscribe((data) => {
+      this.onlineData = data
+    })
   }
-  openModal(id){
+  ngOnInit(): void {
 
-    console.log(id);    
+  }
+  openModal(id: any) {
+    // console.log(this.pages[0].status);
+    
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.id = 'modal-component';
@@ -36,5 +43,8 @@ export class AllNotifComponent implements OnInit {
     dialogConfig.data = id;
     const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
   }
+  // toApprove(){
+  //   alert("To approve")
+  // }
 
 }

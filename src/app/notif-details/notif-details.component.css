@@ -1,0 +1,35 @@
+#modal-footer {
+    justify-self: left;
+    align-self: center;
+    position: sticky;
+    bottom: -24px;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #efefef;
+    background-color: white;
+}
+
+#process,
+#approve {
+    margin-right: 30px;
+    border-radius: 20px;
+}
+
+#process {
+    background-color: #06c8f8;
+}
+
+#approve {
+    background: rgb(5, 243, 5);
+}
+
+.returnTo {
+    margin-right: 30px;
+    background-color: #06f0f8;
+    border-radius: 20px;
+}
+
+#modal-cancel-button {
+    color: #04cfdd;
+    background: transparent;
+}
