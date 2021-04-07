@@ -1,8 +1,17 @@
-<mat-dialog-content class="mat-typography">
-    <p>Hakdog</p>
+<mat-dialog-content class="mat-typography" *ngFor="let details of pagesData">
+    <div>
+        <p class="pageName">{{ details.components.name }}</p>
+        <p class="pageInfo">{{ details.components.location }}</p>
+        <p class="pageInfo">{{ details.creator.fullName }}</p>
+
+        <!-- <p>{{ details.components.category }}</p> -->
+
+
+    </div>
+
 </mat-dialog-content>
-<div *ngIf="pagesData[0].status === 'Pending'">
-    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let item of pagesData">
+<div class="modalFooter" *ngIf="pagesData[0].status === 'Pending'">
+    <div class="modal-footer" align="start" *ngFor="let item of pagesData">
 
         <button mat-button mat-dialog-close id="modal-cancel-button"> <span class="material-icons">keyboard_arrow_left</span>Back</button>
 
@@ -10,10 +19,10 @@
                     <span class="material-icons">sync</span>
             </button>
 
-    </mat-dialog-actions>
+    </div>
 </div>
-<div *ngIf="pagesData[0].status === 'Processing'">
-    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let onlineItem of pagesData">
+<div class="modalFooter" *ngIf="pagesData[0].status === 'Processing'">
+    <div class="modal-footer" align="start" *ngFor="let onlineItem of pagesData">
         <button mat-button mat-dialog-close id="modal-cancel-button"> <span class="material-icons">keyboard_arrow_left</span>Back</button>
         <button mat-button [mat-dialog-close]="true" cdkFocusInitial id="approve" (click)="toApprove(onlineItem)">Approve
                 <span class="material-icons" >check_circle</span>
@@ -21,19 +30,19 @@
         <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
                         restore</span></button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>Pending Page</button>
+            <button mat-menu-item (click)="getPendingPage(onlineItem)">Pending</button>
         </mat-menu>
-    </mat-dialog-actions>
+    </div>
 </div>
-<div *ngIf="pagesData[0].status === 'Online'">
-    <mat-dialog-actions id="modal-footer" align="start" *ngFor="let each of pagesData">
+<div class="modalFooter" *ngIf="pagesData[0].status === 'Online'">
+    <div class="modal-footer" align="start" *ngFor="let each of pagesData">
         <button mat-button mat-dialog-close id="modal-cancel-button"> <span class="material-icons">keyboard_arrow_left</span>Back</button>
         <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
                             restore</span></button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>Pending</button>
-            <button mat-menu-item>Processing</button>
+            <button mat-menu-item (click)="getPendingPage(each)">Pending</button>
+            <button mat-menu-item (click)="getProcessPage(each)">Processing</button>
 
         </mat-menu>
-    </mat-dialog-actions>
+    </div>
 </div>

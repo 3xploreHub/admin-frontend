@@ -6,7 +6,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 @Component({
   selector: 'app-notif-details',
   templateUrl: './notif-details.component.html',
-  styleUrls: ['./notif-details.component.css']
+  styleUrls: ['./notif-details.component.scss']
 })
 export class NotifDetailsComponent implements OnInit {
 
@@ -22,8 +22,25 @@ export class NotifDetailsComponent implements OnInit {
 
   ngOnInit(){
     this.pagesData = Array.of(this.data)
-    console.log(this.pagesData);
+    console.log("jessa: ",this.pagesData);
     
+  }
+
+  getPendingPage(page){ 
+    const pageName = this.pagesData[0].components.name
+    alert(page._id)
+    const notif = {
+      pageId: page._id,
+      pageName: pageName,
+      pageCreator: page.creator._id,
+      status: "Pending",
+      message:`Your page ${pageName} return to Pending`,
+  }
+    this.adminService.setPageStatus(notif).subscribe((data)=>{
+      console.log("data",data);   
+      this.closeDialog()
+    }) 
+    this.router.navigate(['/pagesToApprove/pendingPages'])
   }
   getProcessPage(page){ 
     const pageName = this.pagesData[0].components.name
@@ -33,7 +50,7 @@ export class NotifDetailsComponent implements OnInit {
       pageName: pageName,
       pageCreator: page.creator._id,
       status: "Processing",
-      message:`You page ${pageName} is already on the process`,
+      message:`Your page ${pageName} is already on the process`,
   }
     this.adminService.setPageStatus(notif).subscribe((data)=>{
       console.log("data",data);   
@@ -49,12 +66,13 @@ export class NotifDetailsComponent implements OnInit {
       pageName: pageName,
       pageCreator: page.creator._id,
       status: "Online",
-      message:`You page ${pageName} is already on the process`,
+      message:`Your page ${pageName} is now online`,
   }
     this.adminService.setPageStatus(notif).subscribe((data)=>{
       console.log("data",data);   
       this.closeDialog()
     }) 
+    this.router.navigate(['/pagesToApprove/onlinePages'])
   }
   closeDialog() {
     this.dialogRef.close();

@@ -14,18 +14,17 @@ export class NotificationComponent implements OnInit {
   hideShow = false;
   public data: any;
 
-
-
   public newNotif = true;
   keyWord: string = '';
   constructor(private adminService: AdminService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
-    this.data = this.route.snapshot.firstChild ?.data.isHidden;
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.data = this.route.snapshot.firstChild ?.data.isHidden;
-      }
-    });
+    // this.data = this.route.snapshot.firstChild ?.data.isHidden;
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.data = this.route.snapshot.firstChild ?.data.isHidden;
+    //   }
+    // });
+
     // dataEmit.filt
 
   }
@@ -33,7 +32,7 @@ export class NotificationComponent implements OnInit {
   searchThis(event: any) {
     // this.data.filter = value.trim().toLocaleUpperCase()
     this.keyWord = event.target.value
-    // console.log();supposedly wa ntoy gamit ang router-outlet kay nag routing namn
+    // console.log()
 
   }
   logOut() {

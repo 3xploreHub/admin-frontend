@@ -40,13 +40,15 @@ import { AllNotifComponent } from './all-notif/all-notif.component';
 import { BookedDetailsComponent } from './booked-details/booked-details.component';
 import { DeclinedDetailsComponent } from './declined-details/declined-details.component';
 import { NotifDetailsComponent } from './notif-details/notif-details.component';
+import { OnlinePagesNotificationComponent } from './online-pages-notification/online-pages-notification.component';
+import { PendingPagesNotificationComponent } from './pending-pages-notification/pending-pages-notification.component';
 
 
 
 
-export function tokenGetter() {
-  return localStorage.getItem('access_token');
-}
+// export function tokenGetter() {
+//   return localStorage.getItem('access_token');
+// }
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ export function tokenGetter() {
     BookedDetailsComponent,
     DeclinedDetailsComponent,
     NotifDetailsComponent,
+    OnlinePagesNotificationComponent,
+    PendingPagesNotificationComponent,
     // FilterPipe
   ],
   imports: [

@@ -11,13 +11,13 @@
                 </mat-form-field>
             </div>
             <div class="tab">
-                <button [routerLink]="['/notif/allNotif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Notification Pages</button>
+                <button [routerLink]="['/pagesToApprove']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Notification Pages</button>
                 <button [routerLink]="['/notif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
             </div>
             <button mat-stroked-button class="button" (click)="logOut()">Logout <span class="material-icons" >logout</span></button>
         </div>
     </mat-toolbar-row>
-    <mat-toolbar-row class="status" *ngIf="!data">
+    <mat-toolbar-row class="status">
         <div class="statlabel">
             <button mat-button [routerLink]="['/notif/new']" id="new">New Bookings</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button mat-button [routerLink]="['/notif/pending']" id="pending">On Processed</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

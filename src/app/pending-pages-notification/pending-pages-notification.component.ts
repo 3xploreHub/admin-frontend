@@ -1,18 +1,20 @@
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../service/admin.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NotifDetailsComponent } from './../notif-details/notif-details.component';
-@Component({
-  selector: 'app-all-notif',
-  templateUrl: './all-notif.component.html',
-  styleUrls: ['./all-notif.component.scss']
-})
+import { AdminService } from './../service/admin.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 
-export class AllNotifComponent implements OnInit {
+@Component({
+  selector: 'app-pending-pages-notification',
+  templateUrl: './pending-pages-notification.component.html',
+  styleUrls: ['./pending-pages-notification.component.scss']
+})
+export class PendingPagesNotificationComponent implements OnInit {
+
   public pages: any;
   public processData: any;
   public onlineData: any
+  public creator:any;
   constructor(private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -20,20 +22,23 @@ export class AllNotifComponent implements OnInit {
   ) {
     this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
       this.pages = data
+      console.log("pending: ",this.pages);
+      
     })
     this.adminService.getAllPendingNotifications("Processing").subscribe((data) => {
       this.processData = data
-    })
-    this.adminService.getAllPendingNotifications("Online").subscribe((data) => {
-      this.onlineData = data
-    })
-  }
-  ngOnInit(): void {
+      this.creator = Array.of(this.processData[0].creator);
+      console.log("processing: ",this.processData);
 
+    })
   }
+
+  ngOnInit(): void {
+  }
+
   openModal(id: any) {
     // console.log(this.pages[0].status);
-
+    console.log(id);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.id = 'modal-component';
@@ -43,18 +48,6 @@ export class AllNotifComponent implements OnInit {
     dialogConfig.data = id;
     const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
   }
-  // toApprove(){
-  //   alert("To approve")
-  // }
+  
 
-
-  logOut() {
-    this.adminService.deleteToken();
-    this.router.navigate(['login']);
-  }
-  toOnlinePage(){
-    alert("lsjfhgkhfk")
-    this.router.navigate(['/pagesToApprove/onlinePages']);
-
-  }
 }
