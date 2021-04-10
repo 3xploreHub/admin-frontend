@@ -9,24 +9,27 @@ import { Component, OnInit, Inject } from '@angular/core';
   styleUrls: ['./notif-details.component.scss']
 })
 export class NotifDetailsComponent implements OnInit {
-
-  public pagesData:any
+  public services: any;
+  public pagesData: any
   constructor(public dialogRef: MatDialogRef<NotifDetailsComponent>,
     private adminService: AdminService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data
-    
-    
-    
-    ) { }
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.pagesData = Array.of(this.data)
-    console.log("jessa: ",this.pagesData);
-    
+    this.services = this.data.services
+
+    console.log("Mini: ",this.services);
+    let defaultName = this.services
+    defaultName.forEach(element => {
+      let quantity = element.data
+      quantity.splice(1, 1)
+    });
   }
 
-  getPendingPage(page){ 
+  getPendingPage(page) {
     const pageName = this.pagesData[0].components.name
     alert(page._id)
     const notif = {
@@ -34,15 +37,15 @@ export class NotifDetailsComponent implements OnInit {
       pageName: pageName,
       pageCreator: page.creator._id,
       status: "Pending",
-      message:`Your page ${pageName} return to Pending`,
-  }
-    this.adminService.setPageStatus(notif).subscribe((data)=>{
-      console.log("data",data);   
+      message: `Your page ${pageName} return to Pending`,
+    }
+    this.adminService.setPageStatus(notif).subscribe((data) => {
+      console.log("data", data);
       this.closeDialog()
-    }) 
-    this.router.navigate(['/pagesToApprove/pendingPages'])
+    })
+    this.router.navigate(['/pageToApprove/pendingPages'])
   }
-  getProcessPage(page){ 
+  getProcessPage(page) {
     const pageName = this.pagesData[0].components.name
     alert(page._id)
     const notif = {
@@ -50,15 +53,15 @@ export class NotifDetailsComponent implements OnInit {
       pageName: pageName,
       pageCreator: page.creator._id,
       status: "Processing",
-      message:`Your page ${pageName} is already on the process`,
-  }
-    this.adminService.setPageStatus(notif).subscribe((data)=>{
-      console.log("data",data);   
+      message: `Your page ${pageName} is already on the process`,
+    }
+    this.adminService.setPageStatus(notif).subscribe((data) => {
+      console.log("data", data);
       this.closeDialog()
-    }) 
+    })
   }
 
-  toApprove(page){
+  toApprove(page) {
     const pageName = this.pagesData[0].components.name
     alert(page._id)
     const notif = {
@@ -66,13 +69,13 @@ export class NotifDetailsComponent implements OnInit {
       pageName: pageName,
       pageCreator: page.creator._id,
       status: "Online",
-      message:`Your page ${pageName} is now online`,
-  }
-    this.adminService.setPageStatus(notif).subscribe((data)=>{
-      console.log("data",data);   
+      message: `Your page ${pageName} is now online`,
+    }
+    this.adminService.setPageStatus(notif).subscribe((data) => {
+      console.log("data", data);
       this.closeDialog()
-    }) 
-    this.router.navigate(['/pagesToApprove/onlinePages'])
+    })
+    this.router.navigate(['/pageToApprove/onlinePages'])
   }
   closeDialog() {
     this.dialogRef.close();

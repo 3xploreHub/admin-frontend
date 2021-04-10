@@ -1,0 +1,163 @@
+.cont {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.container1 {
+    margin-top: 5%;
+    // position: absolute;
+    .title {
+        color: dodgerblue;
+        text-align: center;
+        font-size: 24px;
+        justify-content: center;
+        display: flex;
+        padding: 15px;
+        background-color: white;
+        position: relative;
+    }
+}
+
+// body {
+//     background-color: #eaeef3d4;
+// }
+.toolbar {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    // justify-content: center;
+    // align-items: center;
+    background: rgb(4, 128, 230);
+    color: white;
+    font-weight: 18px;
+    // position: fixed;
+    // z-index: 10;
+    span {
+        padding: 2%;
+        position: relative;
+    }
+    .search {
+        display: inline-block;
+        width: 40%;
+        // margin-top: 1vh;
+        .example-full-width {
+            width: 100%;
+            margin-top: 2vh;
+            background: transparent;
+        }
+    }
+    .tab {
+        display: inline-block;
+        margin-left: 8vh;
+    }
+    .mat-stroked-button {
+        background-color: rgb(0, 153, 255);
+        letter-spacing: 2px !important;
+        left: 9%;
+        // top: -5px;
+    }
+}
+
+.status {
+    width: 100%;
+    background: #1299e857;
+    justify-content: center;
+    text-align: center;
+    top: 60px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    width: 100%;
+    display: flex;
+}
+
+.service {
+    color: white;
+    font-weight: inherit;
+}
+
+.mat-raised-button {
+    background: rgb(0, 153, 255);
+    color: white;
+    margin-left: 13%;
+}
+
+.badge,
+.button {
+    margin: 4%;
+}
+
+.container {
+    position: fixed;
+    z-index: 10;
+    top: 0
+}
+
+//content
+.notifCard {
+    margin: 10px 8px;
+    // width: 100%;
+    // margin: auto;
+    background-color: #ffff;
+    box-shadow: 0 1px 2px rgb(195, 200, 206);
+    border-radius: 4px;
+    padding: 7px;
+    position: relative;
+    display: flex;
+    .notifPicHolder {
+        flex-shrink: 0;
+        height: 37px;
+        width: 60px;
+        border-radius: 4px;
+        background-color: rgba(219, 228, 241, 0.5);
+        .notifPic {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            ion-icon {
+                color: rgb(92, 108, 122);
+                font-size: 25px;
+            }
+        }
+    }
+    .unreadsPic {
+        background-color: rgba(114, 194, 231, 0.8) !important;
+        .notifPic {
+            ion-icon {
+                color: rgb(2, 79, 124) !important;
+            }
+        }
+    }
+    .notifInfo {
+        padding: 0 8px;
+        margin-right: 30px;
+        .notifDate {
+            font-size: 13px;
+            color: rgb(135, 147, 161);
+        }
+    }
+}
+
+.unread {
+    background-image: linear-gradient(to right, rgb(183, 215, 247), rgb(189, 240, 241));
+    border: 1px solid rgb(120, 175, 230);
+    .notifInfo {
+        .notifTitle {
+            font-weight: bold;
+        }
+    }
+}
+
+.options {
+    top: 0;
+    right: 0;
+    background-color: none;
+    font-size: 19px;
+    padding: 5px 8px;
+    position: absolute;
+}

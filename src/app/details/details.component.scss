@@ -214,21 +214,21 @@ mat-dialog-content {
 
 /* Track */
 
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #eff3f5;
 }
 
 
 /* Handle */
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: rgb(190, 213, 231);
 }
 
 
 /* Handle on hover */
 
- ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: rgb(153, 175, 192);
 }
 
@@ -247,7 +247,7 @@ mat-dialog-content {
 
 .touristName {
     font-size: 16px;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .address {
@@ -266,6 +266,11 @@ mat-dialog-content {
     background-repeat: no-repeat;
 }
 
+.touristInfo {
+    margin-left: 21%;
+    margin-top: -18%;
+}
+
 .bookingService {
     padding: 10px;
     margin: 0;
@@ -275,5 +280,46 @@ mat-dialog-content {
         font-size: 19px;
         padding: 10px;
         color: #485b6d;
+    }
+}
+
+.touristLabel {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    color: #0e4a81;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.touristDetails {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 100 !important;
+    padding-left: 8px;
+    color: #777788bf;
+}
+
+.cardPhotoHolder {
+    height: 90px;
+    width: 90px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    overflow: hidden;
+    .cardPhoto {
+        height: 100%;
+        width: 100%;
+        background-color: lightsteelblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    #iconPhoto {
+        font-size: 40px;
+        color: rgb(77, 97, 109);
     }
 }

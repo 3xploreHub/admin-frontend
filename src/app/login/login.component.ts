@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AdminService, private router: Router,
               private dialogService: DialogService ) { }
-
+  public alert = false;
   public eye = false;
   public passwordOrText = 'password';
   public credentialsForm = {
@@ -33,10 +33,14 @@ export class LoginComponent implements OnInit {
       if (partialDataHandler.status != false) {
         this.authService.setToken(user.token);
         console.log(user)
-        this.router.navigate(['notif']);
+        this.router.navigate(['bookingNotif']);
       } else {
-        this.dialogService.openConfirmedDialog(partialDataHandler.sms);
-        this.router.navigate(['']);
+        // if(!this.alert ){
+          !this.alert
+          this.dialogService.openConfirmedDialog(partialDataHandler.sms);
+          this.router.navigate(['']);
+        // }
+       
       }
     });
   }

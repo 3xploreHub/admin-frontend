@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class AdminService {
   // public userIDToken = "";private helper: JwtHelperService,
   private apiUrl = `${environment.apiUrl}/admin`;
-  
-
+  public currentPath: string;
+  public bookingId: string;
 
   constructor(private http: HttpClient) {
   }

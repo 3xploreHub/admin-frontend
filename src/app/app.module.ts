@@ -28,7 +28,6 @@ import { MatMenuModule} from '@angular/material/menu';
 
 
 import { LoginComponent } from './login/login.component';
-import { NotificationComponent } from './notification/notification.component';
 import { DetailsComponent } from './details/details.component';
 import { NewNotificationComponent } from './new-notification/new-notification.component';
 import { PendingComponent } from './pending/pending.component';
@@ -36,12 +35,14 @@ import { BookedComponent } from './booked/booked.component';
 import { DeclinedComponent } from './declined/declined.component';
 import { PendingDetailsComponent } from './pending-details/pending-details.component';
 import { MatDialogComponent } from './mat-dialog/mat-dialog.component';
-import { AllNotifComponent } from './all-notif/all-notif.component';
 import { BookedDetailsComponent } from './booked-details/booked-details.component';
 import { DeclinedDetailsComponent } from './declined-details/declined-details.component';
 import { NotifDetailsComponent } from './notif-details/notif-details.component';
 import { OnlinePagesNotificationComponent } from './online-pages-notification/online-pages-notification.component';
 import { PendingPagesNotificationComponent } from './pending-pages-notification/pending-pages-notification.component';
+import { BookingNotificationComponent } from './booking-notification/booking-notification.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { PagesNotificationsComponent } from './pages-notifications/pages-notifications.component';
 
 
 
@@ -54,7 +55,6 @@ import { PendingPagesNotificationComponent } from './pending-pages-notification/
   declarations: [
     AppComponent,
     LoginComponent,
-    NotificationComponent,
     DetailsComponent,
     NewNotificationComponent,
     PendingComponent,
@@ -62,12 +62,14 @@ import { PendingPagesNotificationComponent } from './pending-pages-notification/
     DeclinedComponent,
     PendingDetailsComponent,
     MatDialogComponent,
-    AllNotifComponent,
     BookedDetailsComponent,
     DeclinedDetailsComponent,
     NotifDetailsComponent,
     OnlinePagesNotificationComponent,
     PendingPagesNotificationComponent,
+    BookingNotificationComponent,
+    NotificationsComponent,
+    PagesNotificationsComponent,
     // FilterPipe
   ],
   imports: [

@@ -12,28 +12,38 @@ import { BookedDetailsComponent } from '../booked-details/booked-details.compone
   styleUrls: ['./booked.component.css']
 })
 export class BookedComponent implements OnInit {
-  bookingAccount: any;
+  bookingAccount: any[] = [];
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog,
-              private adminService: AdminService, public route: ActivatedRoute, ) {
-    this.adminService.getAllBookings('Booked').subscribe((data) => {
+    private adminService: AdminService, public route: ActivatedRoute, ) {
+    this.adminService.getAllBookings('Booked').subscribe((data: any[]) => {
       this.bookingAccount = data;
       this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
-      console.log('Account', this.bookingAccount);
+      if (this.adminService.bookingId) {
+        console.log("booking accounts == ", this.bookingAccount)
+        this.bookingAccount.forEach(booking => {
+          if (booking._id == this.adminService.bookingId) {
+            console.log("here::::", booking)
+            this.openModal(booking)
+            this.adminService.bookingId = ""
+          }
+        })
+      }
     }
     );
   }
   ngOnInit(): void {
+
   }
   openModal(id) {
     this.dialog.open(BookedDetailsComponent, {
-      disableClose : false,
-      id : 'modal-component',
-      data : id,
-      panelClass : 'custom-modalbox'
+      disableClose: false,
+      id: 'modal-component',
+      data: id,
+      panelClass: 'custom-modalbox'
     });
-  
+
   }
 
 }

@@ -14,7 +14,9 @@ export class PendingPagesNotificationComponent implements OnInit {
   public pages: any;
   public processData: any;
   public onlineData: any
-  public creator:any;
+  // public creator:any;
+  // public creator1:any;
+
   constructor(private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -22,12 +24,14 @@ export class PendingPagesNotificationComponent implements OnInit {
   ) {
     this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
       this.pages = data
+      // this.creator = Array.of(this.pages[0].creator);
+
       console.log("pending: ",this.pages);
       
     })
     this.adminService.getAllPendingNotifications("Processing").subscribe((data) => {
       this.processData = data
-      this.creator = Array.of(this.processData[0].creator);
+      // this.creator1 = Array.of(this.processData.creator);
       console.log("processing: ",this.processData);
 
     })
@@ -36,17 +40,25 @@ export class PendingPagesNotificationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openModal(id: any) {
-    // console.log(this.pages[0].status);
-    console.log(id);
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.id = 'modal-component';
-    dialogConfig.height = '650px';
-    dialogConfig.width = '600px';
-    dialogConfig.backdropClass = 'backdropBackground';
-    dialogConfig.data = id;
-    const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
+  // openModal(id: any) {
+  //   // console.log(this.pages[0].status);
+  //   console.log(id);
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = false;
+  //   dialogConfig.id = 'modal-component';
+  //   dialogConfig.height = '650px';
+  //   dialogConfig.width = '600px';
+  //   dialogConfig.backdropClass = 'backdropBackground';
+  //   dialogConfig.data = id;
+  //   const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
+  // }
+  openModal(id) {
+    this.dialog.open(NotifDetailsComponent, {
+      disableClose : false,
+      id : 'modal-component',
+      data : id,
+      panelClass : 'custom-modalbox'
+    });
   }
   
 

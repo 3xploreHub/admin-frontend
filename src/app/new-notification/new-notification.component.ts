@@ -32,6 +32,16 @@ export class NewNotificationComponent implements OnInit {
       this.bookingAccount = data;
       console.log("maw: ",this.bookingAccount);
       this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
+      if (this.adminService.bookingId) {
+        console.log("booking accounts == ", this.bookingAccount)
+        this.bookingAccount.forEach(booking => {
+          if (booking._id == this.adminService.bookingId) {
+            console.log("here::::", booking)
+            this.openModal(booking)
+            this.adminService.bookingId = ""
+          }
+        })
+      }
     }
     );
   }

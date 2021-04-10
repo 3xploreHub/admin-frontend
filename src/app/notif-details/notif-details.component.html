@@ -1,15 +1,55 @@
-<mat-dialog-content class="mat-typography" *ngFor="let details of pagesData">
+<!-- <mat-dialog-content class="mat-typography" *ngFor="let details of pagesData">
     <div>
         <p class="pageName">{{ details.components.name }}</p>
         <p class="pageInfo">{{ details.components.location }}</p>
         <p class="pageInfo">{{ details.creator.fullName }}</p>
 
-        <!-- <p>{{ details.components.category }}</p> -->
-
 
     </div>
+    <div class="offeredService">
+        <div class="serviceHeader">Offered Services</div>
+        <div class="selectedItem boxShadowed2">
+            <div class="item">
+                <div class="itemInfo" *ngFor="let element of newObject">
+                    <div>
+                        <p class="label">{{ element.defaultName }}</p>
+                        <p class="value">{{ element.text }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</mat-dialog-content>
+</mat-dialog-content> -->
+
+<div class="modalContainer">
+    <div id="modal-content-wrapper">
+        <div *ngFor="let details of pagesData">
+            <p class="pageName">{{ details.components.name }}</p>
+            <p class="pageInfo">{{ details.components.location }}</p>
+            <p class="pageInfo">{{ details.creator.fullName }}</p>
+
+            <div class="offeredService">
+                <div class="serviceHeader">Services Offered</div>
+                <div class="selectedItem boxShadowed2" *ngFor="let item of services">
+                    <div class="groupName">
+                        <p id="modal-title">{{ item.serviceGroupName }}</p>
+                        <hr>
+                        <p id="serviceName">Service Name</p>
+                    </div>
+                    <div class="item">
+                        <div class="itemInfo">
+                            <div *ngFor="let element of item.data">
+                                <p class="label">{{ element.defaultName }}</p>
+                                <p class="value">{{ element.text }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modalFooter" *ngIf="pagesData[0].status === 'Pending'">
     <div class="modal-footer" align="start" *ngFor="let item of pagesData">
 

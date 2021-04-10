@@ -1,22 +1,22 @@
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AdminService } from '../service/admin.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NotifDetailsComponent } from './../notif-details/notif-details.component';
-@Component({
-  selector: 'app-all-notif',
-  templateUrl: './all-notif.component.html',
-  styleUrls: ['./all-notif.component.scss']
-})
 
-export class AllNotifComponent implements OnInit {
+@Component({
+  selector: 'app-pages-notifications',
+  templateUrl: './pages-notifications.component.html',
+  styleUrls: ['./pages-notifications.component.scss']
+})
+export class PagesNotificationsComponent implements OnInit {
   public pages: any;
   public processData: any;
   public onlineData: any
   constructor(private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private adminService: AdminService
+    public adminService: AdminService
   ) {
     this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
       this.pages = data
@@ -27,13 +27,15 @@ export class AllNotifComponent implements OnInit {
     this.adminService.getAllPendingNotifications("Online").subscribe((data) => {
       this.onlineData = data
     })
+
   }
   ngOnInit(): void {
 
+    this.adminService.currentPath = this.router.url.split("/").reverse()[0]
+    if (this.adminService.currentPath.includes("?")) this.adminService.currentPath = this.adminService.currentPath.split("?")[0]
+    
   }
   openModal(id: any) {
-    // console.log(this.pages[0].status);
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.id = 'modal-component';
@@ -43,18 +45,18 @@ export class AllNotifComponent implements OnInit {
     dialogConfig.data = id;
     const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
   }
-  // toApprove(){
-  //   alert("To approve")
-  // }
-
 
   logOut() {
     this.adminService.deleteToken();
     this.router.navigate(['login']);
   }
-  toOnlinePage(){
-    alert("lsjfhgkhfk")
-    this.router.navigate(['/pagesToApprove/onlinePages']);
+  toOnlinePage() {
+    this.router.navigate(['/pageToApprove/onlinePages']);
 
   }
+  goTo(clicked) {
+    this.adminService.currentPath = clicked
+    this.router.navigate(["/pageToApprove/" + clicked])
+  }
+
 }

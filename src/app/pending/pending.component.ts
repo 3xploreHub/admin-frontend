@@ -21,6 +21,16 @@ export class PendingComponent implements OnInit {
       this.bookingAccount = data;
       this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
       console.log('Account', this.bookingAccount);
+      if (this.adminService.bookingId) {
+        console.log("booking accounts == ", this.bookingAccount)
+        this.bookingAccount.forEach(booking => {
+          if (booking._id == this.adminService.bookingId) {
+            console.log("here::::", booking)
+            this.openModal(booking)
+            this.adminService.bookingId = ""
+          }
+        })
+      }
     }
     );
   }

@@ -1,0 +1,34 @@
+<mat-toolbar class="container">
+    <mat-toolbar-row class="toolbar">
+        <div>
+            <span>Explorehub</span>
+            <span class="example-spacer"></span>
+            <div class="search">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Search</mat-label>
+                    <input type="text" [(ngModel)]="keyWord" aria-label="Search" (keyup)="searchThis($event)" matInput>
+                    <!-- (dataEmit)="filter($event)" [passData]="data" -->
+                </mat-form-field>
+            </div>
+            <div class="tab">
+                <!-- <button [routerLink]="['/notif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Notifications</button>
+                <button [routerLink]="['/pageToApprove']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
+                <button [routerLink]="['/bookingNotif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button> -->
+
+                <button [class.focused_notif]="adminService.currentPath == 'notif'" (click)="navBar('notif')" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Notifications</button>
+                <button [class.focused_page]="adminService.currentPath == 'pageToApprove'" (click)="navBar('pageToApprove')" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
+                <button [class.focused_booking]="adminService.currentPath == 'bookingNotif'" (click)="navBar('bookingNotif')" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
+            </div>
+            <button mat-stroked-button class="button" (click)="logOut()">Logout <span class="material-icons" >logout</span></button>
+        </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="status">
+        <div class="statlabel">
+            <button mat-button [class.focused_new]="adminService.currentPath == 'new'" (click)="goTo('new')" id="new">New Bookings</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-button [class.focused_pending]="adminService.currentPath == 'pending'" (click)="goTo('pending')" id="pending">On Processed</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-button [class.focused_booked]="adminService.currentPath == 'booked'" (click)="goTo('booked')" id="booked">Booked</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-button [class.focused_declined]="adminService.currentPath == 'declined'" (click)="goTo('declined')" id="declined">Declined</button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>

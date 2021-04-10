@@ -20,22 +20,41 @@ export class OnlinePagesNotificationComponent implements OnInit {
   ) {
     this.adminService.getAllPendingNotifications("Online").subscribe((data) => {
       this.onlineData = data
+      if (this.adminService.bookingId) {
+        console.log("booking accounts == ", this.processData)
+        // this.processData.forEach(booking => {
+        //   if (booking._id == this.adminService.bookingId) {
+        //     console.log("here::::", booking)
+        //     this.openModal
+        //     (booking)
+        //     this.adminService.bookingId = ""
+        //   }
+        // })
+      }
     })
   }
   ngOnInit(): void {
 
   }
-  openModal(id: any) {
-    // console.log(this.pages[0].status);
-
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.id = 'modal-component';
-    dialogConfig.height = '650px';
-    dialogConfig.width = '600px';
-    dialogConfig.backdropClass = 'backdropBackground';
-    dialogConfig.data = id;
-    const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
+  // openModal(id: any) {
+   
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = false;
+  //   dialogConfig.id = 'modal-component';
+  //   dialogConfig.height = '650px';
+  //   dialogConfig.width = '600px';
+  //   dialogConfig.backdropClass = 'backdropBackground';
+  //   dialogConfig.data = id;
+  //   const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
+  // }
+  openModal(id) {
+    this.dialog.open(NotifDetailsComponent, {
+      disableClose : false,
+      id : 'modal-component',
+      data : id,
+      panelClass : 'custom-modalbox'
+    });
   }
+  
 
 }
