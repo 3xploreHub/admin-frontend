@@ -12,7 +12,11 @@ import { NotifDetailsComponent } from './../notif-details/notif-details.componen
 export class PagesNotificationsComponent implements OnInit {
   public pages: any;
   public processData: any;
+  public bookings: any;
   public onlineData: any
+  public counter1:any
+  public counter2:any
+
   constructor(private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -20,6 +24,7 @@ export class PagesNotificationsComponent implements OnInit {
   ) {
     this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
       this.pages = data
+      this.counter2 = this.pages.length
     })
     this.adminService.getAllPendingNotifications("Processing").subscribe((data) => {
       this.processData = data
@@ -33,7 +38,13 @@ export class PagesNotificationsComponent implements OnInit {
 
     this.adminService.currentPath = this.router.url.split("/").reverse()[0]
     if (this.adminService.currentPath.includes("?")) this.adminService.currentPath = this.adminService.currentPath.split("?")[0]
+    this.adminService.getAllBookings("Pending").subscribe((data)=>{
+      console.log("yow: ",data);
+      this.bookings = data
+      this.counter1 = this.bookings.length
     
+    })
+   
   }
   openModal(id: any) {
     const dialogConfig = new MatDialogConfig();

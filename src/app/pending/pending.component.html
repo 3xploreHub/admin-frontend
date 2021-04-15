@@ -23,5 +23,6 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openModal(row)"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[5,8,10]" showFirstLastButtons></mat-paginator>
 </div>
 <!-- <app-new-notification></app-new-notification> -->

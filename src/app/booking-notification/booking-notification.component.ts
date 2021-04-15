@@ -11,20 +11,26 @@ export class BookingNotificationComponent implements OnInit {
   hideShow = false;
   public data: any;
   public newNotif = true;
+  public counter1 : any
+  public counter2 : any
+  public bookings:any;
+  public pages:any
   keyWord: string = '';
   constructor(public adminService: AdminService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.adminService.currentPath = this.router.url.split("/").reverse()[0]
     if (this.adminService.currentPath.includes("?")) this.adminService.currentPath = this.adminService.currentPath.split("?")[0]
+    //for Badge Number
+    this.adminService.getAllBookings("Pending").subscribe((data)=>{
+      this.bookings = data
+      this.counter1 = this.bookings.length
     
-    // this.data = this.route.snapshot.firstChild ?.data.isHidden;
-    // this.router.events.subscribe(event => {
-    //   if (event instanceof NavigationEnd) {
-    //     this.data = this.route.snapshot.firstChild ?.data.isHidden;
-    //   }
-    // });
-
-    // dataEmit.filt
+    })
+    this.adminService.getAllPendingNotifications("Pending").subscribe((data)=>{
+      this.pages = data
+      this.counter2 = this.pages.length
+      
+    })
 
   }
 

@@ -12,10 +12,10 @@ import Swal from 'sweetalert2';
 })
 
 export class LoginComponent implements OnInit {
-
+  public alert = false;
   constructor(private authService: AdminService, private router: Router,
               private dialogService: DialogService ) { }
-  public alert = false;
+  
   public eye = false;
   public passwordOrText = 'password';
   public credentialsForm = {
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['bookingNotif']);
       } else {
         // if(!this.alert ){
-          !this.alert
+          this.alert == true;
           this.dialogService.openConfirmedDialog(partialDataHandler.sms);
           this.router.navigate(['']);
         // }

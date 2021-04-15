@@ -22,11 +22,10 @@ export class NotifDetailsComponent implements OnInit {
     this.services = this.data.services
 
     console.log("Mini: ",this.services);
-    let defaultName = this.services
-    defaultName.forEach(element => {
-      let quantity = element.data
-      quantity.splice(1, 1)
-    });
+    this.services = this.services.map(comp => {
+      comp.data = comp.data.filter(data => data.defaultName != "quantity")
+      return comp
+    })
   }
 
   getPendingPage(page) {

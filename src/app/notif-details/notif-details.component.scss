@@ -270,3 +270,56 @@ mat-dialog-content {
         text-align: center;
     }
 }
+
+//conversatin
+.inputMessageHolder {
+    justify-self: left;
+    align-self: center;
+    // position: sticky;
+    bottom: -24px;
+    left: 0;
+    box-sizing: border-box;
+    border-top: 1px solid #efefef;
+    // padding: 10px;
+    padding: 10px 56px 10px 10px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // display: flex;
+    background-color: rgb(150, 195, 240);
+    .inputMessage {
+        width: 95%;
+        margin: 0;
+        border-radius: 4px;
+        background-color: #ffff;
+        border: 1px solid rgb(154, 173, 197);
+        max-height: 100px;
+        padding: 10px 0px 10px 0px;
+    }
+    div.send {
+        flex-shrink: 0;
+        display: flex;
+        border-radius: 4px;
+        padding: 5px 20px 5px 20px;
+        background-color: #c3d7ec;
+        justify-content: center;
+        align-items: center;
+        float: right;
+        left: 46px !important;
+        margin-top: -42px;
+        position: relative;
+        z-index: 10;
+    }
+}
+
+.pageContainer {
+    padding-bottom: 57px !important;
+    box-sizing: none;
+    // background-color: #ffff !important;
+    // height: 100%;
+}
+
+::ng-deep .mat-tab-label {
+    padding: 0 111px !important;
+}

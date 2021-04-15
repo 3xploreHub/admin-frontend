@@ -24,6 +24,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatBadgeModule} from '@angular/material/badge';
 import { MatMenuModule} from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -43,6 +44,7 @@ import { PendingPagesNotificationComponent } from './pending-pages-notification/
 import { BookingNotificationComponent } from './booking-notification/booking-notification.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PagesNotificationsComponent } from './pages-notifications/pages-notifications.component';
+import { MessageBoxComponent } from './message-box/message-box.component';
 
 
 
@@ -70,6 +72,7 @@ import { PagesNotificationsComponent } from './pages-notifications/pages-notific
     BookingNotificationComponent,
     NotificationsComponent,
     PagesNotificationsComponent,
+    MessageBoxComponent,
     // FilterPipe
   ],
   imports: [
@@ -89,7 +92,8 @@ import { PagesNotificationsComponent } from './pages-notifications/pages-notific
     FormsModule,
     ReactiveFormsModule,
     MatBadgeModule,
-    MatMenuModule
+    MatMenuModule,
+    MatPaginatorModule
     // Pusher
   ],
   providers: [

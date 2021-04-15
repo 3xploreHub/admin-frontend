@@ -15,9 +15,9 @@
                 <button [routerLink]="['/pageToApprove']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
                 <button [routerLink]="['/bookingNotif']" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button> -->
 
-                <button [class.focused_notif]="adminService.currentPath == 'notif'" (click)="navBar('notif')" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Notifications</button>
-                <button [class.focused_page]="adminService.currentPath == 'pageToApprove'" (click)="navBar('pageToApprove')" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
-                <button [class.focused_booking]="adminService.currentPath == 'bookingNotif'" (click)="navBar('bookingNotif')" mat-stroked-button matBadge="6" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
+                <button [routerLink]="['/notif']" mat-stroked-button matBadge="0" matBadgePosition="after" matBadgeColor="accent" class="badge">Notifications</button>
+                <button [routerLink]="['/pageToApprove']" mat-stroked-button [matBadge]="counter2" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
+                <button [routerLink]="['/bookingNotif']" mat-stroked-button [matBadge]="counter1" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
             </div>
             <button mat-stroked-button class="button" (click)="logOut()">Logout <span class="material-icons" >logout</span></button>
         </div>

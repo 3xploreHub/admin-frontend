@@ -1,28 +1,4 @@
-<!-- <mat-dialog-content class="mat-typography" *ngFor="let details of pagesData">
-    <div>
-        <p class="pageName">{{ details.components.name }}</p>
-        <p class="pageInfo">{{ details.components.location }}</p>
-        <p class="pageInfo">{{ details.creator.fullName }}</p>
-
-
-    </div>
-    <div class="offeredService">
-        <div class="serviceHeader">Offered Services</div>
-        <div class="selectedItem boxShadowed2">
-            <div class="item">
-                <div class="itemInfo" *ngFor="let element of newObject">
-                    <div>
-                        <p class="label">{{ element.defaultName }}</p>
-                        <p class="value">{{ element.text }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</mat-dialog-content> -->
-
-<div class="modalContainer">
+<!-- <div class="modalContainer">
     <div id="modal-content-wrapper">
         <div *ngFor="let details of pagesData">
             <p class="pageName">{{ details.components.name }}</p>
@@ -85,4 +61,94 @@
 
         </mat-menu>
     </div>
-</div>
+</div> -->
+
+<mat-tab-group>
+    <mat-tab label="Information">
+        <div class="modalContainer">
+            <div id="modal-content-wrapper">
+                <div *ngFor="let details of pagesData">
+                    <p class="pageName">{{ details.components.name }}</p>
+                    <p class="pageInfo">{{ details.components.location }}</p>
+                    <p class="pageInfo">{{ details.creator.fullName }}</p>
+
+                    <div class="offeredService">
+                        <div class="serviceHeader">Services Offered</div>
+                        <div class="selectedItem boxShadowed2" *ngFor="let item of services">
+                            <div class="groupName">
+                                <p id="modal-title">{{ item.serviceGroupName }}</p>
+                                <hr>
+                                <p id="serviceName">Service Name</p>
+                            </div>
+                            <div class="item">
+                                <div class="itemInfo">
+                                    <div *ngFor="let element of item.data">
+                                        <p class="label">{{ element.defaultName }}</p>
+                                        <p class="value">{{ element.text }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modalFooter" *ngIf="pagesData[0].status === 'Pending'">
+            <div class="modal-footer" align="start" *ngFor="let item of pagesData">
+
+                <button mat-button mat-dialog-close id="modal-cancel-button"> <span class="material-icons">keyboard_arrow_left</span>Back</button>
+
+                <button mat-button [mat-dialog-close]="true" cdkFocusInitial id="process" (click)="getProcessPage(item)">On Process
+                                    <span class="material-icons">sync</span>
+                            </button>
+
+            </div>
+        </div>
+        <div class="modalFooter" *ngIf="pagesData[0].status === 'Processing'">
+            <div class="modal-footer" align="start" *ngFor="let onlineItem of pagesData">
+                <button mat-button mat-dialog-close id="modal-cancel-button"> <span class="material-icons">keyboard_arrow_left</span>Back</button>
+                <button mat-button [mat-dialog-close]="true" cdkFocusInitial id="approve" (click)="toApprove(onlineItem)">Approve
+                                <span class="material-icons" >check_circle</span>
+                                </button>
+                <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
+                                        restore</span></button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="getPendingPage(onlineItem)">Pending</button>
+                </mat-menu>
+            </div>
+        </div>
+        <div class="modalFooter" *ngIf="pagesData[0].status === 'Online'">
+            <div class="modal-footer" align="start" *ngFor="let each of pagesData">
+                <button mat-button mat-dialog-close id="modal-cancel-button"> <span class="material-icons">keyboard_arrow_left</span>Back</button>
+                <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
+                                            restore</span></button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="getPendingPage(each)">Pending</button>
+                    <button mat-menu-item (click)="getProcessPage(each)">Processing</button>
+
+                </mat-menu>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Conversation">
+        <div class="modalContainer">
+            <div class="pageContainer">
+                <!-- <app-message-box></app-message-box> -->
+                <app-message-box [position]="'right'"></app-message-box>
+                <app-message-box [position]="'left'"></app-message-box>
+                <app-message-box [position]="'right'"></app-message-box>
+                <app-message-box [position]="'left'"></app-message-box>
+                <app-message-box [position]="'left'"></app-message-box>
+            </div>
+        </div>
+
+        <div class="inputMessageHolder">
+            <textarea auto-grow="true" rows="1" placeholder="Enter other message here" class="inputMessage" type="text">
+                        </textarea>
+            <div class="send boxShadowed2">
+                <span class="material-icons" id="send">send</span>
+
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>

@@ -118,8 +118,25 @@
     </mat-tab>
     <mat-tab label="Conversation">
         <div class="modalContainer">
-            Conversation Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam repudiandae beatae laudantium doloremque, quo soluta officiis provident, dolor autem dolorum magni nostrum ea. Maxime vel beatae explicabo alias consequatur perferendis.
+            <div class="pageContainer">
+                <!-- <app-message-box></app-message-box> -->
+                <app-message-box [position]="'right'"></app-message-box>
+                <app-message-box [position]="'left'"></app-message-box>
+                <app-message-box [position]="'right'"></app-message-box>
+                <app-message-box [position]="'left'"></app-message-box>
+                <app-message-box [position]="'left'"></app-message-box>
+            </div>
         </div>
+
+        <div class="inputMessageHolder">
+            <textarea auto-grow="true" rows="1" placeholder="Enter other message here" class="inputMessage" type="text">
+                </textarea>
+            <div class="send boxShadowed2">
+                <span class="material-icons" id="send">send</span>
+
+            </div>
+        </div>
+
     </mat-tab>
 </mat-tab-group>
 

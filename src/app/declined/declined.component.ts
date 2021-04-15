@@ -3,7 +3,8 @@ import { AdminService } from './../service/admin.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 // import Swal from 'sweetalert2/dist/sweetalert2.js'
 // CommonJS
@@ -16,6 +17,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./declined.component.css']
 })
 export class DeclinedComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator : MatPaginator
   bookingAccount: any;
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
   dataSource: MatTableDataSource<any>;
@@ -25,6 +27,9 @@ export class DeclinedComponent implements OnInit {
       this.adminService.getAllBookings('Rejected').subscribe((data) => {
       this.bookingAccount = data;
       this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+        }, 0)
       if (this.adminService.bookingId) {
         console.log("booking accounts == ", this.bookingAccount)
         this.bookingAccount.forEach(booking => {

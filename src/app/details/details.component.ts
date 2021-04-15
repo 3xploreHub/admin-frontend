@@ -34,12 +34,23 @@ export class DetailsComponent implements OnInit {
     this.page = Array.of(this.data.pageId);
     console.log("click: ", this.booking);
     console.log("SelectedServicesData", this.booking[0].selectedServiceData[0]);
-    let defaultName = this.selectedService
-    defaultName.forEach(element => {
-      let quantity = element.data  
-      quantity.splice(1,1)
-    });
+    this.selectedService = this.selectedService.map(comp => {
+      comp.data = comp.data.filter(data => data.defaultName != "quantity")
+      return comp
+    })
+
+    
+
+    // quantity.forEach(el => {
+    //   console.log(el.defaultName);  
+
+    //   if(el.defaultName == "quantity"){
+    //   let quant = el.defaultName
+    //     quantity.splice(quant,1,1)    
+    //   }
+    // });
   }
+
 
   getValue(components, type) {
     let result = type == "quantity" ? 0 : "Untitled"
@@ -61,6 +72,7 @@ export class DetailsComponent implements OnInit {
       let service = { _id: item.service._id }
       const serviceData = item.service
       if (serviceData.booked + serviceData.manuallyBooked + 1 > this.getValue(serviceData.data, "quantity")) {
+        this.alert
         this.dialogService.openConfirmedDialog(this.getValue(serviceData.data, "name") + " has no more available item")
         // alert(this.getValue(serviceData.data, "name") + " has no more available item")
         valid = false

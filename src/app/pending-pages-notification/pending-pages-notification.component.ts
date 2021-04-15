@@ -36,7 +36,6 @@ export class PendingPagesNotificationComponent implements OnInit {
 
     })
   }
-
   ngOnInit(): void {
   }
 
