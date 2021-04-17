@@ -11,7 +11,7 @@ import {MatPaginator} from '@angular/material/paginator';
 @Component({
   selector: 'app-pending',
   templateUrl: './pending.component.html',
-  styleUrls: ['./pending.component.css']
+  styleUrls: ['./pending.component.scss']
 })
 export class PendingComponent implements OnInit {
   @ViewChild(MatPaginator) paginator : MatPaginator
@@ -27,6 +27,10 @@ export class PendingComponent implements OnInit {
       setTimeout(() => {
         this.dataSource.paginator = this.paginator;
         }, 0)
+
+        this.dataSource.filterPredicate = function (data, filter: string): boolean {
+          return data.tourist.fullName.toLocaleLowerCase().includes(filter)
+        }
       if (this.adminService.bookingId) {
         console.log("booking accounts == ", this.bookingAccount)
         this.bookingAccount.forEach(booking => {
@@ -49,6 +53,9 @@ export class PendingComponent implements OnInit {
       data : id,
       panelClass : 'custom-modalbox'
     });
+  }
+  applyFilter(value: string) {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 
 }

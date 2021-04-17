@@ -9,6 +9,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { PusherService } from '../pusher.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataSource } from '@angular/cdk/table';
+// export interface PeriodicElement {
+//   id :Number;
+//   fullName: string;
+//   localtion:string;
+//   dateProcess:Date
+// }
 @Component({
   selector: 'app-new-notification',
   templateUrl: './new-notification.component.html',
@@ -22,7 +28,7 @@ export class NewNotificationComponent implements OnInit {
   @Output() searchBooking = new EventEmitter<String>();
   @ViewChild(MatPaginator) paginator: MatPaginator
 
-  
+
 
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
   dataSource: MatTableDataSource<any>;
@@ -32,21 +38,20 @@ export class NewNotificationComponent implements OnInit {
       this.bookingAccount = data;
       this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
       console.log("maw: ", this.dataSource);
-     
+
 
       setTimeout(() => {
         this.dataSource.paginator = this.paginator;
       }, 0)
-       this.dataSource.filterPredicate = function (data:any, filter: string): boolean {
-        console.log("esprokitik: ",data); 
-        return data.toLowerCase().includes(filter)
+      this.dataSource.filterPredicate = function (data, filter: string): boolean {
+        return data.tourist.fullName.toLocaleLowerCase().includes(filter)
       }
-     
+
       if (this.adminService.bookingId) {
         console.log("booking accounts == ", this.bookingAccount)
         this.bookingAccount.forEach(booking => {
           if (booking._id == this.adminService.bookingId) {
-            console.log("here::::", booking)  
+            console.log("here::::", booking)
             this.openModal(booking)
             this.adminService.bookingId = ""
           }
@@ -65,9 +70,9 @@ export class NewNotificationComponent implements OnInit {
       panelClass: 'custom-modalbox'
     });
   }
-  
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  applyFilter(value: string) {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 
 }

@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-declined',
   templateUrl: './declined.component.html',
-  styleUrls: ['./declined.component.css']
+  styleUrls: ['./declined.component.scss']
 })
 export class DeclinedComponent implements OnInit {
   @ViewChild(MatPaginator) paginator : MatPaginator
@@ -30,6 +30,9 @@ export class DeclinedComponent implements OnInit {
       setTimeout(() => {
         this.dataSource.paginator = this.paginator;
         }, 0)
+        this.dataSource.filterPredicate = function (data, filter: string): boolean {
+          return data.tourist.fullName.toLocaleLowerCase().includes(filter)
+        }
       if (this.adminService.bookingId) {
         console.log("booking accounts == ", this.bookingAccount)
         this.bookingAccount.forEach(booking => {
@@ -53,6 +56,9 @@ export class DeclinedComponent implements OnInit {
       data : id,
       panelClass : 'custom-modalbox'
     });
+  }
+  applyFilter(value: string) {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 
 }

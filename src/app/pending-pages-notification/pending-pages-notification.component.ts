@@ -13,9 +13,11 @@ export class PendingPagesNotificationComponent implements OnInit {
 
   public pages: any;
   public processData: any;
-  public onlineData: any
-  // public creator:any;
-  // public creator1:any;
+  public onlineData: any;
+  public pendingCount: any;
+  public processCount: any;
+  public pageNumCount: any
+
 
   constructor(private router: Router,
     public dialog: MatDialog,
@@ -24,19 +26,22 @@ export class PendingPagesNotificationComponent implements OnInit {
   ) {
     this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
       this.pages = data
-      // this.creator = Array.of(this.pages[0].creator);
+      this.pendingCount = this.pages.length
 
-      console.log("pending: ",this.pages);
-      
     })
     this.adminService.getAllPendingNotifications("Processing").subscribe((data) => {
       this.processData = data
-      // this.creator1 = Array.of(this.processData.creator);
-      console.log("processing: ",this.processData);
+      this.processCount = this.processData.length
+      this.pageNumCount = this.pendingCount + this.processCount
+      console.log("length: ", this.pageNumCount);
+
 
     })
+
   }
   ngOnInit(): void {
+
+
   }
 
   // openModal(id: any) {
@@ -53,12 +58,12 @@ export class PendingPagesNotificationComponent implements OnInit {
   // }
   openModal(id) {
     this.dialog.open(NotifDetailsComponent, {
-      disableClose : false,
-      id : 'modal-component',
-      data : id,
-      panelClass : 'custom-modalbox'
+      disableClose: false,
+      id: 'modal-component',
+      data: id,
+      panelClass: 'custom-modalbox'
     });
   }
-  
+
 
 }

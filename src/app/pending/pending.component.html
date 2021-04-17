@@ -1,5 +1,8 @@
 <div>
     <h1>Pending Request</h1>
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search via full name..." />
+    </mat-form-field>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef class="head"></th>
@@ -23,6 +26,6 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openModal(row)"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5,8,10]" showFirstLastButtons></mat-paginator>
+    <mat-paginator class="pagination" [pageSizeOptions]="[5,8,10]" showFirstLastButtons></mat-paginator>
 </div>
 <!-- <app-new-notification></app-new-notification> -->

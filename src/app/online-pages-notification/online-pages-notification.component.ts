@@ -12,7 +12,8 @@ import { Component, OnInit } from '@angular/core';
 export class OnlinePagesNotificationComponent implements OnInit {
   public pages: any;
   public processData: any;
-  public onlineData: any
+  public onlineData: any;
+  public length:any
   constructor(private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -20,6 +21,9 @@ export class OnlinePagesNotificationComponent implements OnInit {
   ) {
     this.adminService.getAllPendingNotifications("Online").subscribe((data) => {
       this.onlineData = data
+      this.length = this.onlineData.length
+      console.log("Length: ",this.length);
+      
       if (this.adminService.bookingId) {
         console.log("booking accounts == ", this.processData)
         // this.processData.forEach(booking => {

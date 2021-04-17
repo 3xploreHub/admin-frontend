@@ -3,13 +3,6 @@
         <div>
             <span>Explorehub</span>
             <span class="example-spacer"></span>
-            <div class="search">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Search</mat-label>
-                    <input type="text" matInput>
-                    <!-- (dataEmit)="filter($event)" [passData]="data" -->
-                </mat-form-field>
-            </div>
             <div class="tab">
                 <button [routerLink]="['/notif']" mat-stroked-button matBadge="0" matBadgePosition="after" matBadgeColor="accent" class="badge">Notifications</button>
                 <button [routerLink]="['/pageToApprove']" mat-stroked-button [matBadge]="counter2" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
