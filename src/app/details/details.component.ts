@@ -86,7 +86,6 @@ export class DetailsComponent implements OnInit {
         const serviceData = item.service
         const toBeBooked = serviceData.toBeBooked - 1
         if (serviceData.booked + serviceData.manuallyBooked + toBeBooked + 1 > this.getValue(serviceData.data, "quantity")) {
-
           this.dialogService.openConfirmedDialog(this.getValue(serviceData.data, "name") + " has no more available item")
           valid = false
         } else {
@@ -123,18 +122,24 @@ export class DetailsComponent implements OnInit {
   toOnProcess(booking) {
     const pageName = this.page[0].components.name
     const touristName = this.booking[0].tourist.fullName
-    const notif = {
-      bookingId: booking._id,
-      pageName: pageName,
-      serviceProviderReceiver: booking.pageId.creator._id,
-      status: "Processing",
-      messageForServiceProvider: `${touristName}'s booking is on process`,
-      messageForTourist: `Your booking to "${pageName}" is now on process`,
-      touristReceiver: booking.tourist._id
-    }
-
     this.adminService.getBooking(booking._id).subscribe(
       (bookingData: any) => {
+        let servicesToUpdate = bookingData.selectedServices.map(item => {
+          const serviceData = item.service
+          let service = { _id: serviceData._id, bookingData: { toBeBooked: serviceData.toBeBooked + 1 } }
+          return service
+        })
+        const notif = {
+          bookingId: booking._id,
+          pageName: pageName,
+          servicesToUpdate: servicesToUpdate,
+          serviceProviderReceiver: booking.pageId.creator._id,
+          status: "Processing",
+          messageForServiceProvider: `${touristName}'s booking is on process`,
+          messageForTourist: `Your booking to "${pageName}" is now on process`,
+          touristReceiver: booking.tourist._id
+        }
+
         this.checkAvailability(bookingData).then(hasAvailable => {
           if (hasAvailable) {
             this.adminService.setBookingStatus(notif).subscribe((data: any) => {
@@ -153,13 +158,10 @@ export class DetailsComponent implements OnInit {
     const touristName = this.booking[0].tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
-        let service = { _id: item.service._id }
         const serviceData = item.service
-        if (item.isManual) {
-          service["bookingData"] = { manuallyBooked: serviceData.manuallyBooked + 1 }
-        }
-        else {
-          service["bookingData"] = { booked: serviceData.booked - 1 }
+        let service = { _id: serviceData._id, bookingData: { toBeBooked: serviceData.toBeBooked + 1 } }
+        if (booking.status == "Booked") {
+          service.bookingData["booked"] = serviceData.booked - 1
         }
         return service
       })
@@ -184,19 +186,35 @@ export class DetailsComponent implements OnInit {
   toPending(booking) {
     const pageName = this.page[0].components.name
     const touristName = this.booking[0].tourist.fullName
-    const notif = {
-      bookingId: booking._id,
-      pageName: pageName,
-      serviceProviderReceiver: booking.pageId.creator._id,
-      status: "Pending",
-      messageForServiceProvider: `${touristName}'s booking is still pending`,
-      messageForTourist: `Your booking to "${pageName}" was returned to pending`,
-      touristReceiver: booking.tourist._id
-    }
-    this.adminService.setBookingStatus(notif).subscribe((data: any) => {
-      this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
-      this.dialogRef.close(data._id)
-    });
+    this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
+      let servicesToUpdate;
+      if (bookingData.status == "Processing") {
+        servicesToUpdate = bookingData.selectedServices.map(item => {
+          let service = { _id: item.service._id }
+          const serviceData = item.service
+          if (bookingData.status == "Booked") {
+            service["bookingData"] = { booked: serviceData.booked - 1 }
+          } else if (bookingData.status == "Processing") {
+            service["bookingData"] = { toBeBooked: serviceData.toBeBooked - 1 }
+          }
+          return service
+        })
+      }
+      const notif = {
+        bookingId: booking._id,
+        pageName: pageName,
+        servicesToUpdate: servicesToUpdate,
+        serviceProviderReceiver: booking.pageId.creator._id,
+        status: "Pending",
+        messageForServiceProvider: `${touristName}'s booking is still pending`,
+        messageForTourist: `Your booking to "${pageName}" was returned to pending`,
+        touristReceiver: booking.tourist._id
+      }
+      this.adminService.setBookingStatus(notif).subscribe((data: any) => {
+        this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
+        this.dialogRef.close(data._id)
+      });
+    })
   }
 
   returnToPending(booking) {
@@ -206,11 +224,10 @@ export class DetailsComponent implements OnInit {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
         let service = { _id: item.service._id }
         const serviceData = item.service
-        if (item.isManual) {
-          service["bookingData"] = { manuallyBooked: serviceData.manuallyBooked + 1 }
-        }
-        else {
+        if (bookingData.status == "Booked") {
           service["bookingData"] = { booked: serviceData.booked - 1 }
+        } else if (bookingData.status == "Processing") {
+          service["bookingData"] = { toBeBooked: serviceData.toBeBooked - 1 }
         }
         return service
       })
@@ -224,6 +241,7 @@ export class DetailsComponent implements OnInit {
         messageForTourist: `Your booking to "${pageName}" was returned to pending`,
         touristReceiver: booking.tourist._id
       }
+      console.log(notif);
 
       this.adminService.setBookingStatus(notif).subscribe((data: any) => {
         this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
@@ -235,19 +253,32 @@ export class DetailsComponent implements OnInit {
   declinedFunction(booking) {
     const pageName = this.page[0].components.name
     const touristName = this.booking[0].tourist.fullName
-    const notif = {
-      bookingId: booking._id,
-      pageName: pageName,
-      serviceProviderReceiver: booking.pageId.creator._id,
-      status: "Rejected",
-      messageForServiceProvider: `${touristName}'s booking was declined`,
-      messageForTourist: `Your booking to "${pageName}" has been declined`,
-      touristReceiver: booking.tourist._id
-    }
-    this.adminService.setBookingStatus(notif).subscribe((data: any) => {
-      this.adminService.notify({ user: this.adminService.user, booking: data, type: "Rejected_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin declined a booking` })
-      this.dialogRef.close(data._id)
-    });
+    this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
+      let servicesToUpdate = bookingData.selectedServices.map(item => {
+        let service = { _id: item.service._id }
+        const serviceData = item.service
+        if (bookingData.status == "Booked") {
+          service["bookingData"] = { booked: serviceData.booked - 1 }
+        } else if (bookingData.status == "Processing") {
+          service["bookingData"] = { toBeBooked: serviceData.toBeBooked - 1 }
+        }
+        return service
+      })
+      const notif = {
+        bookingId: booking._id,
+        pageName: pageName,
+        servicesToUpdate: servicesToUpdate,
+        serviceProviderReceiver: booking.pageId.creator._id,
+        status: "Rejected",
+        messageForServiceProvider: `${touristName}'s booking was declined`,
+        messageForTourist: `Your booking to "${pageName}" has been declined`,
+        touristReceiver: booking.tourist._id
+      }
+      this.adminService.setBookingStatus(notif).subscribe((data: any) => {
+        this.adminService.notify({ user: this.adminService.user, booking: data, type: "Rejected_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin declined a booking` })
+        this.dialogRef.close(data._id)
+      });
+    })
   }
 
   closeModal() {
