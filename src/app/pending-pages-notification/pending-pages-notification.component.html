@@ -1,0 +1,39 @@
+<h1>{{ pageNumCount }} Pages needs to be approved!</h1>
+
+<div class="container">
+    <mat-card class="example-card" *ngFor="let item of pages" (click)="openModal(item)">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{ item.creator.fullName }}</mat-card-title>
+            <mat-card-subtitle>Owner</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{ item.components.image }}">
+        <mat-card-content style="margin-bottom:14%">
+            <h3>{{ item.components.name }}</h3>
+            <p>Location: <span>{{ item.components.location }}</span></p>
+            <p>Type: <span>{{ item.pageType }}</span> </p>
+        </mat-card-content>
+        <div class="status"><span class="material-icons pendingIcon">
+                hourglass_empty
+                </span>
+            <div>Pending</div>
+        </div>
+
+    </mat-card>
+    <mat-card class="example-card" *ngFor="let process of processData" (click)="openModal(process)">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{ process.creator.fullName }}</mat-card-title>
+            <mat-card-subtitle>Owner</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{ process.components.image }}">
+        <mat-card-content style="margin-bottom:14%">
+            <h3>{{ process.components.name }}</h3>
+            <p>Location: <span>{{ process.components.location }}</span></p>
+            <p>Type: <span>{{ process.pageType }}</span> </p>
+        </mat-card-content>
+        <div class="processing"><span class="material-icons processIcon">rotate_right</span>
+            <div>Processing</div>
+        </div>
+    </mat-card>
+</div>

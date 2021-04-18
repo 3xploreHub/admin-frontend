@@ -1,34 +1,36 @@
 <body>
     <div class="example-card">
         <mat-card>
-            <span class="material-icons">account_circle</span>
-            <mat-card-title>Log in here</mat-card-title><br><br>
-            <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)" class="example-form">
+            <span class="material-icons account">account_circle</span>
+            <mat-card-title>Log In</mat-card-title><br><br>
+            <form #loginForm="ngForm" class="example-form">
                 <div class="form-group">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Email</mat-label>
-                        <input type="email" class="form-control" name="mail" [(ngModel)]="credentialsForm.email" #email="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #mail="ngModel" matInput>
-                    </mat-form-field>
-                    <span *ngIf="mail.invalid && mail.touched" class="error">Email is invalid</span>
-
+                    <!-- appearance="fill" -->
+                    <div><span class="material-icons user">account_box</span></div>
+                    <div>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Username</mat-label>
+                            <input type="text" class="form-control" name="username" [(ngModel)]="credentialsForm.username" required #username="ngModel" matInput>
+                        </mat-form-field>
+                    </div>
                 </div>
+
                 <div class="form-group">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Password</mat-label>
-                        <input type="password" class="form-control" name="password" [(ngModel)]="credentialsForm.password" #password="ngModel" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" matInput>
-                    </mat-form-field>
-                    <span *ngIf="password.invalid && password.touched" class="error">Password is invalid</span>
-
+                    <div><span class="material-icons lock">lock</span></div>
+                    <div>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Password</mat-label>
+                            <input [type]="eye ? 'text' : 'password'" class="form-control" name="password" [(ngModel)]="credentialsForm.password" #password="ngModel" required matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="eye">
+                        <span class="material-icons eye" *ngIf="eye" (click)="showAndHide()"> visibility</span>
+                        <span class="material-icons eye" *ngIf="!eye" (click)="showAndHide()">visibility_off</span>
+                    </div>
                 </div>
-                <button type="submit" mat-stroked-button [routerLink]="['/notif']" routerLinkActive="router-link-active" [disabled]="loginForm.invalid">LOGIN</button>
+
+                <button type="submit" mat-stroked-button (click)="onSubmit()" [disabled]="loginForm.invalid">LOGIN</button>
             </form>
         </mat-card>
     </div>
 </body>
-
-<!-- <div class="login">
-    <div>
-        <input type="text">
-        <button></button>
-    </div>
-</div> -->

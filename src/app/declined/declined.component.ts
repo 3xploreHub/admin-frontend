@@ -1,39 +1,69 @@
-import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2'
+import { DeclinedDetailsComponent } from './../declined-details/declined-details.component';
+import { AdminService } from './../service/admin.service';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import Swal from 'sweetalert2';
 // import Swal from 'sweetalert2/dist/sweetalert2.js'
 // CommonJS
 // const Swal = require('sweetalert2')
+
+
 @Component({
   selector: 'app-declined',
   templateUrl: './declined.component.html',
-  styleUrls: ['./declined.component.css']
+  styleUrls: ['./declined.component.scss']
 })
 export class DeclinedComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator
+  bookingAccount: any;
+  displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
+  dataSource: MatTableDataSource<any>;
+  constructor(public dialog: MatDialog,
+    private adminService: AdminService,
+    public route: ActivatedRoute,) {
+    this.getBookings()
 
-  constructor() { }
+  }
 
   ngOnInit(): void {
-  }
-  restore() {
-    Swal.fire({
-      // title: 'Are you sure?',
-      text: "Are you sure You want to restore request?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, restore it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          // position: 'top-end',
-          icon: 'success',
-          title: 'Request has been restored!',
-          showConfirmButton: false,
-          timer: 1500
-        })
+    this.adminService.notification.subscribe(
+      (data: any) => { 
+        if (data.booking && data.booking.status == "Rejected" || data.booking && data.booking.status == "Pending") {
+          this.getBookings()
+        }
       }
-    })
-
+    )
   }
+
+  getBookings() {
+    this.adminService.getAllBookings('Rejected').subscribe((data) => {
+      this.bookingAccount = data;
+      this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
+      this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+      }, 0)
+      this.dataSource.filterPredicate = function (data, filter: string): boolean {
+        return data.tourist.fullName.toLocaleLowerCase().includes(filter)
+      }
+    }
+    );
+  }
+
+  openModal(id) {
+    this.dialog.open(DeclinedDetailsComponent, {
+      disableClose: false,
+      id: 'modal-component',
+      data: id,
+      panelClass: 'custom-modalbox'
+    });
+  }
+
+  applyFilter(value: string) {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
 }

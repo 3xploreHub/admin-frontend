@@ -1,3 +1,4 @@
+//toolbar
 .toolbar {
     top: 0;
     left: 0;
@@ -5,8 +6,6 @@
     height: 60px;
     width: 100%;
     display: flex;
-    // justify-content: center;
-    // align-items: center;
     background: rgb(4, 128, 230);
     color: white;
     font-weight: 18px;
@@ -17,10 +16,10 @@
     .search {
         display: inline-block;
         width: 40%;
-        margin-top: 1vh;
         .example-full-width {
             width: 100%;
-            margin-top: 1vh;
+            margin-top: 2vh;
+            background: transparent;
         }
     }
     .tab {
@@ -30,44 +29,64 @@
     .mat-stroked-button {
         background-color: rgb(0, 153, 255);
         letter-spacing: 2px !important;
-        // text-align: end;
-        margin-left: 5vh
+        left: 9%;
     }
 }
 
 .status {
     width: 100%;
-    background: #1299e857;
+    background: #eff4f757;
     justify-content: center;
     text-align: center;
-    // margin-top: 3vh;
-    // .statlabel {
-    //     // margin-top: 1%;
-    // }
+    top: 60px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    width: 100%;
+    display: flex;
 }
 
-#new,
-#pending,
-#booked,
-#declined {
+.focused_pending {
+    background-color: #a1d0e7 !important;
+}
+
+.focused_online {
+    background-color: rgb(180, 218, 218) !important;
+}
+
+#online,
+#pending {
     font-size: 18px;
     padding-bottom: 1%;
     padding-top: 1%;
-    font-family: math;
-}
-
-#new {
-    color: #0a9aef;
 }
 
 #pending {
+    color: #0a9aef;
+}
+
+#online {
     color: rgb(3, 124, 124);
 }
 
-#booked {
-    color: rgb(4, 146, 4);
+.service {
+    color: white;
+    font-weight: inherit;
 }
 
-#declined {
-    color: rgb(179, 7, 7);
+.mat-raised-button {
+    background: rgb(0, 153, 255);
+    color: white;
+    margin-left: 13%;
+}
+
+.badge,
+.button {
+    margin: 4%;
+}
+
+.container {
+    position: fixed;
+    z-index: 10;
+    top: 0
 }

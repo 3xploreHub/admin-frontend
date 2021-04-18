@@ -1,5 +1,10 @@
+import { DialogService } from './../service/dialog.service';
+import { AdminService } from './../service/admin.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,19 +12,43 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 
 export class LoginComponent implements OnInit {
-  public emailMessage = false
-  public passwordMessage = false
-  constructor(private formBuilder: FormBuilder  ) { }
+  public alert = false;
+  constructor(private authService: AdminService, private router: Router,
+              private dialogService: DialogService ) { }
+  
+  public eye = false;
+  public passwordOrText = 'password';
   public credentialsForm = {
-    email: "",
-    password: ""
+    username: '',
+    password: ''
+  };
+  public serverErrorMessages = '';
+  ngOnInit() {
+
+  }
+  onSubmit() {
+    let partialDataHandler;
+    this.authService.login(this.credentialsForm).subscribe((user:any) => {
+      partialDataHandler = user;
+      if (partialDataHandler.status != false) {
+        this.authService.setToken(user.token);
+        this.router.navigate(['bookingNotif']);
+      } else {
+        // if(!this.alert ){
+          this.alert == true;
+          this.dialogService.openConfirmedDialog(partialDataHandler.sms);
+          this.router.navigate(['']);
+        // }
+       
+      }
+    });
+  }
+  showAndHide(){
+   this.eye = !this.eye;
   }
 
-  ngOnInit() {
+  goToAboutPage() {
+    this.router.navigate(['About']); // here "About" is name not path
   }
-  onSubmit(value:string){
-    console.log("value",value);
-    
-  }
-  
+
 }

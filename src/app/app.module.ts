@@ -1,3 +1,5 @@
+import { AdminService } from './service/admin.service';
+import { AuthGuard } from './auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -5,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 // import { FilterPipe } from './pipes/filter.pipe';
 
@@ -17,31 +20,65 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatBadgeModule} from '@angular/material/badge';
+import { MatMenuModule} from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
+
 
 import { LoginComponent } from './login/login.component';
-import { NotificationComponent } from './notification/notification.component';
 import { DetailsComponent } from './details/details.component';
 import { NewNotificationComponent } from './new-notification/new-notification.component';
 import { PendingComponent } from './pending/pending.component';
 import { BookedComponent } from './booked/booked.component';
 import { DeclinedComponent } from './declined/declined.component';
 import { PendingDetailsComponent } from './pending-details/pending-details.component';
+import { MatDialogComponent } from './mat-dialog/mat-dialog.component';
+import { BookedDetailsComponent } from './booked-details/booked-details.component';
+import { DeclinedDetailsComponent } from './declined-details/declined-details.component';
+import { NotifDetailsComponent } from './notif-details/notif-details.component';
+import { OnlinePagesNotificationComponent } from './online-pages-notification/online-pages-notification.component';
+import { PendingPagesNotificationComponent } from './pending-pages-notification/pending-pages-notification.component';
+import { BookingNotificationComponent } from './booking-notification/booking-notification.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { PagesNotificationsComponent } from './pages-notifications/pages-notifications.component';
+import { MessageBoxComponent } from './message-box/message-box.component';
+
+import { environment } from '../environments/environment';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { NotificationHandlerComponent } from './notification-handler/notification-handler.component';
+const config: SocketIoConfig = { url: "http://localhost:3000", options: {} };
+
+// export function tokenGetter() {
+//   return localStorage.getItem('access_token');
+// }
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NotificationComponent,
     DetailsComponent,
     NewNotificationComponent,
     PendingComponent,
     BookedComponent,
     DeclinedComponent,
     PendingDetailsComponent,
+    MatDialogComponent,
+    BookedDetailsComponent,
+    DeclinedDetailsComponent,
+    NotifDetailsComponent,
+    OnlinePagesNotificationComponent,
+    PendingPagesNotificationComponent,
+    BookingNotificationComponent,
+    NotificationsComponent,
+    PagesNotificationsComponent,
+    MessageBoxComponent,
+    NotificationHandlerComponent,
     // FilterPipe
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -54,9 +91,18 @@ import { PendingDetailsComponent } from './pending-details/pending-details.compo
     MatDialogModule,
     MatGridListModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatBadgeModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    SocketIoModule.forRoot(config)
+    // Pusher
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    AdminService,
+    AuthGuard,
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [MatDialogComponent]
 })
 export class AppModule { }
