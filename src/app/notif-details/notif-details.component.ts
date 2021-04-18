@@ -42,6 +42,7 @@ export class NotifDetailsComponent implements OnInit {
     })
     this.router.navigate(['/pageToApprove/pendingPages'])
   }
+
   getProcessPage(page) {
     const pageName = this.pagesData[0].components.name
     alert(page._id)
@@ -52,6 +53,7 @@ export class NotifDetailsComponent implements OnInit {
       status: "Processing",
       message: `Your page ${pageName} is already on the process`,
     }
+    // this.adminService.notify({ user: this.adminService.user, bookingId: this.booking._id, type: "Cancelled_booking-provider", receiver: notificationData.receiver, message: notificationData.message })
     this.adminService.setPageStatus(notif).subscribe((data) => {
       this.closeDialog()
     })

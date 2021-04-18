@@ -94,13 +94,14 @@ export class DetailsComponent implements OnInit {
         messageForTourist: `Your booking to "${pageName}" has been granted`,
         touristReceiver: booking.tourist._id
       }
-      this.adminService.setBookingStatus(notif).subscribe((data) => {
+      this.adminService.setBookingStatus(notif).subscribe((data:any) => {
+        this.adminService.currentPath = "booked"
+        this.adminService.bookingId = booking._id
+        this.router.navigate(['/bookingNotif/booked']);
+        this.closeModal();
+        this.adminService.notify({ user: this.adminService.user, booking: data , type: "Booked_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
       });
     }
-    this.adminService.currentPath = "booked"
-    this.adminService.bookingId = booking._id
-    this.router.navigate(['/bookingNotif/booked']);
-    this.closeModal();
   }
 
   toOnProcess(booking) {
@@ -116,12 +117,18 @@ export class DetailsComponent implements OnInit {
       touristReceiver: booking.tourist._id
     }
 
-    this.adminService.setBookingStatus(notif).subscribe((data) => { });
-    this.adminService.currentPath = "pending"
-    this.adminService.bookingId = booking._id
-    this.router.navigate(['/bookingNotif/pending']);
-    this.closeModal();
+    this.adminService.setBookingStatus(notif).subscribe((data:any) => {
+      this.adminService.currentPath = "pending"
+      this.adminService.bookingId = booking._id
+      this.router.navigate(['/bookingNotif/pending']);
+      this.closeModal();
+      alert("here")
+      console.log(data);
+      
+      this.adminService.notify({ user: this.adminService.user, booking:data , type: "Processing_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
+    });
   }
+
   returnToOnProcess(booking) {
     const pageName = this.page[0].components.name
     const touristName = this.booking[0].tourist.fullName
@@ -147,11 +154,14 @@ export class DetailsComponent implements OnInit {
       touristReceiver: booking.tourist._id
     }
 
-    this.adminService.setBookingStatus(notif).subscribe((data) => { });
-    this.adminService.currentPath = "pending"
-    this.adminService.bookingId = booking._id
-    this.router.navigate(['/bookingNotif/pending']);
-    this.closeModal();
+    this.adminService.setBookingStatus(notif).subscribe((data:any) => { 
+
+      this.adminService.currentPath = "pending"
+      this.adminService.bookingId = booking._id
+      this.router.navigate(['/bookingNotif/pending']);
+      this.closeModal();
+      this.adminService.notify({ user: this.adminService.user, booking: data , type: "Processing_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
+    });
   }
 
   toPending(booking) {
@@ -166,11 +176,13 @@ export class DetailsComponent implements OnInit {
       messageForTourist: `Your booking to "${pageName}" was returned to pending`,
       touristReceiver: booking.tourist._id
     }
-    this.adminService.setBookingStatus(notif).subscribe((data) => { });
-    this.adminService.currentPath = "new"
-    this.adminService.bookingId = booking._id
-    this.router.navigate(['bookingNotif/new']);
-    this.closeModal();
+    this.adminService.setBookingStatus(notif).subscribe((data:any) => {
+      this.adminService.notify({ user: this.adminService.user, booking: data , type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
+      this.adminService.currentPath = "new"
+      this.adminService.bookingId = booking._id
+      this.router.navigate(['bookingNotif/new']);
+      this.closeModal();
+    });
   }
 
   returnToPending(booking) {
@@ -198,11 +210,13 @@ export class DetailsComponent implements OnInit {
       touristReceiver: booking.tourist._id
     }
 
-    this.adminService.setBookingStatus(notif).subscribe((data) => { });
-    this.adminService.currentPath = "new"
-    this.adminService.bookingId = booking._id
-    this.router.navigate(['/bookingNotif/new']);
-    this.closeModal();
+    this.adminService.setBookingStatus(notif).subscribe((data:any) => {
+      this.adminService.notify({ user: this.adminService.user, booking: data , type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
+      this.adminService.currentPath = "new"
+      this.adminService.bookingId = booking._id
+      this.router.navigate(['/bookingNotif/new']);
+      this.closeModal();
+    });
   }
 
   declinedFunction(booking) {
@@ -217,11 +231,13 @@ export class DetailsComponent implements OnInit {
       messageForTourist: `Your booking to "${pageName}" has been declined`,
       touristReceiver: booking.tourist._id
     }
-    this.adminService.setBookingStatus(notif).subscribe((data) => { });
-    this.adminService.currentPath = "declined"
-    this.adminService.bookingId = booking._id
-    this.router.navigate(['/bookingNotif/declined']);
-    this.closeModal();
+    this.adminService.setBookingStatus(notif).subscribe((data:any) => { 
+      this.adminService.currentPath = "declined"
+      this.adminService.bookingId = booking._id
+      this.router.navigate(['/bookingNotif/declined']);
+      this.closeModal();
+      this.adminService.notify({ user: this.adminService.user, booking: data , type: "Rejected_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin declined a booking` })
+    });
   }
 
   closeModal() {

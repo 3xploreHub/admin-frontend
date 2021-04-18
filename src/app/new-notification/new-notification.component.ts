@@ -34,8 +34,8 @@ export class NewNotificationComponent implements OnInit {
   constructor(public dialog: MatDialog, 
     private adminService: AdminService, public route: ActivatedRoute, ) {
     this.getBookings()
-    
   }
+
   ngOnInit(): void {
     this.adminService.notification.subscribe(
       (data:any) => {
