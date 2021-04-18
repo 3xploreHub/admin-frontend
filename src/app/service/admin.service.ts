@@ -83,5 +83,13 @@ export class AdminService {
     return this.http.post(`${this.apiUrl}/setBookingStatus`,data)
   }
 
+  getBooking(bookingId) {
+    let url = this.apiUrl.split("/")
+    url.splice(url.length -1, 1)
+    let apiUrl = url.join("/")
+    let token = localStorage.getItem("token")
+    return this.http.get(`${apiUrl}/service-provider/viewBooking/${bookingId}`, {headers: {authorization: `bearer ${token}`}})
+  }
+
 }
 

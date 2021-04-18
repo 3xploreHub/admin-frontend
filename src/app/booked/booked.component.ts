@@ -26,7 +26,7 @@ export class BookedComponent implements OnInit {
   ngOnInit(): void {
     this.adminService.notification.subscribe(
       (data: any) => {
-        if (data.booking && data.booking.status == "Booked" || data.booking && data.booking.status == "Cancelled") {
+        if (data.booking && data.booking.status == "Booked" || data.booking && data.booking.status == "Closed" || data.booking && data.booking.status == "Cancelled") {
           this.getBookings()
         }
       }
@@ -37,33 +37,37 @@ export class BookedComponent implements OnInit {
     this.adminService.getAllBookings('Booked').subscribe((data: any[]) => {
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
-      this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
-      setTimeout(() => {
-        this.dataSource.paginator = this.paginator;
-      }, 0)
-
-      this.dataSource.filterPredicate = function (data, filter: string): boolean {
-        return data.tourist.fullName.toLocaleLowerCase().includes(filter)
-      }
-      if (this.adminService.bookingId) {
-        this.bookingAccount.forEach(booking => {
-          if (booking._id == this.adminService.bookingId) {
-            // this.openModal(booking)
-            this.adminService.bookingId = ""
-          }
-        })
-      }
+      this.populateTable();
     }
     );
   }
 
+  populateTable() {
+    this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
+
+    // setTimeout(() => {
+    this.dataSource.paginator = this.paginator;
+    // }, 100)
+
+    this.dataSource.filterPredicate = function (data, filter: string): boolean {
+      return data.tourist.fullName.toLocaleLowerCase().includes(filter)
+    }
+  }
+
   openModal(id) {
-    this.dialog.open(BookedDetailsComponent, {
+    const dialogRef = this.dialog.open(BookedDetailsComponent, {
       disableClose: false,
       id: 'modal-component',
       data: id,
       panelClass: 'custom-modalbox'
     })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.bookingAccount = this.bookingAccount.filter(booking => booking._id != result)
+        this.populateTable()
+      }
+    });
   }
   applyFilter(value: string) {
     this.dataSource.filter = value.trim().toLocaleLowerCase();

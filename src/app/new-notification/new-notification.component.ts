@@ -55,11 +55,18 @@ export class NewNotificationComponent implements OnInit {
   }
 
   openModal(id: any) {
-    this.dialog.open(DetailsComponent, {
+    const dialogRef = this.dialog.open(DetailsComponent, {
       disableClose: false,
       id: 'modal-component',
       data: id,
       panelClass: 'custom-modalbox'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.bookingAccount = this.bookingAccount.filter(booking => booking._id != result)
+        this.populateTable()
+      }
     });
   }
 

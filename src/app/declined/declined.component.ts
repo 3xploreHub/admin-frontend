@@ -42,23 +42,34 @@ export class DeclinedComponent implements OnInit {
     this.adminService.getAllBookings('Rejected').subscribe((data) => {
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
-      this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
-      setTimeout(() => {
-        this.dataSource.paginator = this.paginator;
-      }, 0)
-      this.dataSource.filterPredicate = function (data, filter: string): boolean {
-        return data.tourist.fullName.toLocaleLowerCase().includes(filter)
-      }
+      this.populateTable()
     }
     );
   }
 
+  populateTable() {
+    this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+    }, 0)
+    this.dataSource.filterPredicate = function (data, filter: string): boolean {
+      return data.tourist.fullName.toLocaleLowerCase().includes(filter)
+    }
+  }
+
   openModal(id) {
-    this.dialog.open(DeclinedDetailsComponent, {
+    const dialogRef = this.dialog.open(DeclinedDetailsComponent, {
       disableClose: false,
       id: 'modal-component',
       data: id,
       panelClass: 'custom-modalbox'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.bookingAccount = this.bookingAccount.filter(booking => booking._id != result)
+        this.populateTable()
+      }
     });
   }
 
