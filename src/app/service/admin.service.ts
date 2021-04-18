@@ -45,13 +45,13 @@ export class AdminService {
     const userPayload = this.getUserPayload();
     if (userPayload) {
       return userPayload.exp > Date.now() / 1000;
-    }else{
+    } else {
       return false;
     }
   }
 
 
-  getAllBookings(bookingStatus){
+  getAllBookings(bookingStatus) {
     return this.http.get(`${this.apiUrl}/getAllBookings/${bookingStatus}`);
   }
   // getOnProcessBooking(bookingId){
@@ -66,7 +66,7 @@ export class AdminService {
   // getPendingBookings(bookingId){
   //   return this.http.get(`${this.apiUrl}/getPendingBookings/${bookingId}`);
   // }
-  getAllPendingNotifications(pageStatus){
+  getAllPendingNotifications(pageStatus) {
     return this.http.get(`${this.apiUrl}/getAllPendingNotifications/${pageStatus}`)
   }
   // getProcessPage(pageId){
@@ -79,16 +79,17 @@ export class AdminService {
   setPageStatus(data) {
     return this.http.post(`${this.apiUrl}/setPageStatus`, data)
   }
-  setBookingStatus(data){
-    return this.http.post(`${this.apiUrl}/setBookingStatus`,data)
+  setBookingStatus(data) {
+    let token = localStorage.getItem("token")
+    return this.http.post(`${this.apiUrl}/setBookingStatus`, data, { headers: { authorization: `bearer ${token}` } })
   }
 
   getBooking(bookingId) {
     let url = this.apiUrl.split("/")
-    url.splice(url.length -1, 1)
+    url.splice(url.length - 1, 1)
     let apiUrl = url.join("/")
     let token = localStorage.getItem("token")
-    return this.http.get(`${apiUrl}/service-provider/viewBooking/${bookingId}`, {headers: {authorization: `bearer ${token}`}})
+    return this.http.get(`${apiUrl}/service-provider/viewBooking/${bookingId}`, { headers: { authorization: `bearer ${token}` } })
   }
 
 }

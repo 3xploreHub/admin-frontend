@@ -84,7 +84,7 @@ export class DetailsComponent implements OnInit {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
         let service = { _id: item.service._id }
         const serviceData = item.service
-        const toBeBooked = serviceData.toBeBooked - 1
+        const toBeBooked = booking.status == "Processing" ? serviceData.toBeBooked - 1 : serviceData.toBeBooked
         if (serviceData.booked + serviceData.manuallyBooked + toBeBooked + 1 > this.getValue(serviceData.data, "quantity")) {
           this.dialogService.openConfirmedDialog(this.getValue(serviceData.data, "name") + " has no more available item")
           valid = false
@@ -104,7 +104,9 @@ export class DetailsComponent implements OnInit {
           pageName: pageName,
           servicesToUpdate: servicesToUpdate,
           serviceProviderReceiver: booking.pageId.creator._id,
+          page: booking.pageId._id,
           status: "Booked",
+          tourist: booking.tourist._id,
           messageForServiceProvider: `${touristName}'s booking is now granted`,
           messageForTourist: `Your booking to "${pageName}" has been granted`,
           touristReceiver: booking.tourist._id
@@ -134,7 +136,9 @@ export class DetailsComponent implements OnInit {
           pageName: pageName,
           servicesToUpdate: servicesToUpdate,
           serviceProviderReceiver: booking.pageId.creator._id,
+          page: booking.pageId._id,
           status: "Processing",
+          tourist: booking.tourist._id,
           messageForServiceProvider: `${touristName}'s booking is on process`,
           messageForTourist: `Your booking to "${pageName}" is now on process`,
           touristReceiver: booking.tourist._id
@@ -170,6 +174,8 @@ export class DetailsComponent implements OnInit {
         pageName: pageName,
         servicesToUpdate: servicesToUpdate,
         serviceProviderReceiver: booking.pageId.creator._id,
+        page: booking.pageId._id,
+        tourist: booking.tourist._id,
         status: "Processing",
         messageForServiceProvider: `${touristName}'s booking is on process`,
         messageForTourist: `Your booking to "${pageName}" is now on process`,
@@ -205,6 +211,8 @@ export class DetailsComponent implements OnInit {
         pageName: pageName,
         servicesToUpdate: servicesToUpdate,
         serviceProviderReceiver: booking.pageId.creator._id,
+        page: booking.pageId._id,
+        tourist: booking.tourist._id,
         status: "Pending",
         messageForServiceProvider: `${touristName}'s booking is still pending`,
         messageForTourist: `Your booking to "${pageName}" was returned to pending`,
@@ -234,8 +242,10 @@ export class DetailsComponent implements OnInit {
       const notif = {
         bookingId: booking._id,
         pageName: pageName,
+        page: booking.pageId._id,
         servicesToUpdate: servicesToUpdate,
         serviceProviderReceiver: booking.pageId.creator._id,
+        tourist: booking.tourist._id,
         status: "Pending",
         messageForServiceProvider: `${touristName}'s booking is still pending`,
         messageForTourist: `Your booking to "${pageName}" was returned to pending`,
@@ -269,6 +279,8 @@ export class DetailsComponent implements OnInit {
         pageName: pageName,
         servicesToUpdate: servicesToUpdate,
         serviceProviderReceiver: booking.pageId.creator._id,
+        page: booking.pageId._id,
+        tourist: booking.tourist._id,
         status: "Rejected",
         messageForServiceProvider: `${touristName}'s booking was declined`,
         messageForTourist: `Your booking to "${pageName}" has been declined`,
