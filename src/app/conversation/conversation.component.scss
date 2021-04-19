@@ -1,0 +1,88 @@
+.inputMessageHolder {
+    padding:5px;
+    margin-top: 10px;
+    width:100%;
+    box-sizing: border-box;
+    bottom: 0;
+    left:0;
+    right:0;
+    display: flex;
+    background-color: rgb(150, 195, 240);
+
+
+    .inputMessage {
+        width: 99%;
+        margin:0;
+        box-sizing: border-box;
+        padding:8px 5px;
+        border-radius: 4px;
+        background-color: #ffff;
+        border:1px solid rgb(154, 173, 197);
+        max-height: 100px;
+        
+    }
+
+    .send {
+        flex-shrink: 0;
+        display: flex;
+        margin-left:5px;
+        border-radius: 4px;
+        padding:0 20px;
+        background-color: rgb(195, 215, 236);
+        justify-content: center;
+        align-items: center;
+    }
+
+
+}
+
+
+.pageContainer {
+    box-sizing: none;
+    overflow-x: visible;
+    padding-top: 20px;
+    box-sizing: border-box;
+    // padding-bottom: 10px;
+    padding-bottom: 0 !important;
+    // height: 400px;
+    position: relative;
+    overflow-y: scroll;
+    padding-bottom: 10px;
+}
+
+.noMessages {
+    text-align: center;
+    color:rgb(159, 173, 184);
+}
+
+#owner {
+    color: rgb(52, 67, 85);
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #eff3f5;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: rgb(190, 213, 231);
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(153, 175, 192);
+}

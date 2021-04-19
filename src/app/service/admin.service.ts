@@ -85,11 +85,31 @@ export class AdminService {
   }
 
   getBooking(bookingId) {
+    const {apiUrl, token} = this.getApiUrlAndToken();
+    return this.http.get(`${apiUrl}/service-provider/viewBooking/${bookingId}`, { headers: { authorization: `bearer ${token}` } })
+  }
+
+  getApiUrlAndToken() {
     let url = this.apiUrl.split("/")
     url.splice(url.length - 1, 1)
     let apiUrl = url.join("/")
     let token = localStorage.getItem("token")
-    return this.http.get(`${apiUrl}/service-provider/viewBooking/${bookingId}`, { headers: { authorization: `bearer ${token}` } })
+    return {apiUrl, token}
+  }
+
+  createConversation(data) {
+    const {apiUrl, token} = this.getApiUrlAndToken();
+    return this.http.post(`${apiUrl}/service-provider/createConversation`, data, { headers: { authorization: `bearer ${token}`  } })
+  }
+
+  getConversation(bookingId, pageId, receiver) { 
+    const {apiUrl, token} = this.getApiUrlAndToken(); 
+    return this.http.get(`${apiUrl}/service-provider/getConversation/${bookingId}/${pageId}/${receiver}`, { headers: { authorization: `bearer ${token}`  } })
+  }
+
+  sendMessage(data: any) {
+    const {apiUrl, token} = this.getApiUrlAndToken();
+    return this.http.post(`${apiUrl}/service-provider/sendMessage`, data, { headers: { authorization: `bearer ${token}`  } })
   }
 
 }

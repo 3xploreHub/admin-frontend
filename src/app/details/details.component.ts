@@ -14,10 +14,10 @@ export class DetailsComponent implements OnInit {
   @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
 
   public photo: string = "";
-  public booking: any;
-  public bookingData: any;
+  public booking: any  =  {_id:"", tourist: {_id: ""}, pageId:{_id:""}}
+  public bookingData: any
   public modalContainerHeight: number;
-  public selectedService: any;
+  public selectedService = []
   public page: any;
   constructor(public dialogRef: MatDialogRef<DetailsComponent>,
     private adminService: AdminService,
@@ -26,10 +26,15 @@ export class DetailsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data
 
 
-  ) { }
+  ) { 
+    // this.bookingData =  {_id:"", tourist: {_id: ""}, pageId:{_id:""}}
+  }
   ngOnInit() {
-    this.booking = Array.of(this.data);
+    
+    this.booking = this.data;
     this.bookingData = this.data.bookingInfo;
+    console.log(this.data, 'booking');
+    
     // this.data.selectedServices[0].data.defaultName.splice("quantity",1)
     this.selectedService = this.data.selectedServices;
     this.page = Array.of(this.data.pageId);
@@ -37,7 +42,8 @@ export class DetailsComponent implements OnInit {
       comp.data = comp.data.filter(data => data.defaultName != "quantity")
       return comp
     })
-
+    console.log(this.selectedService);
+    
     this.modalContainerHeight = window.innerHeight - 200;
 
     // quantity.forEach(el => {
@@ -78,7 +84,7 @@ export class DetailsComponent implements OnInit {
 
   toBooked(booking) {
     const pageName = this.page[0].components.name
-    const touristName = this.booking[0].tourist.fullName
+    const touristName = this.booking.tourist.fullName
     let valid = true;
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
@@ -106,7 +112,7 @@ export class DetailsComponent implements OnInit {
           serviceProviderReceiver: booking.pageId.creator._id,
           page: booking.pageId._id,
           status: "Booked",
-          tourist: booking.tourist._id,
+          mainReceiver: booking.tourist._id,
           messageForServiceProvider: `${touristName}'s booking is now granted`,
           messageForTourist: `Your booking to "${pageName}" has been granted`,
           touristReceiver: booking.tourist._id
@@ -138,7 +144,7 @@ export class DetailsComponent implements OnInit {
           serviceProviderReceiver: booking.pageId.creator._id,
           page: booking.pageId._id,
           status: "Processing",
-          tourist: booking.tourist._id,
+          mainReceiver: booking.tourist._id,
           messageForServiceProvider: `${touristName}'s booking is on process`,
           messageForTourist: `Your booking to "${pageName}" is now on process`,
           touristReceiver: booking.tourist._id
@@ -175,7 +181,7 @@ export class DetailsComponent implements OnInit {
         servicesToUpdate: servicesToUpdate,
         serviceProviderReceiver: booking.pageId.creator._id,
         page: booking.pageId._id,
-        tourist: booking.tourist._id,
+        mainReceiver: booking.tourist._id,
         status: "Processing",
         messageForServiceProvider: `${touristName}'s booking is on process`,
         messageForTourist: `Your booking to "${pageName}" is now on process`,
@@ -212,7 +218,7 @@ export class DetailsComponent implements OnInit {
         servicesToUpdate: servicesToUpdate,
         serviceProviderReceiver: booking.pageId.creator._id,
         page: booking.pageId._id,
-        tourist: booking.tourist._id,
+        mainReceiver: booking.tourist._id,
         status: "Pending",
         messageForServiceProvider: `${touristName}'s booking is still pending`,
         messageForTourist: `Your booking to "${pageName}" was returned to pending`,
@@ -245,7 +251,7 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         servicesToUpdate: servicesToUpdate,
         serviceProviderReceiver: booking.pageId.creator._id,
-        tourist: booking.tourist._id,
+        mainReceiver: booking.tourist._id,
         status: "Pending",
         messageForServiceProvider: `${touristName}'s booking is still pending`,
         messageForTourist: `Your booking to "${pageName}" was returned to pending`,
@@ -280,7 +286,7 @@ export class DetailsComponent implements OnInit {
         servicesToUpdate: servicesToUpdate,
         serviceProviderReceiver: booking.pageId.creator._id,
         page: booking.pageId._id,
-        tourist: booking.tourist._id,
+        mainReceiver: booking.tourist._id,
         status: "Rejected",
         messageForServiceProvider: `${touristName}'s booking was declined`,
         messageForTourist: `Your booking to "${pageName}" has been declined`,

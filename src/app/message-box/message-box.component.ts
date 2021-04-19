@@ -7,9 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MessageBoxComponent implements OnInit {
   @Input() position: string = "left";
-  constructor() { }
+  showDate = false;
+  @Input() message: any = {
+    _id: "", sender: "", senderFullName: "", message: "", createdAt: null, updatedAt: null,noSender: false}
+  constructor() {
 
-  ngOnInit(): void {
+   }
+
+  ngOnInit() {
+    
   }
 
 }
