@@ -129,7 +129,7 @@ export class DetailsComponent implements OnInit {
 
   toOnProcess(booking) {
     const pageName = this.page[0].components.name
-    const touristName = this.booking[0].tourist.fullName
+    const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe(
       (bookingData: any) => {
         let servicesToUpdate = bookingData.selectedServices.map(item => {
@@ -165,7 +165,7 @@ export class DetailsComponent implements OnInit {
 
   returnToOnProcess(booking) {
     const pageName = this.page[0].components.name
-    const touristName = this.booking[0].tourist.fullName
+    const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
         const serviceData = item.service
@@ -197,7 +197,7 @@ export class DetailsComponent implements OnInit {
 
   toPending(booking) {
     const pageName = this.page[0].components.name
-    const touristName = this.booking[0].tourist.fullName
+    const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate;
       if (bookingData.status == "Processing") {
@@ -233,7 +233,7 @@ export class DetailsComponent implements OnInit {
 
   returnToPending(booking) {
     const pageName = this.page[0].components.name
-    const touristName = this.booking[0].tourist.fullName
+    const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
         let service = { _id: item.service._id }
@@ -268,7 +268,7 @@ export class DetailsComponent implements OnInit {
 
   declinedFunction(booking) {
     const pageName = this.page[0].components.name
-    const touristName = this.booking[0].tourist.fullName
+    const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
         let service = { _id: item.service._id }

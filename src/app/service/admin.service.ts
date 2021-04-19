@@ -112,5 +112,14 @@ export class AdminService {
     return this.http.post(`${apiUrl}/service-provider/sendMessage`, data, { headers: { authorization: `bearer ${token}`  } })
   }
 
+  getNotifications() {
+    const {apiUrl, token} = this.getApiUrlAndToken();
+    return this.http.get(`${apiUrl}/service-provider/getNotifications`, { headers: { authorization: `bearer ${token}` } })
+  }
+  
+  viewNotification(notifId) {
+    const {apiUrl, token} = this.getApiUrlAndToken();
+    return this.http.put(`${this.apiUrl}/viewNotification/${notifId}`, {}, { headers: { authorization: `bearer ${token}` } })
+  }
 }
 

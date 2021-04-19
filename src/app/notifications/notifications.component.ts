@@ -12,49 +12,53 @@ import { notification } from '../Interface/notifications';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
-  // AfterViewInit
-  // public notifications: notification[] = []
-  // public loading: boolean = true;
+  public notifications: any[] = []
+  public loading: boolean = true;
   public counter1 : any
   public counter2 : any
-  public bookings:any;
-  public pages:any
-  public opened=false;
-  constructor(
-    // public mainService:MainServicesService
-    private adminService: AdminService,
-    private router:Router
-    ) { }
+  constructor(public mainService:AdminService, public router: Router) { }
 
-  // ngAfterViewInit() {
-    // this.mainService.getNotifications().subscribe(
-    //   (response: any) => {
-    //     this.notifications = response.reverse();
-    //     this.loading = false
-    //   },
-    //   error => {
-
-    //   }
-    // )
-  // }
-  ngOnInit(): void {
-    this.adminService.currentPath = this.router.url.split("/").reverse()[0]
-    if (this.adminService.currentPath.includes("?")) this.adminService.currentPath = this.adminService.currentPath.split("?")[0]
-     //for Badge Number
-     this.adminService.getAllBookings("Pending").subscribe((data)=>{
-      this.bookings = data
-      this.counter1 = this.bookings.length
-    
-    })
-    this.adminService.getAllPendingNotifications("Pending").subscribe((data)=>{
-      this.pages = data
-      this.counter2 = this.pages.length
-      
-    })
+  ngOnInit() {
+    this.getNotifications();
+    this.mainService.notification.subscribe(
+      (data: any) => {
+        this.getNotifications(true)
+      }
+    )
   }
+
+  getNotifications(hideLoading = false) {
+    this.mainService.getNotifications().subscribe(
+      (response: any) => {
+        this.notifications = response;
+        this.loading = false
+      },
+      error => {
+      }
+    )
+  }
+
   logOut() {
-    this.adminService.deleteToken();
+    this.mainService.deleteToken();
     this.router.navigate(['login']);
   }
 
+
+  getTitle(notif) {
+    const curUser = this.mainService.user._id
+    let title = "Untitled Page"
+    if (notif.booking) {
+      const bookingOwner  = notif.booking.tourist
+      if (curUser == bookingOwner) {
+        notif.page.components.forEach(comp => {
+          if (comp.data.defaultName && comp.data.defaultName == "pageName") {
+            title = `Your booking to "${comp.data.text}"`
+          }
+        });
+      } else {
+        title = `${notif.mainReceiver.fullName}'s booking`
+      }
+    }
+    return title
+  }
 }

@@ -86,15 +86,15 @@
             </div>
         </div>
         <div class="modalFooter" *ngIf="booking.status === 'Booked'">
-            <div class="modal-footer" align="start" *ngFor="let booked of booking">
+            <div class="modal-footer" align="start">
                 <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
                             <span class="material-icons">keyboard_arrow_left</span>Back
                         </button>
                 <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
                             restore</span></button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="returnToOnProcess(booked)">On Process</button>
-                    <button mat-menu-item (click)="returnToPending(booked)">New Bookings</button>
+                    <button mat-menu-item (click)="returnToOnProcess(booking)">On Process</button>
+                    <button mat-menu-item (click)="returnToPending(booking)">New Bookings</button>
 
                 </mat-menu>
 
