@@ -68,10 +68,10 @@ export class ConversationComponent implements OnInit {
         if (data.type == "message-booking" && this.bookingId == data.bookingId) {
 
           if (data.conversation) {
-              this.conversation = data.conversation
-              this.messages = this.conversation.messages
-              this.formatData()
-            
+            this.conversation = data.conversation
+            this.messages = this.conversation.messages
+            this.formatData()
+
           } else {
             if (this.conversation._id == data.conversationId) {
 
@@ -95,19 +95,19 @@ export class ConversationComponent implements OnInit {
 
   send() {
     const notificationData = {
-      receiver:  this.tourist,
+      receiver: this.tourist,
       mainReceiver: this.tourist,
       page: this.pageId,
       booking: this.bookingId,
       sender: this.mainService.user._id,
       isMessage: true,
       subject: this.bookingId,
-      message: 'Amdin sent you a message',
+      message: 'Admin sent you a message',
       type: "booking-message",
     }
     if (this.message) {
       if (!this.conversation) {
-        const data = {notificationData:notificationData, booking: this.bookingId, page: this.pageId, message: this.message, receiver: this.mainService.user._id }
+        const data = { notificationData: notificationData, booking: this.bookingId, page: this.pageId, message: this.message, receiver: this.mainService.user._id }
         this.mainService.createConversation(data).subscribe(
           (response: any) => {
             if (!response.noConversation) {
@@ -120,7 +120,7 @@ export class ConversationComponent implements OnInit {
           }
         )
       } else {
-        const data = { notificationData:notificationData, conversationId: this.conversation._id, message: this.message }
+        const data = { notificationData: notificationData, conversationId: this.conversation._id, message: this.message }
         const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
         this.messages.push(message)
         setTimeout(() => {
