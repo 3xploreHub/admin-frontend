@@ -103,7 +103,7 @@ export class ConversationComponent implements OnInit {
       isMessage: true,
       subject: this.bookingId,
       message: 'Admin sent you a message',
-      type: "booking-message",
+      type: "booking-tourist",
     }
     if (this.message) {
       if (!this.conversation) {

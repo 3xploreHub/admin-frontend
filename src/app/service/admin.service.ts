@@ -119,7 +119,8 @@ export class AdminService {
   
   viewNotification(notifId) {
     const {apiUrl, token} = this.getApiUrlAndToken();
-    return this.http.put(`${this.apiUrl}/viewNotification/${notifId}`, {}, { headers: { authorization: `bearer ${token}` } })
+    return this.http.put(`${apiUrl}/service-provider/viewNotification/${notifId}`, {}, { headers: { authorization: `bearer ${token}` } })
   }
+
 }
 
