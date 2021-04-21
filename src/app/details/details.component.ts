@@ -33,7 +33,7 @@ export class DetailsComponent implements OnInit {
     
     this.booking = this.data;
     this.bookingData = this.data.bookingInfo;
-    console.log(this.data, 'booking');
+    console.log("Data::::",this.booking);
     
     // this.data.selectedServices[0].data.defaultName.splice("quantity",1)
     this.selectedService = this.data.selectedServices;

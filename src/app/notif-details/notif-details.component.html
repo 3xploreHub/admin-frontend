@@ -67,24 +67,42 @@
     <mat-tab label="Information">
         <div class="modalContainer">
             <div id="modal-content-wrapper">
+
                 <div *ngFor="let details of pagesData">
+                    <img class="spot" src="{{ details.components.image }}" style="width:555px; height:300px">
                     <p class="pageName">{{ details.components.name }}</p>
-                    <p class="pageInfo">{{ details.components.location }}</p>
-                    <p class="pageInfo">{{ details.creator.fullName }}</p>
+                    <div class="container">
+                        <div class="fieldsHolder">
+                            <p class="label">Owners Name</p>
+                            <p class="value">{{ details.creator.fullName }}</p>
+                        </div>
+                        <div class="fieldsHolder">
+                            <p class="label">Location</p>
+                            <p class="value">{{ details.components.location }}</p>
+                        </div>
+                        <div class="fieldsHolder">
+                            <p class="label">Category</p>
+                            <p class="value">{{ details.components.category }}</p>
+                        </div>
+                    </div>
 
                     <div class="offeredService">
                         <div class="serviceHeader">Services Offered</div>
                         <div class="selectedItem boxShadowed2" *ngFor="let item of services">
                             <div class="groupName">
-                                <p id="modal-title">{{ item.serviceGroupName }}</p>
+                                <p id="modal-title">{{ item.data[0].serviceGroupName }}</p>
                                 <hr>
                                 <p id="serviceName">Service Name</p>
                             </div>
                             <div class="item">
-                                <div class="itemInfo">
-                                    <div *ngFor="let element of item.data">
-                                        <p class="label">{{ element.defaultName }}</p>
-                                        <p class="value">{{ element.text }}</p>
+                                <div class="itemInfo" *ngFor="let element of item.data">
+                                    <div class="cardItem" *ngFor="let el of element.data">
+                                        <img class="small imageCont" src="{{ el.url }}">
+                                        <div class="itemContent">
+                                            <p class="label">{{ el.label }}</p>
+                                            <p class="value">{{ el.labelledText }}</p>
+                                            <p class="value">{{ el.text }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
