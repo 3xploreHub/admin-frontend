@@ -29,7 +29,6 @@ export class NotifDetailsComponent implements OnInit {
 
   getPendingPage(page) {
     const pageName = this.pagesData[0].components.name
-    alert(page._id)
     const notif = {
       pageId: page._id,
       pageName: pageName,
@@ -40,12 +39,11 @@ export class NotifDetailsComponent implements OnInit {
     this.adminService.setPageStatus(notif).subscribe((data) => {
       this.closeDialog()
     })
-    this.router.navigate(['/pageToApprove/pendingPages'])
+    this.router.navigate(['/admin/pageToApprove/pendingPages'])
   }
 
   getProcessPage(page) {
     const pageName = this.pagesData[0].components.name
-    alert(page._id)
     const notif = {
       pageId: page._id,
       pageName: pageName,
@@ -61,7 +59,6 @@ export class NotifDetailsComponent implements OnInit {
 
   toApprove(page) {
     const pageName = this.pagesData[0].components.name
-    alert(page._id)
     const notif = {
       pageId: page._id,
       pageName: pageName,
@@ -72,7 +69,7 @@ export class NotifDetailsComponent implements OnInit {
     this.adminService.setPageStatus(notif).subscribe((data) => {
       this.closeDialog()
     })
-    this.router.navigate(['/pageToApprove/onlinePages'])
+    this.router.navigate(['/admin/pageToApprove/onlinePages'])
   }
   closeDialog() {
     this.dialogRef.close();

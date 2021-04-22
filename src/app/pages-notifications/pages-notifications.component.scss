@@ -1,49 +1,25 @@
-//toolbar
-.toolbar {
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    width: 100%;
-    display: flex;
-    background: rgb(4, 128, 230);
-    color: white;
-    font-weight: 18px;
-    span {
-        padding: 2%;
-        position: relative;
-    }
-    .search {
-        display: inline-block;
-        width: 40%;
-        .example-full-width {
-            width: 100%;
-            margin-top: 2vh;
-            background: transparent;
-        }
-    }
-    .tab {
-        display: inline-block;
-        margin-left: 8vh;
-    }
-    .mat-stroked-button {
-        background-color: rgb(0, 153, 255);
-        letter-spacing: 2px !important;
-        left: 9%;
-    }
-}
-
 .status {
     width: 100%;
     background: #eff4f757;
     justify-content: center;
     text-align: center;
-    top: 60px;
     left: 0;
     right: 0;
-    height: 60px;
     width: 100%;
     display: flex;
+}
+
+h1 {
+    margin-top: 0px;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #0e4a81;
+    font-size: 20px;
+    background: white;
+    position: fixed;
+    z-index: 10;
+    width: 100%;
 }
 
 .focused_pending {
@@ -86,7 +62,11 @@
 }
 
 .container {
-    position: fixed;
+    position: relative;
     z-index: 10;
-    top: 0
+    top: 0;
+}
+
+.focused_notif {
+    background-color: 3px dodgerblue !important;
 }

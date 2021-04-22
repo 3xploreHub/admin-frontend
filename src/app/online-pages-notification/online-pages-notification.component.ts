@@ -37,17 +37,6 @@ export class OnlinePagesNotificationComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  // openModal(id: any) {
-   
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = false;
-  //   dialogConfig.id = 'modal-component';
-  //   dialogConfig.height = '650px';
-  //   dialogConfig.width = '600px';
-  //   dialogConfig.backdropClass = 'backdropBackground';
-  //   dialogConfig.data = id;
-  //   const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
-  // }
   openModal(id) {
     this.dialog.open(NotifDetailsComponent, {
       disableClose : false,

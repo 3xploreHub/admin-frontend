@@ -61,12 +61,12 @@ export class PagesNotificationsComponent implements OnInit {
     this.router.navigate(['login']);
   }
   toOnlinePage() {
-    this.router.navigate(['/pageToApprove/onlinePages']);
+    this.router.navigate(['/admin/pageToApprove/onlinePages']);
 
   }
   goTo(clicked) {
     this.adminService.currentPath = clicked
-    this.router.navigate(["/pageToApprove/" + clicked])
+    this.router.navigate(["/admin/pageToApprove/" + clicked])
   }
 
 }

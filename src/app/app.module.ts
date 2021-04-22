@@ -48,7 +48,8 @@ import { environment } from '../environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { NotificationHandlerComponent } from './notification-handler/notification-handler.component';
 import { ConversationComponent } from './conversation/conversation.component';
-import { NotificationCardComponent } from './notification-card/notification-card.component'; 
+import { NotificationCardComponent } from './notification-card/notification-card.component';
+import { AdminComponent } from './admin/admin.component'; 
 const config: SocketIoConfig = { url: "http://localhost:3000", options: {} };
 
 // export function tokenGetter() {
@@ -78,6 +79,7 @@ const config: SocketIoConfig = { url: "http://localhost:3000", options: {} };
     NotificationHandlerComponent,
     ConversationComponent,
     NotificationCardComponent,
+    AdminComponent,
     // FilterPipe
   ],
   imports: [

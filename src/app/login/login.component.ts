@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       partialDataHandler = user;
       if (partialDataHandler.status != false) {
         this.authService.setToken(user.token);
-        this.router.navigate(['bookingNotif']);
+        this.router.navigate(['admin']);
       } else {
         // if(!this.alert ){
           this.alert == true;

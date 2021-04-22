@@ -16,7 +16,8 @@ export class PendingPagesNotificationComponent implements OnInit {
   public onlineData: any;
   public pendingCount: any;
   public processCount: any;
-  public pageNumCount: any
+  public pageNumCount:any;
+
 
 
   constructor(private router: Router,
@@ -24,20 +25,25 @@ export class PendingPagesNotificationComponent implements OnInit {
     private route: ActivatedRoute,
     private adminService: AdminService
   ) {
-    this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
-      this.pages = data
-      this.pendingCount = this.pages.length
-
-    })
-    this.adminService.getAllPendingNotifications("Processing").subscribe((data) => {
-      this.processData = data
-      this.processCount = this.processData.length
-      this.pageNumCount = this.pendingCount + this.processCount
-    })
+   
 
   }
   ngOnInit(): void {
-
+    
+    this.adminService.getAllPendingNotifications("Processing").subscribe((data) => {
+      this.processData = data
+      this.processCount = this.processData.length
+      
+      // 
+      
+    })
+    this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
+      this.pages = data
+      this.pendingCount = this.pages.length
+      this.pageNumCount = this.pendingCount + this.processCount
+    })
+    // this.pageNumCount = this.pendingCount+this.processCount
+    // console.log(this.pageNumCount);
 
   }
 

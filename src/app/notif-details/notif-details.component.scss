@@ -52,7 +52,7 @@
 
 .modal-footer {
     justify-self: left;
-    align-self: center;
+    align-self: left;
     bottom: -24px;
     left: 0;
     padding: 10px;
@@ -243,9 +243,6 @@ mat-dialog-content {
 .offeredService {
     padding: 10px;
     margin: 0;
-    // display: flex;
-    // position: relative;
-    // overflow: scroll;
     .serviceHeader {
         font-size: 19px;
         padding: 10px;
@@ -259,11 +256,10 @@ mat-dialog-content {
     overflow-y: hidden;
     overflow-x: scroll;
     display: flex;
-    align-items: stretch;
-    flex-direction: row;
+    // align-items: left;
+    // flex-direction: row;
     // width: 100%;
     .itemInfo {
-        width: 100%;
         position: relative;
         padding: 10px 5px;
     }
@@ -298,6 +294,26 @@ mat-dialog-content {
 
 .itemContent {
     margin: -21px 0px 1px 0px;
+    // padding: 6px !important;
+    // margin: 3px 0 !important;
+    // background-color: #f0f4f8 !important;
+}
+
+.labelItem {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    color: #0e4a81;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.valueItem {
+    padding: 0 8px 0 2px;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 100 !important;
+    color: #778596;
 }
 
 
