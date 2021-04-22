@@ -15,9 +15,8 @@ export class NotificationCardComponent implements OnInit {
     message: "",
     opened: false,
   }
-  @Input() booking: any;
-  @Input() page: any;
-  @Input() type: string;
+
+  @Input() notificationGroup:any;
 
   constructor(public router: Router, public mainService: AdminService) { }
 
@@ -27,15 +26,15 @@ export class NotificationCardComponent implements OnInit {
   }
 
   viewNotification() {
-    this.mainService.viewNotification(this.notif._id).subscribe(
+    this.mainService.viewNotification(this.notificationGroup._id).subscribe(
       response => {
         this.notif.opened = true
-        const type = this.type
+        const type = this.notificationGroup.type
 
         if (type.includes("booking")) {
           const status = { Pending: "new", Processing: "pending", Booked: "booked", Rejected: "declined" }
-          if (status[this.booking.status]) {
-            this.router.navigate([`/bookingNotif/${status[this.booking.status]}`], { queryParams: { bookingId: this.booking._id } })
+          if (status[this.notificationGroup.booking.status]) {
+            this.router.navigate([`/bookingNotif/${status[this.notificationGroup.booking.status]}`], { queryParams: { bookingId: this.notificationGroup.booking._id } })
           } else {
             alert("Booking is no longer available")
           }

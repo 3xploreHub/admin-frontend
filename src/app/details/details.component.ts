@@ -113,7 +113,7 @@ export class DetailsComponent implements OnInit {
           page: booking.pageId._id,
           status: "Booked",
           mainReceiver: booking.tourist._id,
-          messageForServiceProvider: `${touristName}'s booking is now granted`,
+          messageForServiceProvider: `${touristName}'s booking has been confirmed`,
           messageForTourist: `Your booking to "${pageName}" has been granted`,
           touristReceiver: booking.tourist._id
         }
@@ -183,8 +183,8 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         mainReceiver: booking.tourist._id,
         status: "Processing",
-        messageForServiceProvider: `${touristName}'s booking is on process`,
-        messageForTourist: `Your booking to "${pageName}" is now on process`,
+        messageForServiceProvider: `${touristName}'s booking has been set back to processing`,
+        messageForTourist: `Your booking to "${pageName}" has been set back to processing`,
         touristReceiver: booking.tourist._id
       }
 
@@ -220,8 +220,8 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         mainReceiver: booking.tourist._id,
         status: "Pending",
-        messageForServiceProvider: `${touristName}'s booking is still pending`,
-        messageForTourist: `Your booking to "${pageName}" was returned to pending`,
+        messageForServiceProvider: `${touristName}'s has been set back to pending`,
+        messageForTourist: `Your booking to "${pageName}" has been set back to pending`,
         touristReceiver: booking.tourist._id
       }
       this.adminService.setBookingStatus(notif).subscribe((data: any) => {
@@ -253,8 +253,8 @@ export class DetailsComponent implements OnInit {
         serviceProviderReceiver: booking.pageId.creator._id,
         mainReceiver: booking.tourist._id,
         status: "Pending",
-        messageForServiceProvider: `${touristName}'s booking is still pending`,
-        messageForTourist: `Your booking to "${pageName}" was returned to pending`,
+        messageForServiceProvider: `${touristName}'s has been set back to pending`,
+        messageForTourist: `Your booking to "${pageName}" has been set back to pending`,
         touristReceiver: booking.tourist._id
       }
       console.log(notif);
@@ -289,7 +289,7 @@ export class DetailsComponent implements OnInit {
         mainReceiver: booking.tourist._id,
         status: "Rejected",
         messageForServiceProvider: `${touristName}'s booking was declined`,
-        messageForTourist: `Your booking to "${pageName}" has been declined`,
+        messageForTourist: `Your booking to "${pageName}" was declined`,
         touristReceiver: booking.tourist._id
       }
       this.adminService.setBookingStatus(notif).subscribe((data: any) => {
