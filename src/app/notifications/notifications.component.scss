@@ -1,80 +1,10 @@
-.cont {
-    padding-top: 100px;
-}
-
-.container1 {
-    margin-top: 5%;
-    // position: absolute;
-    .title {
-        color: dodgerblue;
-        text-align: center;
-        font-size: 24px;
-        justify-content: center;
-        display: flex;
-        padding: 15px;
-        background-color: white;
-        position: relative;
-    }
-}
-
-.lightBackground {
-    overflow: unset !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-// body {
-//     background-color: #eaeef3d4;
-// }
-.toolbar {
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    width: 100%;
-    display: flex;
-    // justify-content: center;
-    // align-items: center;
-    background: rgb(4, 128, 230);
-    color: white;
-    font-weight: 18px;
-    // position: fixed;
-    // z-index: 10;
-    span {
-        padding: 2%;
-        position: relative;
-    }
-    .search {
-        display: inline-block;
-        width: 40%;
-        // margin-top: 1vh;
-        .example-full-width {
-            width: 100%;
-            margin-top: 2vh;
-            background: transparent;
-        }
-    }
-    .tab {
-        display: inline-block;
-        margin-left: 8vh;
-    }
-    .mat-stroked-button {
-        background-color: rgb(0, 153, 255);
-        letter-spacing: 2px !important;
-        left: 9%;
-        // top: -5px;
-    }
-}
-
 .status {
     width: 100%;
-    background: #1299e857;
+    background: #eff4f757;
     justify-content: center;
     text-align: center;
-    top: 60px;
     left: 0;
     right: 0;
-    height: 60px;
     width: 100%;
     display: flex;
 }
@@ -177,17 +107,15 @@
 }
 
 .notifGroup {
-    padding:8px 2px;
+    padding: 8px 2px;
     border-top: 1px solid lightsteelblue;
     border-bottom: 1px solid rgb(255, 255, 255);
-
     .notifHeader {
         display: flex;
-        padding:3px 10px;
+        padding: 3px 10px;
         justify-content: space-between;
-
         .numberOfNotif {
-            padding:5px;
+            padding: 5px;
             background-color: rgb(255, 255, 255);
             font-size: 11px;
             border-radius: 4px;

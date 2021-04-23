@@ -13,7 +13,7 @@ export class OnlinePagesNotificationComponent implements OnInit {
   public pages: any;
   public processData: any;
   public onlineData: any;
-  public length:any
+  public length: any
   constructor(private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -21,17 +21,22 @@ export class OnlinePagesNotificationComponent implements OnInit {
   ) {
     this.adminService.getAllPendingNotifications("Online").subscribe((data) => {
       this.onlineData = data
-      this.length = this.onlineData.length
-      
-      if (this.adminService.bookingId) {
-        // this.processData.forEach(booking => {
-        //   if (booking._id == this.adminService.bookingId) {
-        //     this.openModal
-        //     (booking)
-        //     this.adminService.bookingId = ""
-        //   }
-        // })
+
+      if (this.onlineData.length == 0) {
+        this.length = ""
+      } else {
+        this.length = this.onlineData.length
       }
+
+      // if (this.adminService.bookingId) {
+      // this.processData.forEach(booking => {
+      //   if (booking._id == this.adminService.bookingId) {
+      //     this.openModal
+      //     (booking)
+      //     this.adminService.bookingId = ""
+      //   }
+      // })
+      // }
     })
   }
   ngOnInit(): void {
@@ -39,12 +44,12 @@ export class OnlinePagesNotificationComponent implements OnInit {
   }
   openModal(id) {
     this.dialog.open(NotifDetailsComponent, {
-      disableClose : false,
-      id : 'modal-component',
-      data : id,
-      panelClass : 'custom-modalbox'
+      disableClose: false,
+      id: 'modal-component',
+      data: id,
+      panelClass: 'custom-modalbox'
     });
   }
-  
+
 
 }

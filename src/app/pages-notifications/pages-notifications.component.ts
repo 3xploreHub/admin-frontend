@@ -14,8 +14,6 @@ export class PagesNotificationsComponent implements OnInit {
   public processData: any;
   public bookings: any;
   public onlineData: any
-  public counter1:any
-  public counter2:any
 
   constructor(private router: Router,
     public dialog: MatDialog,
@@ -24,7 +22,6 @@ export class PagesNotificationsComponent implements OnInit {
   ) {
     this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
       this.pages = data
-      this.counter2 = this.pages.length
     })
     this.adminService.getAllPendingNotifications("Processing").subscribe((data) => {
       this.processData = data
@@ -40,7 +37,6 @@ export class PagesNotificationsComponent implements OnInit {
     if (this.adminService.currentPath.includes("?")) this.adminService.currentPath = this.adminService.currentPath.split("?")[0]
     this.adminService.getAllBookings("Pending").subscribe((data)=>{
       this.bookings = data
-      this.counter1 = this.bookings.length
     
     })
    

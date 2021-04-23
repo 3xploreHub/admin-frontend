@@ -69,7 +69,7 @@ export class NotifDetailsComponent implements OnInit {
     this.adminService.setPageStatus(notif).subscribe((data) => {
       this.closeDialog()
     })
-    this.router.navigate(['/admin/pageToApprove/onlinePages'])
+    // this.router.navigate(['/admin/pageToApprove/onlinePages'])
   }
   closeDialog() {
     this.dialogRef.close();

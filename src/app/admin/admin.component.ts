@@ -18,13 +18,21 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.adminService.getAllBookings("Pending").subscribe((data) => {
       this.bookings = data
-      this.counter1 = this.bookings.length
+      if(this.bookings.length === 0){
+        this.counter1 ="";
+      }else{
+        this.counter1 = this.bookings.length
+      }
 
     })
 
     this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
-      this.pages = data
-      this.counter2 = this.pages.length
+      this.pages = data   
+      if(this.pages.length === 0){
+        this.counter2=="";
+      }else{
+        this.counter2 = this.pages.length
+      }
 
     })
   }
