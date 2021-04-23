@@ -48,18 +48,36 @@ export class ConversationComponent implements OnInit {
     //     this.bookingId = params.bookingId
     //     this.pageId = params.pageId
     //     this.tourist = params.tourist
-    this.mainService.getConversation(this.bookingId, this.pageId, this.mainService.user._id).subscribe(
-      (response: any) => {
-        if (!response.noConversation) {
-          this.conversation = response
-          this.messages = this.conversation.messages
-          this.formatData()
+    if (this.bookingId) {
+
+      this.mainService.getConversation(this.bookingId, this.pageId, this.mainService.user._id).subscribe(
+        (response: any) => {
+          if (!response.noConversation) {
+            this.conversation = response
+            this.messages = this.conversation.messages
+            this.formatData()
+          }
+          setTimeout(() => {
+            this.scrollToBottom()
+          }, 400)
         }
-        setTimeout(() => {
-          this.scrollToBottom()
-        }, 400)
+        )
+      } else {
+        // this.receiver = params.receiverName
+        this.mainService.getConvoForPageSubmission(this.pageId, "admin_approval").subscribe(
+          (response: any) => {
+            if (!response.noConversation) {
+              this.conversation = response
+              this.messages = this.conversation.messages
+              this.formatData()
+            }
+            setTimeout(() => {
+              this.scrollToBottom()
+            }, 400)
+          }
+        )
+
       }
-    )
     //   }
     // })
 
@@ -107,18 +125,30 @@ export class ConversationComponent implements OnInit {
     }
     if (this.message) {
       if (!this.conversation) {
-        const data = { notificationData: notificationData, booking: this.bookingId, page: this.pageId, message: this.message, receiver: this.mainService.user._id }
-        this.mainService.createConversation(data).subscribe(
+        const data = { notificationData: null, booking: null, page: this.pageId, message: this.message, type: "admin_approval", receiver: this.mainService.user._id }
+        this.mainService.createConvoForPageSubmission(data).subscribe(
           (response: any) => {
             if (!response.noConversation) {
               this.conversation = response
               this.messages = this.conversation.messages
               this.formatData();
               this.scrollToBottom()
-              this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: [this.tourist], message: `You have new message` })
+              // this.mainService.notify({ user: this.mainService.user, bookingId: null, conversation: this.conversation, type: "message-booking", receiver: [this.tourist], message: `You have new message` })
             }
           }
         )
+        // const data = { notificationData: notificationData, booking: this.bookingId, page: this.pageId, message: this.message, receiver: this.mainService.user._id }
+        // this.mainService.createConversation(data).subscribe(
+        //   (response: any) => {
+        //     if (!response.noConversation) {
+        //       this.conversation = response
+        //       this.messages = this.conversation.messages
+        //       this.formatData();
+        //       this.scrollToBottom()
+        //       this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: [this.tourist], message: `You have new message` })
+        //     }
+        //   }
+        // )
       } else {
         const data = { notificationData: notificationData, conversationId: this.conversation._id, message: this.message }
         const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }

@@ -64,8 +64,8 @@
 </div> -->
 
 <mat-tab-group>
-    <mat-tab label="Information">
-        <div class="modalContainer">
+    <mat-tab label="Information" >
+        <div class="modalContainer" [ngStyle]="{'height.px': modalContainerHeight}">
             <div id="modal-content-wrapper">
                 <div *ngFor="let details of pagesData">
                     <p class="pageName">{{ details.components.name }}</p>
@@ -131,24 +131,6 @@
         </div>
     </mat-tab>
     <mat-tab label="Conversation">
-        <div class="modalContainer">
-            <div class="pageContainer">
-                <!-- <app-message-box></app-message-box> -->
-                <app-message-box [position]="'right'"></app-message-box>
-                <app-message-box [position]="'left'"></app-message-box>
-                <app-message-box [position]="'right'"></app-message-box>
-                <app-message-box [position]="'left'"></app-message-box>
-                <app-message-box [position]="'left'"></app-message-box>
-            </div>
-        </div>
-
-        <div class="inputMessageHolder">
-            <textarea auto-grow="true" rows="1" placeholder="Enter other message here" class="inputMessage" type="text">
-                        </textarea>
-            <div class="send boxShadowed2">
-                <span class="material-icons" id="send">send</span>
-
-            </div>
-        </div>
+        <app-conversation [pageId]="pagesData[0]._id" [tourist]="pagesData[0].creator._id"></app-conversation>
     </mat-tab>
 </mat-tab-group>

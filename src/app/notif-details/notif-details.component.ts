@@ -10,6 +10,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 export class NotifDetailsComponent implements OnInit {
   public services: any;
+  public modalContainerHeight: number;
   public pagesData: any
   constructor(public dialogRef: MatDialogRef<NotifDetailsComponent>,
     private adminService: AdminService,
@@ -18,6 +19,7 @@ export class NotifDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.modalContainerHeight = window.innerHeight - 200;
     this.pagesData = Array.of(this.data)
     this.services = this.data.services
 
