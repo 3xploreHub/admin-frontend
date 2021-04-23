@@ -12,35 +12,40 @@ import { AuthGuard } from './auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import {AdminComponent} from './admin/admin.component'
 import { DetailsComponent } from './details/details.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  {path:'notif',component:NotificationsComponent},
-
   {
-    path: 'bookingNotif', component: BookingNotificationComponent,
+    path: 'admin',
+    component: AdminComponent,
     children: [
-      // { path: 'allNotif', component: AllNotifComponent, data: { isHidden: true } },
-      
-      { path: '', component: NewNotificationComponent },
-      { path: 'new', component: NewNotificationComponent },
-      { path: 'pending', component: PendingComponent },
-      { path: 'booked', component: BookedComponent },
-      { path: 'declined', component: DeclinedComponent },
-    ], canActivate: [AuthGuard],
+      { path: '', component: BookingNotificationComponent },
+      { path: 'notif', component: NotificationsComponent },
+      {
+        path: 'bookingNotif', component: BookingNotificationComponent,
+        children: [
+          // { path: 'allNotif', component: AllNotifComponent, data: { isHidden: true } },
+          { path: '', component: NewNotificationComponent },
+          { path: 'new', component: NewNotificationComponent },
+          { path: 'pending', component: PendingComponent },
+          { path: 'booked', component: BookedComponent },
+          { path: 'declined', component: DeclinedComponent },
+        ], canActivate: [AuthGuard],
+      },
+      {
+        path: 'pageToApprove', component: PagesNotificationsComponent,
+        children: [
+          { path: '', component: PendingPagesNotificationComponent },
+          { path: 'pendingPages', component: PendingPagesNotificationComponent },
+          { path: 'onlinePages', component: OnlinePagesNotificationComponent },
+        ], canActivate: [AuthGuard]
+      },
+    ]
   },
-  {
-    path: 'pageToApprove', component: PagesNotificationsComponent,
-    children: [
-      { path: '', component: PendingPagesNotificationComponent },
-      { path: 'pendingPages', component: PendingPagesNotificationComponent },
-      { path: 'onlinePages', component: OnlinePagesNotificationComponent },
-    ], canActivate: [AuthGuard]
-  },
-
 ];
 
 @NgModule({

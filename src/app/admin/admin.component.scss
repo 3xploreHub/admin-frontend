@@ -1,0 +1,25 @@
+.toolbar {
+    top: 0;
+    left: 0;
+    right: 0;
+    // height: 60px;
+    float: left;
+    width: 100%;
+    display: flex;
+    background: rgb(4, 128, 230);
+    color: white;
+    font-weight: 18px;
+    span {
+        padding: 2%;
+        position: relative;
+    }
+    .tab {
+        display: inline-block;
+        margin-left: 15vh;
+    }
+    .mat-stroked-button {
+        background-color: rgb(0, 153, 255);
+        letter-spacing: 2px !important;
+        margin-left: 15px;
+    }
+}

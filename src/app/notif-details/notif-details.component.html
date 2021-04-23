@@ -1,90 +1,44 @@
-<!-- <div class="modalContainer">
-    <div id="modal-content-wrapper">
-        <div *ngFor="let details of pagesData">
-            <p class="pageName">{{ details.components.name }}</p>
-            <p class="pageInfo">{{ details.components.location }}</p>
-            <p class="pageInfo">{{ details.creator.fullName }}</p>
 
-            <div class="offeredService">
-                <div class="serviceHeader">Services Offered</div>
-                <div class="selectedItem boxShadowed2" *ngFor="let item of services">
-                    <div class="groupName">
-                        <p id="modal-title">{{ item.serviceGroupName }}</p>
-                        <hr>
-                        <p id="serviceName">Service Name</p>
-                    </div>
-                    <div class="item">
-                        <div class="itemInfo">
-                            <div *ngFor="let element of item.data">
-                                <p class="label">{{ element.defaultName }}</p>
-                                <p class="value">{{ element.text }}</p>
-                            </div>
+<mat-tab-group  [(selectedIndex)]="tabIndex">
+    <mat-tab label="Information">
+        <div [ngStyle]="{'height.px': modalContainerHeight}" class="modalContainer">
+            <div id="modal-content-wrapper">
+
+                <div *ngFor="let details of pagesData">
+                    <img class="spot" src="{{ details.components.image }}" style="width:555px; height:300px">
+                    <p class="pageName">{{ details.components.name }}</p>
+                    <div class="container">
+                        <div class="fieldsHolder">
+                            <p class="label">Owners Name</p>
+                            <p class="value">{{ details.creator.fullName }}</p>
+                        </div>
+                        <div class="fieldsHolder">
+                            <p class="label">Location</p>
+                            <p class="value">{{ details.components.location }}</p>
+                        </div>
+                        <div class="fieldsHolder">
+                            <p class="label">Category</p>
+                            <p class="value">{{ details.components.category }}</p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modalFooter" *ngIf="pagesData[0].status === 'Pending'">
-    <div class="modal-footer" align="start" *ngFor="let item of pagesData">
-
-        <button mat-button mat-dialog-close id="modal-cancel-button"> <span class="material-icons">keyboard_arrow_left</span>Back</button>
-
-        <button mat-button [mat-dialog-close]="true" cdkFocusInitial id="process" (click)="getProcessPage(item)">On Process
-                    <span class="material-icons">sync</span>
-            </button>
-
-    </div>
-</div>
-<div class="modalFooter" *ngIf="pagesData[0].status === 'Processing'">
-    <div class="modal-footer" align="start" *ngFor="let onlineItem of pagesData">
-        <button mat-button mat-dialog-close id="modal-cancel-button"> <span class="material-icons">keyboard_arrow_left</span>Back</button>
-        <button mat-button [mat-dialog-close]="true" cdkFocusInitial id="approve" (click)="toApprove(onlineItem)">Approve
-                <span class="material-icons" >check_circle</span>
-                </button>
-        <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
-                        restore</span></button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="getPendingPage(onlineItem)">Pending</button>
-        </mat-menu>
-    </div>
-</div>
-<div class="modalFooter" *ngIf="pagesData[0].status === 'Online'">
-    <div class="modal-footer" align="start" *ngFor="let each of pagesData">
-        <button mat-button mat-dialog-close id="modal-cancel-button"> <span class="material-icons">keyboard_arrow_left</span>Back</button>
-        <button mat-button [matMenuTriggerFor]="menu" #menuTrigger class="returnTo">Return to <span class="material-icons">
-                            restore</span></button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="getPendingPage(each)">Pending</button>
-            <button mat-menu-item (click)="getProcessPage(each)">Processing</button>
-
-        </mat-menu>
-    </div>
-</div> -->
-
-<mat-tab-group>
-    <mat-tab label="Information" >
-        <div class="modalContainer" [ngStyle]="{'height.px': modalContainerHeight}">
-            <div id="modal-content-wrapper">
-                <div *ngFor="let details of pagesData">
-                    <p class="pageName">{{ details.components.name }}</p>
-                    <p class="pageInfo">{{ details.components.location }}</p>
-                    <p class="pageInfo">{{ details.creator.fullName }}</p>
 
                     <div class="offeredService">
                         <div class="serviceHeader">Services Offered</div>
                         <div class="selectedItem boxShadowed2" *ngFor="let item of services">
                             <div class="groupName">
-                                <p id="modal-title">{{ item.serviceGroupName }}</p>
+                                <p id="modal-title">{{ item.data[0].serviceGroupName }}</p>
                                 <hr>
                                 <p id="serviceName">Service Name</p>
                             </div>
                             <div class="item">
-                                <div class="itemInfo">
-                                    <div *ngFor="let element of item.data">
-                                        <p class="label">{{ element.defaultName }}</p>
-                                        <p class="value">{{ element.text }}</p>
+                                <div class="itemInfo" *ngFor="let element of item.data">
+                                    <div class="cardItem" *ngFor="let el of element.data">
+                                        <img class="small imageCont" src="{{ el.url }}">
+                                        <div class="itemContent">
+                                            <p class="labelItem">{{ el.label }}</p>
+                                            <p class="valueItem">{{ el.labelledText }}</p>
+                                            <p class="valueItem">{{ el.text }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +55,6 @@
                 <button mat-button [mat-dialog-close]="true" cdkFocusInitial id="process" (click)="getProcessPage(item)">On Process
                                     <span class="material-icons">sync</span>
                             </button>
-
             </div>
         </div>
         <div class="modalFooter" *ngIf="pagesData[0].status === 'Processing'">

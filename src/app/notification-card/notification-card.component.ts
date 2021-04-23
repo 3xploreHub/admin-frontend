@@ -16,7 +16,7 @@ export class NotificationCardComponent implements OnInit {
     opened: false,
   }
 
-  @Input() notificationGroup:any;
+  @Input() notificationGroup: any;
 
   constructor(public router: Router, public mainService: AdminService) { }
 
@@ -26,17 +26,35 @@ export class NotificationCardComponent implements OnInit {
   }
 
   viewNotification() {
-    this.mainService.viewNotification(this.notificationGroup._id).subscribe(
+
+    this.mainService.viewNotification({ notifId: this.notif["isMessage"]?this.notif._id: this.notificationGroup._id, isMessage: this.notif["isMessage"] }).subscribe(
       response => {
-        this.notif.opened = true
+        if (this.notif["isMessage"]) {
+          this.notif.opened = true
+        } else {
+          this.notificationGroup.notifications = this.notificationGroup.notifications.map(notif => {
+            if (!notif.isMessage) {
+              notif.opened = true
+            }
+            return notif
+          })
+        }
+
         const type = this.notificationGroup.type
 
-        if (type.includes("booking")) {
+        if (type.split("-")[0] == ("booking")) {
           const status = { Pending: "new", Processing: "pending", Booked: "booked", Rejected: "declined" }
           if (status[this.notificationGroup.booking.status]) {
-            this.router.navigate([`/bookingNotif/${status[this.notificationGroup.booking.status]}`], { queryParams: { bookingId: this.notificationGroup.booking._id } })
+            this.router.navigate([`/admin/bookingNotif/${status[this.notificationGroup.booking.status]}`], { queryParams: { bookingId: this.notificationGroup.booking._id } })
           } else {
             alert("Booking is no longer available")
+          }
+        } else if (type == "page-admin") {
+          let param = { queryParams: { pageId: this.notificationGroup.page._id } }
+          if (this.notificationGroup.page.status == "Online") {
+            this.router.navigate(["/admin/pageToApprove/onlinePages"], param)
+          } else {
+            this.router.navigate(["/admin/pageToApprove/pendingPages"], param)
           }
         }
         // if (type == "booking") {

@@ -44,6 +44,7 @@ export class NotificationsComponent implements OnInit {
           return notif
         })
         this.notifications = notifications;
+        console.log(this.notifications)
         this.loading = false
       },
       error => {
@@ -71,6 +72,12 @@ export class NotificationsComponent implements OnInit {
       } else {
         title = `${notif.mainReceiver.fullName}'s booking`
       }
+    }else {
+      notif.page.components.forEach(comp => {
+        if (comp.data.defaultName == "pageName") {
+          title = comp.data.text
+        }
+      });
     }
     return title
   }

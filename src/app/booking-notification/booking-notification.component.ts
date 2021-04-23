@@ -39,19 +39,10 @@ export class BookingNotificationComponent implements OnInit {
     this.keyWord = event.target.value
 
   }
-  logOut() {
-    this.adminService.deleteToken();
-    this.router.navigate(['login']);
-  }
 
   goTo(clicked) {
     this.adminService.currentPath = clicked
-    this.router.navigate(["/bookingNotif/"+clicked])
-  }
-  navBar(click){
-    this.adminService.currentPath = click
-    this.router.navigate([click])
-
+    this.router.navigate(["/admin/bookingNotif/"+clicked])
   }
 
 }

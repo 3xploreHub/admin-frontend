@@ -1,7 +1,7 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from './../service/admin.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 
 @Component({
   selector: 'app-notif-details',
@@ -12,21 +12,40 @@ export class NotifDetailsComponent implements OnInit {
   public services: any;
   public modalContainerHeight: number;
   public pagesData: any
-  constructor(public dialogRef: MatDialogRef<NotifDetailsComponent>,
+  tabIndex;
+
+  constructor(public route: ActivatedRoute, public dialogRef: MatDialogRef<NotifDetailsComponent>,
     private adminService: AdminService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data
-  ) { }
+    ) { 
+
+      this.goToConversation()
+    }
 
   ngOnInit() {
     this.modalContainerHeight = window.innerHeight - 200;
     this.pagesData = Array.of(this.data)
     this.services = this.data.services
+    
 
     this.services = this.services.map(comp => {
       comp.data = comp.data.filter(data => data.defaultName != "quantity")
       return comp
     })
+  }
+
+  goToConversation() {
+
+      this.route.queryParams.subscribe(
+        (params: any) => {
+
+          if (params.pageId) {
+            console.log(params.pageId)
+            this.tabIndex = 2;
+          }
+        }
+      )
   }
 
   getPendingPage(page) {

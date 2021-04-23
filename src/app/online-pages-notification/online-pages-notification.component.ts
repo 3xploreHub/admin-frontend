@@ -21,9 +21,14 @@ export class OnlinePagesNotificationComponent implements OnInit {
   ) {
     this.adminService.getAllPendingNotifications("Online").subscribe((data) => {
       this.onlineData = data
-      this.length = this.onlineData.length
+      this.displayCurrentPage(this.onlineData)
+      if (this.onlineData.length == 0) {
+        this.length = ""
+      } else {
+        this.length = this.onlineData.length
+      }
       
-      if (this.adminService.bookingId) {
+      // if (this.adminService.bookingId) {
         // this.processData.forEach(booking => {
         //   if (booking._id == this.adminService.bookingId) {
         //     this.openModal
@@ -31,23 +36,25 @@ export class OnlinePagesNotificationComponent implements OnInit {
         //     this.adminService.bookingId = ""
         //   }
         // })
-      }
+      // }
     })
   }
   ngOnInit(): void {
 
   }
-  // openModal(id: any) {
-   
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = false;
-  //   dialogConfig.id = 'modal-component';
-  //   dialogConfig.height = '650px';
-  //   dialogConfig.width = '600px';
-  //   dialogConfig.backdropClass = 'backdropBackground';
-  //   dialogConfig.data = id;
-  //   const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
-  // }
+
+  
+  displayCurrentPage(data) {
+    this.route.queryParams.subscribe(params => {
+      if (params) {
+        data.forEach(page => {
+          if (page._id == params.pageId) {
+            this.openModal(page)
+          }
+        });
+      }
+    })
+  }
   openModal(id) {
     this.dialog.open(NotifDetailsComponent, {
       disableClose : false,

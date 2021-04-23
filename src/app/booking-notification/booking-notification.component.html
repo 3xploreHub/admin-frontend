@@ -1,16 +1,4 @@
 <mat-toolbar class="container">
-    <mat-toolbar-row class="toolbar">
-        <div>
-            <span>Explorehub</span>
-            <span class="example-spacer"></span>
-            <div class="tab">
-                <button [routerLink]="['/notif']" mat-stroked-button matBadge="0" matBadgePosition="after" matBadgeColor="accent" class="badge">Notifications</button>
-                <button [routerLink]="['/pageToApprove']" mat-stroked-button [matBadge]="counter2" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
-                <button [routerLink]="['/bookingNotif']" mat-stroked-button [matBadge]="counter1" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
-                <button mat-stroked-button class="button" (click)="logOut()">Logout <span class="material-icons" >logout</span></button>
-            </div>
-        </div>
-    </mat-toolbar-row>
     <mat-toolbar-row class="status">
         <div class="statlabel">
             <button mat-button [class.focused_new]="adminService.currentPath == 'new'" (click)="goTo('new')" id="new">New Bookings</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

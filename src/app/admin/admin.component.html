@@ -1,0 +1,14 @@
+<mat-toolbar-row class="toolbar">
+    <div>
+        <span>Explorehub</span>
+        <span class="example-spacer"></span>
+        <div class="tab">
+            <button [class.focused_booking]="adminService.currentPath == 'bookingNotif'" (click)="goTo('bookingNotif')" mat-stroked-button [matBadge]="counter1" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
+            <button [class.focused_page]="adminService.currentPath == 'pageToApprove'" (click)="goTo('pageToApprove')" mat-stroked-button [matBadge]="counter2" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
+            <button [class.focused_notif]="adminService.currentPath == 'notif'" (click)="goTo('notif')" mat-stroked-button matBadge="0" matBadgePosition="after" matBadgeColor="accent" class="badge">Notifications</button>
+            <button mat-stroked-button class="button" (click)="logOut()">Logout <span
+                class="material-icons">logout</span></button>
+        </div>
+    </div>
+</mat-toolbar-row>
+<router-outlet></router-outlet>

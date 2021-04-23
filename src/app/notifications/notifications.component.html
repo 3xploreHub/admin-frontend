@@ -1,33 +1,19 @@
-<mat-toolbar class="container">
-    <mat-toolbar-row class="toolbar">
-        <div>
-            <span>Explorehub</span>
-            <span class="example-spacer"></span>
-            <div class="tab">
-                <button [routerLink]="['/notif']" mat-stroked-button matBadge="0" matBadgePosition="after"
-                    matBadgeColor="accent" class="badge">Notifications</button>
-                <button [routerLink]="['/pageToApprove']" mat-stroked-button [matBadge]="counter2"
-                    matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
-                <button [routerLink]="['/bookingNotif']" mat-stroked-button [matBadge]="counter1"
-                    matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
-                    <button mat-stroked-button class="button" (click)="logOut()">Logout <span
-                            class="material-icons">logout</span></button>   
-            </div>
-        </div>
-    </mat-toolbar-row>
-</mat-toolbar>
 <div class="empty" *ngIf="notifications.length == 0 && !loading">
     <div class="iholder">
         <!-- <ion-icon name="folder-open-outline"></ion-icon> -->
     </div>
     <p>There's nothing here.</p>
 </div>
-<div class="cont lightBackground">
-    <div class="notifGroup" *ngFor="let notif of notifications">
-        <div class="notifHeader">
-            <div class="title">{{getTitle(notif)}}</div>
-            <div class="numberOfNotif">{{notif.notifications.length}}</div>
+<div class="lightBackground">
+    <div class="cont">
+        <div class="notifGroup" *ngFor="let notif of notifications">
+            <div class="notifHeader">
+                <div class="title">{{getTitle(notif)}}</div>
+                <div class="numberOfNotif">{{notif.notifications.length}}</div>
+            </div>
+
+            <app-notification-card *ngFor="let ntf of notif.notifications.reverse()" [notificationGroup]="notif"
+                [notif]="ntf"></app-notification-card>
         </div>
-        <app-notification-card *ngFor="let ntf of notif.notifications.reverse()" [notificationGroup]="notif" [notif]="ntf"></app-notification-card>
     </div>
 </div>

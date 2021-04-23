@@ -66,7 +66,7 @@ export class PagesNotificationsComponent implements OnInit {
   }
   goTo(clicked) {
     this.adminService.currentPath = clicked
-    this.router.navigate(["/pageToApprove/" + clicked])
+    this.router.navigate(["/admin/pageToApprove/" + clicked])
   }
 
 }
