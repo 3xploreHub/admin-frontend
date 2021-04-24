@@ -65,8 +65,15 @@ h1 {
     position: relative;
     z-index: 10;
     top: 0;
+
 }
 
 .focused_notif {
     background-color: 3px dodgerblue !important;
+}
+
+.cont {
+    padding:10px;
+    padding-bottom: 100px;
+    padding-top: 0;
 }

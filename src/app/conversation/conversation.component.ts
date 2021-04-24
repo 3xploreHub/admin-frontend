@@ -42,12 +42,8 @@ export class ConversationComponent implements OnInit {
   constructor(public route: ActivatedRoute, public mainService: AdminService) { }
 
   ngOnInit() {
+    alert(this.bookingId)
     this.screenHeight = window.innerHeight - 190
-    // this.route.queryParams.subscribe(params => {
-    //   if (params) {
-    //     this.bookingId = params.bookingId
-    //     this.pageId = params.pageId
-    //     this.tourist = params.tourist
     if (this.bookingId) {
       this.mainService.getConversation(this.bookingId, this.pageId, this.mainService.user._id).subscribe(
         (response: any) => {
@@ -79,7 +75,7 @@ export class ConversationComponent implements OnInit {
 
     this.mainService.notification.subscribe(
       (data: any) => {
-        if ((data.type == "message-booking" && this.bookingId == data.bookingId )|| (data.type == "message-page" && data.pageId == this.pageId && data.receiver.includes(this.mainService.user._id))) {
+        if ((data.type == "message-booking" && this.bookingId == data.bookingId) || (data.type == "message-page" && data.pageId == this.pageId && data.receiver.includes(this.mainService.user._id))) {
           if (this.conversation && data.conversationId != this.conversation._id) return;
           if (data.conversation) {
             this.conversation = data.conversation
@@ -124,7 +120,7 @@ export class ConversationComponent implements OnInit {
       if (!this.conversation) {
         if (!this.bookingId) {
 
-          const data = { notificationData: notificationData, booking: null, page: this.pageId, message: this.message, type: "admin_approval", receiver: this.mainService.user._id }
+          const data = { notificationData: notificationData, booking: null, page: this.pageId, message: this.message, type: "admin_approval", receiver:this.tourist }
           this.mainService.createConvoForPageSubmission(data).subscribe(
             (response: any) => {
               if (!response.noConversation) {
@@ -163,7 +159,7 @@ export class ConversationComponent implements OnInit {
             this.messages = this.conversation.messages
             this.formatData()
             this.scrollToBottom()
-            this.mainService.notify({ user: this.mainService.user,bookingId:this.bookingId, pageId: this.pageId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: !this.bookingId? "message-page": "message-booking", receiver: [this.tourist], message: `You have new message` })
+            this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, pageId: this.pageId, conversationId: this.conversation._id, newMessage: this.messages[this.messages.length - 1], type: !this.bookingId ? "message-page" : "message-booking", receiver: [this.tourist], message: `You have new message` })
           }
         )
       }
