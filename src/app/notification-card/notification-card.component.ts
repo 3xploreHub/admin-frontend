@@ -41,7 +41,6 @@ export class NotificationCardComponent implements OnInit {
         }
 
         const type = this.notificationGroup.type
-
         if (type.split("-")[0] == ("booking")) {
           const status = { Pending: "new", Processing: "pending", Booked: "booked", Rejected: "declined" }
           if (status[this.notificationGroup.booking.status]) {
@@ -51,7 +50,7 @@ export class NotificationCardComponent implements OnInit {
           }
         } else if (type == "page-admin") {
           let param = { queryParams: { pageId: this.notificationGroup.page._id } }
-          if (this.notificationGroup.page.status == "Online") {
+          if (this.notificationGroup.page.status == "Online" || this.notificationGroup.page.status == "Not Operating") {
             this.router.navigate(["/admin/pageToApprove/onlinePages"], param)
           } else {
             this.router.navigate(["/admin/pageToApprove/pendingPages"], param)

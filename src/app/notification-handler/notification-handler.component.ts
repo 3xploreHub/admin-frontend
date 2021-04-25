@@ -25,12 +25,12 @@ export class NotificationHandlerComponent {
     this.adminService.notify = this.notify
     this.socket.fromEvent('send-notification').subscribe((data: any) => {
       console.log(data);
-      // if (data.receiver == this.user._id) {
-        if (data.user._id != this.user._id) {
-          // this.showToast(data.message);
-        }
+      if (data.receiver.includes("admin") || data.receiver.includes(this.adminService.user._id)) {
+        // if (data.user._id != this.user._id) {
+        //   // this.showToast(data.message);
+        // }
         this.adminService.receiveNotification(data)
-      // }
+      }
     });
   }
 

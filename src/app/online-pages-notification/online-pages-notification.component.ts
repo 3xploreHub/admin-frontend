@@ -19,6 +19,25 @@ export class OnlinePagesNotificationComponent implements OnInit {
     private route: ActivatedRoute,
     private adminService: AdminService
   ) {
+    
+  }
+  ngOnInit(): void {
+    this.getPages()
+    this.adminService.notification.subscribe(
+      (data:any) => {
+        if (data.type == "page-status-edit") {
+          this.onlineData = this.onlineData.map(page => {
+            if (page._id == data.pageId) {
+              page.status = data.status
+            }
+            return page
+           })
+        }
+      }
+    )
+  }
+
+  getPages() {
     this.adminService.getAllPendingNotifications("Online").subscribe((data) => {
       this.onlineData = data
       this.displayCurrentPage(this.onlineData)
@@ -27,20 +46,7 @@ export class OnlinePagesNotificationComponent implements OnInit {
       } else {
         this.length = this.onlineData.length
       }
-      
-      // if (this.adminService.bookingId) {
-        // this.processData.forEach(booking => {
-        //   if (booking._id == this.adminService.bookingId) {
-        //     this.openModal
-        //     (booking)
-        //     this.adminService.bookingId = ""
-        //   }
-        // })
-      // }
     })
-  }
-  ngOnInit(): void {
-
   }
 
   

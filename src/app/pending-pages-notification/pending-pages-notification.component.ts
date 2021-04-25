@@ -25,21 +25,21 @@ export class PendingPagesNotificationComponent implements OnInit {
     private adminService: AdminService
   ) { }
   ngOnInit(): void {
-    this.adminService.getAllPendingNotifications("Processing").subscribe((data:any) => {
-      this.pages = [...this.pages,...data]
+    this.getPages()
+    this.adminService.notification.subscribe((data: any) => {
+      if (data.type == "page-submission") {
+        this.getPages()
+      }
+    })
+  }
+
+  getPages() {
+    this.adminService.getAllPendingNotifications("Processing").subscribe((data: any) => {
+      this.pages = [...this.pages, ...data]
       this.displayCurrentPage(this.pages)
       this.pendingCount = this.pages.length
       console.log(this.pages);
     })
-
-    this.adminService.getAllPendingNotifications("Pending").subscribe((data:any) => {
-      this.pages = [...this.pages,...data]
-      this.displayCurrentPage(this.pages)
-      this.pendingCount = this.pages.length
-    
-
-    })
-    
   }
 
   displayCurrentPage(data) {
@@ -72,7 +72,7 @@ export class PendingPagesNotificationComponent implements OnInit {
           return item;
         })
         this.pages = this.pages.filter(page => page)
-       
+
       }
     });
   }
