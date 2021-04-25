@@ -54,7 +54,6 @@ export class PendingPagesNotificationComponent implements OnInit {
     })
   }
   openModal(page) {
-
     const dialogRef = this.dialog.open(NotifDetailsComponent, {
       disableClose: false,
       id: 'modal-component',
