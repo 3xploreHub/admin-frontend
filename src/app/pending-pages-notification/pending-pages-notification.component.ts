@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PendingPagesNotificationComponent implements OnInit {
 
-  public pages: any;
+  public pages: any[] = []
   public processData: any;
   public onlineData: any;
   public pendingCount: any;
@@ -25,28 +25,21 @@ export class PendingPagesNotificationComponent implements OnInit {
     private adminService: AdminService
   ) { }
   ngOnInit(): void {
-    this.adminService.getAllPendingNotifications("Processing").subscribe((data) => {
-      this.processData = data
-      this.displayCurrentPage(this.processData)
-      this.processCount = this.processData.length
-      if (this.pendingCount == 0 && this.processCount == 0) {
-        this.pageNumCount = ""
-      } else {
-        this.pageNumCount = this.pendingCount + this.processCount
-      }
-    })
-    
-    this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
-      this.pages = data
+    this.adminService.getAllPendingNotifications("Processing").subscribe((data:any) => {
+      this.pages = [...this.pages,...data]
       this.displayCurrentPage(this.pages)
       this.pendingCount = this.pages.length
-      if (this.pendingCount == 0 && this.processCount == 0) {
-        this.pageNumCount = ""
-      } else {
-        this.pageNumCount = this.pendingCount + this.processCount
-      }
+      console.log(this.pages);
+    })
+
+    this.adminService.getAllPendingNotifications("Pending").subscribe((data:any) => {
+      this.pages = [...this.pages,...data]
+      this.displayCurrentPage(this.pages)
+      this.pendingCount = this.pages.length
+    
 
     })
+    
   }
 
   displayCurrentPage(data) {
@@ -60,25 +53,27 @@ export class PendingPagesNotificationComponent implements OnInit {
       }
     })
   }
+  openModal(page) {
 
-  // openModal(id: any) {
-
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = false;
-  //   dialogConfig.id = 'modal-component';
-  //   dialogConfig.height = '650px';
-  //   dialogConfig.width = '600px';
-  //   dialogConfig.backdropClass = 'backdropBackground';
-  //   dialogConfig.data = id;
-  //   const modalDialog = this.dialog.open(NotifDetailsComponent, dialogConfig);
-  // }
-  openModal(id) {
-  
-    this.dialog.open(NotifDetailsComponent, {
+    const dialogRef = this.dialog.open(NotifDetailsComponent, {
       disableClose: false,
       id: 'modal-component',
-      data: id,
+      data: page,
       panelClass: 'custom-modalbox'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.pages = this.pages.map(item => {
+          if (item._id == page._id) {
+            item.status = result
+            if (result != "Online") return item
+          }
+          return item;
+        })
+        this.pages = this.pages.filter(page => page)
+       
+      }
     });
   }
 

@@ -13,10 +13,11 @@
             <p>Location: <span>{{ approve.components.location }}</span></p>
             <p>Type: <span>{{ approve.pageType }}</span> </p>
         </mat-card-content>
-        <div class="approve"><span class="material-icons approveIcon">
+        <div class="approve" [class.notOperating]="approve.status == 'Not Operating'">
+            <span  *ngIf="approve.status != 'Not Operating'" class="material-icons approveIcon">
                 check_circle_outline
                 </span>
-            <div>Approved</div>
+            <div>{{approve.status}}</div>
         </div>
     </mat-card>
 </div>

@@ -9,8 +9,8 @@
     // width: 800px;
     display: flex;
     // flex-direction: row;
-    // justify-content: flex-start;
-    // flex-wrap: wrap;
+    justify-content: center;
+    flex-wrap: wrap;
     // position: relative;
 }
 
@@ -47,6 +47,11 @@
 .example-header-image {
     background-image: url('../../assets/ivana.jpg');
     background-size: cover;
+}
+.notOperating {
+    color: rgb(78, 77, 74) !important;
+
+    background-color: lightgray !important;
 }
 
 h1 {

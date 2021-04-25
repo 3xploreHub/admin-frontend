@@ -42,7 +42,6 @@ export class ConversationComponent implements OnInit {
   constructor(public route: ActivatedRoute, public mainService: AdminService) { }
 
   ngOnInit() {
-    alert(this.bookingId)
     this.screenHeight = window.innerHeight - 190
     if (this.bookingId) {
       this.mainService.getConversation(this.bookingId, this.pageId, this.mainService.user._id).subscribe(

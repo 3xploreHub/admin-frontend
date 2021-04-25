@@ -1,8 +1,10 @@
 <div class="empty" *ngIf="notifications.length == 0 && !loading">
     <div class="iholder">
-        <!-- <ion-icon name="folder-open-outline"></ion-icon> -->
+        <span class="material-icons">
+            hourglass_disabled
+        </span>
     </div>
-    <p>There's nothing here.</p>
+    <p>No notifications</p>
 </div>
 <div class="lightBackground">
     <div class="cont">

@@ -48,55 +48,79 @@ export class NotifDetailsComponent implements OnInit {
       )
   }
 
+  // receiver: this.tourist,
+  // mainReceiver: this.tourist,
+  // page: this.pageId,
+  // booking: this.bookingId,
+  // sender: this.mainService.user._id,
+  // isMessage: true,
+  // subject: this.bookingId,
+  // message: 'Admin sent you a message',
+  // type: this.bookingId ? "booking-tourist" : "page-provider",
+
   getPendingPage(page) {
     const pageName = this.pagesData[0].components.name
-    alert(page._id)
     const notif = {
-      pageId: page._id,
+      page: page._id,
       pageName: pageName,
+      mainReceiver: page.creator._id,
+      receiver: page.creator._id,
+      sender: this.adminService.user._id,
       pageCreator: page.creator._id,
+      subject: page._id,
+      type: "page-provider",
       status: "Pending",
-      message: `Your page ${pageName} return to Pending`,
+      message: `Your page "${pageName}" status has been set back to Pending`,
     }
     this.adminService.setPageStatus(notif).subscribe((data) => {
-      this.closeDialog()
+      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page ${pageName} status has been set back to Pending` })
+      this.closeDialog("Pending")
     })
-    this.router.navigate(['/pageToApprove/pendingPages'])
   }
 
   getProcessPage(page) {
     const pageName = this.pagesData[0].components.name
-    alert(page._id)
+    const message = (page.status == "Online")? `Your page "${pageName}" status has been set back to "Processing"`: `Your page "${pageName}" is already on the process`
     const notif = {
-      pageId: page._id,
+      page: page._id,
       pageName: pageName,
+      mainReceiver: page.creator._id,
+      receiver: page.creator._id,
+      sender: this.adminService.user._id,
       pageCreator: page.creator._id,
+      subject: page._id,
+      type: "page-provider",
       status: "Processing",
-      message: `Your page ${pageName} is already on the process`,
+      message: message,
     }
     // this.adminService.notify({ user: this.adminService.user, bookingId: this.booking._id, type: "Cancelled_booking-provider", receiver: notificationData.receiver, message: notificationData.message })
     this.adminService.setPageStatus(notif).subscribe((data) => {
-      this.closeDialog()
+      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: message })
+      this.closeDialog("Processing")
     })
   }
 
   toApprove(page) {
     const pageName = this.pagesData[0].components.name
-    alert(page._id)
     const notif = {
-      pageId: page._id,
+      page: page._id,
       pageName: pageName,
+      mainReceiver: page.creator._id,
+      receiver: page.creator._id,
+      sender: this.adminService.user._id,
       pageCreator: page.creator._id,
+      subject: page._id,
+      type: "page-provider",
       status: "Online",
-      message: `Your page ${pageName} is now online`,
+      message: `Your page "${pageName}" is now online`,
     }
     this.adminService.setPageStatus(notif).subscribe((data) => {
-      this.closeDialog()
+      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page ${pageName} is now online` })
+      this.closeDialog("Online")
     })
-    this.router.navigate(['/pageToApprove/onlinePages'])
   }
-  closeDialog() {
-    this.dialogRef.close();
+  closeDialog(status) {
+    this.dialogRef.close(status);
   }
 
 }

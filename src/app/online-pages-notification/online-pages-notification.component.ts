@@ -55,12 +55,18 @@ export class OnlinePagesNotificationComponent implements OnInit {
       }
     })
   }
-  openModal(id) {
-    this.dialog.open(NotifDetailsComponent, {
+  openModal(page) {
+    const dialogRef= this.dialog.open(NotifDetailsComponent, {
       disableClose : false,
       id : 'modal-component',
-      data : id,
+      data : page,
       panelClass : 'custom-modalbox'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.onlineData = this.onlineData.filter(item =>  item._id != page._id)
+       
+      }
     });
   }
   
