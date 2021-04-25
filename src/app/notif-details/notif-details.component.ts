@@ -48,16 +48,6 @@ export class NotifDetailsComponent implements OnInit {
       )
   }
 
-  // receiver: this.tourist,
-  // mainReceiver: this.tourist,
-  // page: this.pageId,
-  // booking: this.bookingId,
-  // sender: this.mainService.user._id,
-  // isMessage: true,
-  // subject: this.bookingId,
-  // message: 'Admin sent you a message',
-  // type: this.bookingId ? "booking-tourist" : "page-provider",
-
   getPendingPage(page) {
     const pageName = this.pagesData[0].components.name
     const notif = {

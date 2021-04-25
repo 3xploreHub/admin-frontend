@@ -30,7 +30,7 @@ export class DeclinedComponent implements OnInit {
 
   ngOnInit(): void {
     this.adminService.notification.subscribe(
-      (data: any) => { 
+      (data: any) => {
         if (data.booking && data.booking.status == "Rejected" || data.booking && data.booking.status == "Pending") {
           this.getBookings()
         }

@@ -35,7 +35,7 @@ export class PendingPagesNotificationComponent implements OnInit {
 
   getPages() {
     this.adminService.getAllPendingNotifications("Processing").subscribe((data: any) => {
-      this.pages = [...this.pages, ...data]
+      this.pages = data
       this.displayCurrentPage(this.pages)
       this.pendingCount = this.pages.length
       console.log(this.pages);
