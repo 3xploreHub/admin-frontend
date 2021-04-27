@@ -63,7 +63,7 @@ export class NotifDetailsComponent implements OnInit {
       message: `Your page "${pageName}" status has been set back to Pending`,
     }
     this.adminService.setPageStatus(notif).subscribe((data) => {
-      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page ${pageName} status has been set back to Pending` })
+      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page "${pageName}" status has been set back to Pending` })
       this.closeDialog("Pending")
     })
   }
@@ -105,7 +105,7 @@ export class NotifDetailsComponent implements OnInit {
       message: `Your page "${pageName}" is now online`,
     }
     this.adminService.setPageStatus(notif).subscribe((data) => {
-      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page ${pageName} is now online` })
+      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page "${pageName}" is now online` })
       this.closeDialog("Online")
     })
   }

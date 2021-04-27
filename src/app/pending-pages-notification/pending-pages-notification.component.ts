@@ -67,8 +67,9 @@ export class PendingPagesNotificationComponent implements OnInit {
           if (item._id == page._id) {
             item.status = result
             if (result != "Online") return item
+          } else {
+            return item;
           }
-          return item;
         })
         this.pages = this.pages.filter(page => page)
 

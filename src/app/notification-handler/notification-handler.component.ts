@@ -14,7 +14,8 @@ export class NotificationHandlerComponent {
   ) { }
 
 
-  init() {
+
+  init() {  
     const token = localStorage.getItem("token")
     const user = jwt_decode(token);
     this.user = user;
@@ -43,6 +44,7 @@ export class NotificationHandlerComponent {
     const notifId = "notif" + date.getHours() + date.getMinutes() + date.getMilliseconds();
     data["notifId"] = notifId
     this.socket.emit('notify', data)
+   
   }
 }
 

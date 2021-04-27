@@ -75,6 +75,6 @@ export class OnlinePagesNotificationComponent implements OnInit {
       }
     });
   }
-  
+
 
 }

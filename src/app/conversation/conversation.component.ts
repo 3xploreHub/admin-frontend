@@ -146,7 +146,8 @@ export class ConversationComponent implements OnInit {
           )
         }
       } else {
-        const data = { notificationData: notificationData, conversationId: this.conversation._id, message: this.message }
+        const pageConvo = !this.bookingId ? true: false
+        const data = {pageConvo: pageConvo, notificationData: notificationData, conversationId: this.conversation._id, message: this.message }
         const message = { createdAt: "Sending...", sender: this.mainService.user._id, noSender: true, message: this.message }
         this.messages.push(message)
         setTimeout(() => {

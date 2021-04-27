@@ -1,4 +1,3 @@
-
 <h1>{{ pages.length }} Page/s needs to be approved!</h1>
 
 <div class="container">
@@ -16,7 +15,7 @@
         </mat-card-content>
         <div *ngIf="item.status == 'Pending'; else Processing" class="status"><span class="material-icons pendingIcon">
                 hourglass_empty
-                </span>
+            </span>
             <div>Pending</div>
         </div>
         <ng-template #Processing>
