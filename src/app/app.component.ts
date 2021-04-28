@@ -14,13 +14,15 @@ export class AppComponent implements OnInit ,AfterViewInit, OnDestroy {
   constructor(public adminService: AdminService) {
   }
 
+
   ngOnInit() {
+    if (this.notifHandler) {
+      this.notifHandler.init()
+    }
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
       this.notifHandler.init();
-    }, 300);
   }
 
   ngOnDestroy() {

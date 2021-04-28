@@ -1,6 +1,10 @@
 import { Router } from '@angular/router';
 import { AdminService } from './../service/admin.service';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2'
+
+// CommonJS
+// const Swal = require('sweetalert2')
 
 @Component({
   selector: 'app-admin',
@@ -18,27 +22,40 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.adminService.getAllBookings("Pending").subscribe((data) => {
       this.bookings = data
-      if(this.bookings.length === 0){
-        this.counter1 ="";
-      }else{
+      if (this.bookings.length === 0) {
+        this.counter1 = "";
+      } else {
         this.counter1 = this.bookings.length
       }
 
     })
 
     this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
-      this.pages = data   
-      if(this.pages.length === 0){
-        this.counter2=="";
-      }else{
+      this.pages = data
+      if (this.pages.length === 0) {
+        this.counter2 == "";
+      } else {
         this.counter2 = this.pages.length
       }
 
     })
   }
   logOut() {
-    this.adminService.deleteToken();
-    this.router.navigate(['login']);
+
+    Swal.fire({
+      // toast:true,
+      position: 'top-end',
+      title: 'Are you sure you want to logout?',
+      confirmButtonText: `Yes`,
+      confirmButtonColor: 'rgb(11, 155, 30)',
+      width: 400,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.adminService.deleteToken();
+        this.router.navigate(['login']);
+      }
+    })
+
   }
   goTo(clicked) {
     this.adminService.currentPath = clicked

@@ -30,7 +30,7 @@ export class DeclinedComponent implements OnInit {
 
   ngOnInit(): void {
     this.adminService.notification.subscribe(
-      (data: any) => { 
+      (data: any) => {
         if (data.booking && data.booking.status == "Rejected" || data.booking && data.booking.status == "Pending") {
           this.getBookings()
         }
@@ -43,6 +43,19 @@ export class DeclinedComponent implements OnInit {
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
       this.populateTable()
+      this.route.queryParams.subscribe(
+        (params: any) => {
+          console.log(params)
+          if (params && params.bookingId) {
+            this.bookingAccount.forEach(booking => {
+              console.log(booking._id == params.bookingId)
+              if (booking._id == params.bookingId) {
+                this.openModal(booking);
+              }
+            })
+          }
+        }
+      )
     }
     );
   }

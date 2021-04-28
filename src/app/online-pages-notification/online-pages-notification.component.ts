@@ -19,9 +19,28 @@ export class OnlinePagesNotificationComponent implements OnInit {
     private route: ActivatedRoute,
     private adminService: AdminService
   ) {
+    
+  }
+  ngOnInit(): void {
+    this.getPages()
+    this.adminService.notification.subscribe(
+      (data:any) => {
+        if (data.type == "page-status-edit") {
+          this.onlineData = this.onlineData.map(page => {
+            if (page._id == data.pageId) {
+              page.status = data.status
+            }
+            return page
+           })
+        }
+      }
+    )
+  }
+
+  getPages() {
     this.adminService.getAllPendingNotifications("Online").subscribe((data) => {
       this.onlineData = data
-
+      this.displayCurrentPage(this.onlineData)
       if (this.onlineData.length == 0) {
         this.length = ""
       } else {
@@ -39,15 +58,31 @@ export class OnlinePagesNotificationComponent implements OnInit {
       // }
     })
   }
-  ngOnInit(): void {
 
+  
+  displayCurrentPage(data) {
+    this.route.queryParams.subscribe(params => {
+      if (params) {
+        data.forEach(page => {
+          if (page._id == params.pageId) {
+            this.openModal(page)
+          }
+        });
+      }
+    })
   }
-  openModal(id) {
-    this.dialog.open(NotifDetailsComponent, {
-      disableClose: false,
-      id: 'modal-component',
-      data: id,
-      panelClass: 'custom-modalbox'
+  openModal(page) {
+    const dialogRef= this.dialog.open(NotifDetailsComponent, {
+      disableClose : false,
+      id : 'modal-component',
+      data : page,
+      panelClass : 'custom-modalbox'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.onlineData = this.onlineData.filter(item =>  item._id != page._id)
+       
+      }
     });
   }
 

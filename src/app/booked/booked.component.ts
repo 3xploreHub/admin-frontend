@@ -24,13 +24,17 @@ export class BookedComponent implements OnInit {
 
   }
   ngOnInit(): void {
+
     this.adminService.notification.subscribe(
       (data: any) => {
         if (data.booking && data.booking.status == "Booked" || data.booking && data.booking.status == "Closed" || data.booking && data.booking.status == "Cancelled") {
           this.getBookings()
+
         }
       }
     )
+
+    
   }
 
   getBookings() {
@@ -38,6 +42,19 @@ export class BookedComponent implements OnInit {
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
       this.populateTable();
+      this.route.queryParams.subscribe(
+        (params: any) => {
+          console.log(params)
+          if (params && params.bookingId) {
+            this.bookingAccount.forEach(booking => {
+              console.log(booking._id == params.bookingId)
+              if (booking._id == params.bookingId) {
+                this.openModal(booking);
+              }
+            })
+          }
+        }
+      )
     }
     );
   }
@@ -54,11 +71,13 @@ export class BookedComponent implements OnInit {
     }
   }
 
-  openModal(id) {
+  openModal(data) {
+    console.log(data);
+
     const dialogRef = this.dialog.open(BookedDetailsComponent, {
       disableClose: false,
       id: 'modal-component',
-      data: id,
+      data: data,
       panelClass: 'custom-modalbox'
     })
 

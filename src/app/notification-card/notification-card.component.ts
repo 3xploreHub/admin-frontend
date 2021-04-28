@@ -15,10 +15,9 @@ export class NotificationCardComponent implements OnInit {
     message: "",
     opened: false,
   }
-  @Input() booking: any;
-  @Input() page: any;
-  @Input() type: string;
-  
+
+  @Input() notificationGroup: any;
+
   constructor(public router: Router, public mainService: AdminService) { }
 
   ngOnInit() {
@@ -27,21 +26,47 @@ export class NotificationCardComponent implements OnInit {
   }
 
   viewNotification() {
-    this.mainService.viewNotification(this.notif._id).subscribe(
+
+    this.mainService.viewNotification({ notifId: this.notif["isMessage"]?this.notif._id: this.notificationGroup._id, isMessage: this.notif["isMessage"] }).subscribe(
       response => {
-        this.notif.opened = true
-        const type = this.type
-        if (type == "booking") {
-          this.router.navigate(["/service-provider/view-booking", this.booking._id],
-          { queryParams: { notification: true } })
-        } else if (type == "page") {
-          this.router.navigate(["/service-provider/dashboard", this.page.pageType, this.page._id],
-            { queryParams: { notification: true } })
+        if (this.notif["isMessage"]) {
+          this.notif.opened = true
+        } else {
+          this.notificationGroup.notifications = this.notificationGroup.notifications.map(notif => {
+            if (!notif.isMessage) {
+              notif.opened = true
+            }
+            return notif
+          })
         }
-        else if (type == "page-booking") {
-          this.router.navigate(["./service-provider/view-booking-as-provider", this.booking.pageId, this.booking.bookingType, this.booking._id, this.booking.status],
-            { queryParams: { notification: true } })
+
+        const type = this.notificationGroup.type
+        if (type.split("-")[0] == ("booking")) {
+          const status = { Pending: "new", Processing: "pending", Booked: "booked", Rejected: "declined" }
+          if (status[this.notificationGroup.booking.status]) {
+            this.router.navigate([`/admin/bookingNotif/${status[this.notificationGroup.booking.status]}`], { queryParams: { bookingId: this.notificationGroup.booking._id } })
+          } else {
+            alert("Booking is no longer available")
+          }
+        } else if (type == "page-admin") {
+          let param = { queryParams: { pageId: this.notificationGroup.page._id } }
+          if (this.notificationGroup.page.status == "Online" || this.notificationGroup.page.status == "Not Operating") {
+            this.router.navigate(["/admin/pageToApprove/onlinePages"], param)
+          } else {
+            this.router.navigate(["/admin/pageToApprove/pendingPages"], param)
+          }
         }
+        // if (type == "booking") {
+        //   this.router.navigate(["/service-provider/view-booking", this.booking._id],
+        //   { queryParams: { notification: true } })
+        // } else if (type == "page") {
+        //   this.router.navigate(["/service-provider/dashboard", this.page.pageType, this.page._id],
+        //     { queryParams: { notification: true } })
+        // }
+        // else if (type == "page-booking") {
+        //   this.router.navigate(["./service-provider/view-booking-as-provider", this.booking.pageId, this.booking.bookingType, this.booking._id, this.booking.status],
+        //     { queryParams: { notification: true } })
+        // }
 
       }
 

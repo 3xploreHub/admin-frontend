@@ -1,16 +1,22 @@
 <div class="empty" *ngIf="notifications.length == 0 && !loading">
     <div class="iholder">
-        <!-- <ion-icon name="folder-open-outline"></ion-icon> -->
+        <span class="material-icons">
+            hourglass_disabled
+        </span>
     </div>
-    <p>There's nothing here.</p>
+    <p>No notifications</p>
 </div>
-<div class="cont lightBackground">
-    <div class="notifGroup" *ngFor="let notif of notifications">
-        <div class="notifHeader">
-            <div class="title">{{getTitle(notif)}}</div>
-            <div class="numberOfNotif">{{notif.notifications.length}}</div>
+<div class="lightBackground">
+    <div class="cont">
+        <div class="notifGroup" *ngFor="let notif of notifications">
+            <div class="notifHeader">
+                <div class="title">{{getTitle(notif)}}</div>
+                <div class="numberOfNotif">{{notif.notifications.length}}</div>
+            </div>
+
+            <app-notification-card *ngFor="let ntf of notif.notifications.reverse()" [notificationGroup]="notif"
+                [notif]="ntf"></app-notification-card>
         </div>
-        <app-notification-card *ngFor="let ntf of notif.notifications.reverse()" [type]="notif.type" [page]="notif.page" [booking]="notif.booking" [notif]="ntf"></app-notification-card>
     </div>
 </div>
 <router-outlet></router-outlet>

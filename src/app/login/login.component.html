@@ -10,7 +10,8 @@
                     <div>
                         <mat-form-field class="example-full-width">
                             <mat-label>Username</mat-label>
-                            <input type="text" class="form-control" name="username" [(ngModel)]="credentialsForm.username" required #username="ngModel" matInput>
+                            <input type="text" class="form-control" name="username" [(ngModel)]="credentialsForm.username"
+                                required #username="ngModel" matInput>
                         </mat-form-field>
                     </div>
                 </div>
@@ -20,7 +21,8 @@
                     <div>
                         <mat-form-field class="example-full-width">
                             <mat-label>Password</mat-label>
-                            <input [type]="eye ? 'text' : 'password'" class="form-control" name="password" [(ngModel)]="credentialsForm.password" #password="ngModel" required matInput>
+                            <input [type]="eye ? 'text' : 'password'" class="form-control" name="password" [(ngModel)]="credentialsForm.password"
+                                #password="ngModel" required matInput>
                         </mat-form-field>
                     </div>
                     <div class="eye">
@@ -32,5 +34,11 @@
                 <button type="submit" mat-stroked-button (click)="onSubmit()" [disabled]="loginForm.invalid">LOGIN</button>
             </form>
         </mat-card>
+        <!-- <div *ngIf="!show"> -->
+        <div class="overlay" *ngIf="!show">
+            <div class="loader"></div>
+        </div>
+        <!-- </div> -->
     </div>
+
 </body>
