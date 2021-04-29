@@ -11,7 +11,7 @@
         <mat-card-content style="margin-bottom:14%">
             <h3>{{ approve.components.name }}</h3>
             <p>Location: <span>{{ approve.components.location }}</span></p>
-            <p>Type: <span>{{ approve.pageType }}</span> </p>
+            <p>Type: <span>{{ approve.pageType == "tourist_spot"? "Tourist Spot": "Service" }}</span> </p>
         </mat-card-content>
         <div class="approve" [class.notOperating]="approve.status == 'Not Operating'">
             <span  *ngIf="approve.status != 'Not Operating'" class="material-icons approveIcon">

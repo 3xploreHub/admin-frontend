@@ -1,8 +1,8 @@
 <div class="toolbar">
         <span>Explorehub</span>
         <div class="tab">
-            <button [class.focused_booking]="adminService.currentPath == 'bookingNotif'" (click)="goTo('bookingNotif')" mat-stroked-button [matBadge]="counter1" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
-            <button [class.focused_page]="adminService.currentPath == 'pageToApprove'" (click)="goTo('pageToApprove')" mat-stroked-button [matBadge]="counter2" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
+            <button  (click)="goTo('bookingNotif')" mat-stroked-button [matBadge]="counter1" matBadgePosition="after" matBadgeColor="accent" class="badge">Bookings</button>
+            <button (click)="goTo('pageToApprove')" mat-stroked-button [matBadge]="counter2" matBadgePosition="after" matBadgeColor="accent" class="badge">Pages</button>
             <button  (click)="goTo('notif')" mat-stroked-button matBadgePosition="after" matBadgeColor="accent" class="badge">Notifications</button>
             <p class="logout" (click)="logOut()">Logout <span
                 class="material-icons">logout</span></p>
