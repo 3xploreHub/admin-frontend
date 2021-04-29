@@ -502,22 +502,18 @@ mat-dialog-content {
     
     .serviceItem {
         padding:10px 0;
-        // width:200px !important;
-        // display: inline-block;
         display: flex;
-        // background-color: red;
         flex-direction: row;
         overflow-x:scroll;
     
         .itemService {
             margin:10px;
+            max-height: 400px;
+            overflow: auto;
             background-color: white;
             flex-shrink: 0;
             box-shadow: 0px 1px 3px rgb(160, 167, 175);
             width:250px !important;
-            // display: block;
-            // background-color: blue;
-            // overflow: hidden;
         }
     }
 }
@@ -536,9 +532,8 @@ mat-dialog-content {
 }
 
 .bookingInfoTitle {
-    padding:10px 0;
-    margin-top: 10px;
+    margin-top: 30px;
     color:rgb(81, 88, 97);
-    font-size: 19px;
+    font-size: 15px;
     font-weight: bold;
 }

@@ -49,8 +49,18 @@ export class NotifDetailsComponent implements OnInit {
       )
   }
 
+  getPageName(page) {
+    let name = "------"
+    page.components.forEach(comp => {
+      if (comp.data.defaultName == "pageName") {
+        name = comp.data.text
+      }
+    })
+    return name;
+  }
+
   getPendingPage(page) {
-    const pageName = this.pagesData[0].components.name
+    const pageName = this.getPageName(page)
     const notif = {
       page: page._id,
       pageName: pageName,
@@ -70,7 +80,7 @@ export class NotifDetailsComponent implements OnInit {
   }
 
   getProcessPage(page) {
-    const pageName = this.pagesData[0].components.name
+    const pageName = this.getPageName(page)
     const message = (page.status == "Online")? `Your page "${pageName}" status has been set back to "Processing"`: `Your page "${pageName}" is already on the process`
     const notif = {
       page: page._id,
@@ -92,7 +102,7 @@ export class NotifDetailsComponent implements OnInit {
   }
 
   toApprove(page) {
-    const pageName = this.pagesData[0].components.name
+    const pageName = this.getPageName(page)
     const notif = {
       page: page._id,
       pageName: pageName,
