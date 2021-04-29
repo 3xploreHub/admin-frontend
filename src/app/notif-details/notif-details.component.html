@@ -108,14 +108,15 @@
 
                 <div class="pageInputField" *ngFor="let inputField of data.bookingInfo">
                     <div class="prop">
+                        <div class="inputLabel">Label: </div>
+                        <div>{{inputField.data.label}}</div>
+                    </div>
+                    
+                    <div class="prop">
                         <div class="inputLabel">Type:</div>
                         <div>{{types[inputField.type]}}</div>
                     </div>
 
-                    <div class="prop">
-                        <div class="inputLabel">Label: </div>
-                        <div>{{inputField.data.label}}</div>
-                    </div>
 
                     <div class="prop">
                         <div class="inputLabel">Required:</div>
