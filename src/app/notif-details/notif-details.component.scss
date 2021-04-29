@@ -344,3 +344,201 @@ mat-dialog-content {
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(153, 175, 192);
 }
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.font-normal {
+    font-size: 16px !important;
+}
+
+.font-title {
+    font-size: 22px !important;
+}
+
+.color-red {
+    color:rgb(192, 5, 5) !important;
+}
+.color-blue {
+    color:rgb(2, 89, 175) !important;
+}
+
+.color-green {
+    color:rgb(1, 158, 69) !important;
+}
+
+.color-lighter {
+    color: rgb(104, 104, 104) !important;
+}
+.color-light {
+    color: rgb(87, 87, 87) !important;
+}
+
+.color-dark {
+    color:rgb(43, 43, 43) !important;
+}
+
+.color-darker {
+    color:rgb(10, 10, 10) !important;
+}
+
+.font-extraLarge {
+    font-size: 23px !important;
+}
+.font-large {
+    font-size: 20px !important;
+}
+.font-medium {
+    font-size: 17px !important;
+}
+.font-small {
+    font-size: 15px !important;
+}
+.fontStyle-bolder {
+    font-weight: 800 !important;
+}
+.fontStyle-bold {
+    font-weight: 600 !important;
+}
+.fontStyle-italic {
+    font-style: italic !important;
+}
+
+.fontStyle-normal {
+    font-style: normal !important;
+}
+
+.bg-light {
+    // background-color: rgba(206, 206, 206, 0.2) !important;
+    background-color: transparent !important;
+    // background-color: rgb(209, 217, 224);
+}
+
+.bg-white {
+    background-color: #ffff !important;
+}
+.bg-color {
+    background-color: rgb(240, 244, 248) !important;
+    padding:8px !important;
+}
+
+.labelled-text {
+    padding:8px 10px;
+    background-color: white;
+    p{
+        margin:0;
+    }
+    .lb-label {
+        font-size: 13px;
+        color: rgb(152, 172, 194);
+    }
+
+    .lb-text {
+        font-size: 18px;
+    }
+}
+
+.pageTextComp {
+    padding:8px 10px;
+    p {
+        margin:0;
+    }
+}
+
+.pageNameComp {
+    padding:8px 0 !important; 
+    p {
+        margin:0;
+    }
+}
+
+.pageField {
+    margin:1px 0;
+
+    border-bottom: 1px solid rgb(241, 244, 247);
+}
+
+.bullet_form_text{
+    background-color: white;
+    padding:8px 10px;
+
+    .bft-label {
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+
+    .list {
+        color: rgb(84, 92, 102);
+        margin:0;
+        padding-left:30px;
+    }
+}
+.pageInputField {
+    padding:8px;
+    background-color: white;
+    margin:10px 0;
+}
+
+.itemImage {
+    width: 100%;
+}
+.itemList {
+    margin:10px 0;
+    padding:8px 0;
+    background-color: rgb(237, 240, 245);
+    
+    .serviceItem {
+        padding:10px 0;
+        // width:200px !important;
+        // display: inline-block;
+        display: flex;
+        // background-color: red;
+        flex-direction: row;
+        overflow-x:scroll;
+    
+        .itemService {
+            margin:10px;
+            background-color: white;
+            flex-shrink: 0;
+            box-shadow: 0px 1px 3px rgb(160, 167, 175);
+            width:250px !important;
+            // display: block;
+            // background-color: blue;
+            // overflow: hidden;
+        }
+    }
+}
+
+.prop {
+    display: flex;
+
+    .inputLabel {
+        color:rgb(111, 127, 138);
+        margin-right: 10px;
+    }
+    .list {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.bookingInfoTitle {
+    padding:10px 0;
+    margin-top: 10px;
+    color:rgb(81, 88, 97);
+    font-size: 19px;
+    font-weight: bold;
+}

@@ -12,6 +12,7 @@ export class NotifDetailsComponent implements OnInit {
   public services: any;
   public modalContainerHeight: number;
   public pagesData: any
+  public types = {"date-input": "Date Input", "text-input": "Text Input", "number-input": "Number Input", "choices-input": "Choices Input"}
   tabIndex;
 
   constructor(public route: ActivatedRoute, public dialogRef: MatDialogRef<NotifDetailsComponent>,
@@ -109,6 +110,8 @@ export class NotifDetailsComponent implements OnInit {
       this.closeDialog("Online")
     })
   }
+
+
   closeDialog(status) {
     this.dialogRef.close(status);
   }
