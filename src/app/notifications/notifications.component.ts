@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { AdminService } from './../service/admin.service';
 // import { OnInit } from '@angular/core';
-import { Component, OnInit,AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 // import { ngAfterViewInit } from '@angular/compiler';
 import { notification } from '../Interface/notifications';
 // import { MainServicesService } from '../provider-services/main-services.service';
@@ -14,9 +14,9 @@ import { notification } from '../Interface/notifications';
 export class NotificationsComponent implements OnInit {
   public notifications: any[] = []
   public loading: boolean = true;
-  public counter1 : any
-  public counter2 : any
-  constructor(public mainService:AdminService, public router: Router) { }
+  public counter1: any
+  public counter2: any
+  constructor(public mainService: AdminService, public router: Router) { }
 
   ngOnInit() {
     this.getNotifications();
@@ -62,22 +62,23 @@ export class NotificationsComponent implements OnInit {
     const curUser = this.mainService.user._id
     let title = "Untitled Page"
     if (notif.booking) {
-      const bookingOwner  = notif.booking.tourist
+      const bookingOwner = notif.booking.tourist
       if (curUser == bookingOwner) {
-        notif.page.components.forEach(comp => {
-          if (comp.data.defaultName && comp.data.defaultName == "pageName") {
-            title = `Your booking to "${comp.data.text}"`
-          }
-        });
+        title = "booking"
       } else {
         title = `${notif.mainReceiver.fullName}'s booking`
       }
-    }else {
-      notif.page.components.forEach(comp => {
-        if (comp.data.defaultName == "pageName") {
-          title = comp.data.text
-        }
-      });
+    } else {
+      if (notif.page){
+
+        notif.page.components.forEach(comp => {
+          if (comp.data.defaultName == "pageName") {
+            title = comp.data.text
+          }
+        });
+      } else {
+        title = "DELETED PAGE"
+      }
     }
     return title
   }

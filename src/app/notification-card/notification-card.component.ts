@@ -49,11 +49,16 @@ export class NotificationCardComponent implements OnInit {
             alert("Booking is no longer available")
           }
         } else if (type == "page-admin") {
-          let param = { queryParams: { pageId: this.notificationGroup.page._id } }
-          if (this.notificationGroup.page.status == "Online" || this.notificationGroup.page.status == "Not Operating") {
-            this.router.navigate(["/admin/pageToApprove/onlinePages"], param)
+          if (this.notificationGroup.page) {
+
+            let param = { queryParams: { pageId: this.notificationGroup.page._id } }
+            if (this.notificationGroup.page.status == "Online" || this.notificationGroup.page.status == "Not Operating") {
+              this.router.navigate(["/admin/pageToApprove/onlinePages"], param)
+            } else {
+              this.router.navigate(["/admin/pageToApprove/pendingPages"], param)
+            }
           } else {
-            this.router.navigate(["/admin/pageToApprove/pendingPages"], param)
+            alert("The page is already deleted!")
           }
         }
         // if (type == "booking") {
