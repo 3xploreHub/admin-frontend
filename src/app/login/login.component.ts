@@ -34,16 +34,10 @@ export class LoginComponent implements OnInit {
       if (partialDataHandler.status != false) {
         this.authService.setToken(user.token);
         this.show=true;
-         
           this.router.navigate(['admin/bookingNotif']);
-     
       } else {
-        // if(!this.alert ){
-          // this.alert == true;
           this.dialogService.openConfirmedDialog(partialDataHandler.sms);
-          this.router.navigate(['']);
-        // }
-       
+          this.router.navigate([''])
       }
     });
   }

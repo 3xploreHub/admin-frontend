@@ -9,6 +9,7 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
   styleUrls: ['./notif-details.component.scss']
 })
 export class NotifDetailsComponent implements OnInit {
+
   public services: any;
   public modalContainerHeight: number;
   public pagesData: any
@@ -87,6 +88,7 @@ export class NotifDetailsComponent implements OnInit {
     // this.adminService.notify({ user: this.adminService.user, bookingId: this.booking._id, type: "Cancelled_booking-provider", receiver: notificationData.receiver, message: notificationData.message })
     this.adminService.setPageStatus(notif).subscribe((data) => {
       this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: message })
+
       this.closeDialog("Processing")
     })
   }
@@ -110,8 +112,6 @@ export class NotifDetailsComponent implements OnInit {
       this.closeDialog("Online")
     })
   }
-
-
   closeDialog(status) {
     this.dialogRef.close(status);
   }

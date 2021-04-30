@@ -7,17 +7,30 @@
             <mat-card-title>{{ approve.creator.fullName }}</mat-card-title>
             <mat-card-subtitle>Owner</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="{{ approve.components.image }}">
+        <div *ngFor="let info of approve.components">
+            <div *ngIf="info.type=='photo'">
+                <img mat-card-image src="{{ info.data[0].url }}">
+            </div>
+        </div>
         <mat-card-content style="margin-bottom:14%">
-            <h3>{{ approve.components.name }}</h3>
-            <p>Location: <span>{{ approve.components.location }}</span></p>
+            <div *ngFor="let detail of approve.components">
+                <div *ngIf="detail.data.defaultName=='pageName'">
+                    <h3>{{ detail.data.text }}</h3>
+                </div>
+                <div *ngIf="detail.data.defaultName=='barangay'||detail.data.defaultName=='municipality'||detail.data.defaultName=='province'">
+                    <p>{{ detail.data.label }}:<span>{{ detail.data.text }}</span></p>
+                </div>
+            </div>
             <p>Type: <span>{{ approve.pageType == "tourist_spot"? "Tourist Spot": "Service" }}</span> </p>
         </mat-card-content>
         <div class="approve" [class.notOperating]="approve.status == 'Not Operating'">
-            <span  *ngIf="approve.status != 'Not Operating'" class="material-icons approveIcon">
+            <span *ngIf="approve.status != 'Not Operating'" class="material-icons approveIcon">
                 check_circle_outline
-                </span>
+            </span>
             <div>{{approve.status}}</div>
         </div>
     </mat-card>
+    <div class="overlay" *ngIf="show">
+        <div class="loader"></div>
+    </div>
 </div>

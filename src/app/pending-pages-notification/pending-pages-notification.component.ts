@@ -10,13 +10,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pending-pages-notification.component.scss']
 })
 export class PendingPagesNotificationComponent implements OnInit {
-
+  public show = true;
   public pages: any[] = []
   public processData: any;
   public onlineData: any;
   public pendingCount: any;
   public processCount: any;
   public pageNumCount: any;
+  public location: any;
+
 
 
 
@@ -32,22 +34,24 @@ export class PendingPagesNotificationComponent implements OnInit {
         this.getPages()
       }
     })
-  }
 
+  }
   getPages() {
     this.adminService.getAllPendingNotifications("Processing").subscribe((data: any) => {
       this.pages = data
       this.displayCurrentPage(this.pages)
       this.pendingCount = this.pages.length
-      console.log(this.pages);
+      console.log("PAGES:::", this.pages)
     })
-  }
 
+  }
   displayCurrentPage(data) {
+    this.show = false
     this.route.queryParams.subscribe(params => {
       if (params) {
         data.forEach(page => {
           if (page._id == params.pageId) {
+            this.show = true
             this.openModal(page)
           }
         });
@@ -59,9 +63,9 @@ export class PendingPagesNotificationComponent implements OnInit {
       disableClose: false,
       id: 'modal-component',
       data: page,
-      panelClass: 'custom-modalbox'
+      panelClass: 'custom-modalbox',
+    
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.pages = this.pages.map(item => {

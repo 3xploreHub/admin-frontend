@@ -7,10 +7,21 @@
             <mat-card-title>{{ item.creator.fullName }}</mat-card-title>
             <mat-card-subtitle>Owner</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="{{ item.components.image }}">
+
+        <div *ngFor="let info of item.components">
+            <div *ngIf="info.type=='photo'">
+                <img mat-card-image src="{{ info.data[0].url }}">
+            </div>
+        </div>
         <mat-card-content style="margin-bottom:14%">
-            <h3>{{ item.components.name }}</h3>
-            <p>Location: <span>{{ item.components.location }}</span></p>
+            <div *ngFor="let detail of item.components">
+                    <div *ngIf="detail.data.defaultName=='pageName'">
+                        <h3>{{ detail.data.text }}</h3>
+                    </div>
+                    <div *ngIf="detail.data.defaultName=='barangay'||detail.data.defaultName=='municipality'||detail.data.defaultName=='province'">
+                        <p>{{ detail.data.label }}:<span>{{ detail.data.text }}</span></p>
+                    </div>
+            </div>
             <p>Type: <span>{{ item.pageType == "tourist_spot"? "Tourist Spot": "Service" }}</span> </p>
         </mat-card-content>
         <div *ngIf="item.status == 'Pending'; else Processing" class="status"><span class="material-icons pendingIcon">
@@ -24,4 +35,7 @@
             </div>
         </ng-template>
     </mat-card>
+    <div class="overlay" *ngIf="show">
+        <div class="loader"></div>
+    </div>
 </div>

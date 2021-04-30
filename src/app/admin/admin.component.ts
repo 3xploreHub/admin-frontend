@@ -12,6 +12,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+  public show = true
   public counter1: any
   public counter2: any
   public bookings: any;
@@ -41,7 +42,6 @@ export class AdminComponent implements OnInit {
     })
   }
   logOut() {
-
     Swal.fire({
       // toast:true,
       position: 'top-end',
@@ -58,7 +58,9 @@ export class AdminComponent implements OnInit {
 
   }
   goTo(clicked) {
+    this.show = false
     this.adminService.currentPath = clicked
+    this.show=true
     this.router.navigate(["/admin/" + clicked])
   }
 }

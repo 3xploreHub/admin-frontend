@@ -1,11 +1,18 @@
 <mat-toolbar class="container">
     <mat-toolbar-row class="status">
         <div class="statlabel">
-            <button mat-button [class.focused_new]="adminService.currentPath == 'new'" (click)="goTo('new')" id="new">New Bookings</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button mat-button [class.focused_pending]="adminService.currentPath == 'pending'" (click)="goTo('pending')" id="pending">On Processed</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button mat-button [class.focused_booked]="adminService.currentPath == 'booked'" (click)="goTo('booked')" id="booked">Booked</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button mat-button [class.focused_declined]="adminService.currentPath == 'declined'" (click)="goTo('declined')" id="declined">Declined</button>
+            <button mat-button [class.focused_new]="adminService.currentPath == 'new'" (click)="goTo('new')" id="new">New
+                Bookings</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-button [class.focused_pending]="adminService.currentPath == 'pending'" (click)="goTo('pending')"
+                id="pending">On Processed</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-button [class.focused_booked]="adminService.currentPath == 'booked'" (click)="goTo('booked')"
+                id="booked">Booked</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-button [class.focused_declined]="adminService.currentPath == 'declined'" (click)="goTo('declined')"
+                id="declined">Declined</button>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
+<div class="overlay" *ngIf="!show">
+        <div class="loader"></div>
+    </div>
 <router-outlet></router-outlet>

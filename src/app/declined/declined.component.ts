@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./declined.component.scss']
 })
 export class DeclinedComponent implements OnInit {
+  public show = true
   @ViewChild(MatPaginator) paginator: MatPaginator
   bookingAccount: any;
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
@@ -29,6 +30,7 @@ export class DeclinedComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.show = true
     this.adminService.notification.subscribe(
       (data: any) => {
         if (data.booking && data.booking.status == "Rejected" || data.booking && data.booking.status == "Pending") {
@@ -40,6 +42,7 @@ export class DeclinedComponent implements OnInit {
 
   getBookings() {
     this.adminService.getAllBookings('Rejected').subscribe((data) => {
+      this.show =false
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
       this.populateTable()

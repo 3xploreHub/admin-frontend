@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./booking-notification.component.scss']
 })
 export class BookingNotificationComponent implements OnInit {
-  hideShow = false;
+  public show=false
   public data: any;
   public newNotif = true;
   keyWord: string = '';
@@ -21,6 +21,7 @@ export class BookingNotificationComponent implements OnInit {
 
   goTo(clicked) {
     this.adminService.currentPath = clicked
+    this.show = true
     this.router.navigate(["/admin/bookingNotif/"+clicked])
   }
 

@@ -14,6 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./booked.component.scss']
 })
 export class BookedComponent implements OnInit {
+  public show = true
   @ViewChild(MatPaginator) paginator: MatPaginator
   bookingAccount: any[] = [];
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
@@ -24,28 +25,27 @@ export class BookedComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
+    this.show = true
     this.adminService.notification.subscribe(
+      
       (data: any) => {
         if (data.booking && data.booking.status == "Booked" || data.booking && data.booking.status == "Closed" || data.booking && data.booking.status == "Cancelled") {
           this.getBookings()
-
         }
       }
     )
-
-    
   }
 
   getBookings() {
     this.adminService.getAllBookings('Booked').subscribe((data: any[]) => {
+      this.show = false
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
       this.populateTable();
-      this.route.queryParams.subscribe(
+      this.route.queryParams.subscribe(    
         (params: any) => {
           console.log(params)
-          if (params && params.bookingId) {
+          if (params && params.bookingId) {   
             this.bookingAccount.forEach(booking => {
               console.log(booking._id == params.bookingId)
               if (booking._id == params.bookingId) {
@@ -58,14 +58,9 @@ export class BookedComponent implements OnInit {
     }
     );
   }
-
   populateTable() {
     this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
-
-    // setTimeout(() => {
     this.dataSource.paginator = this.paginator;
-    // }, 100)
-
     this.dataSource.filterPredicate = function (data, filter: string): boolean {
       return data.tourist.fullName.toLocaleLowerCase().includes(filter)
     }

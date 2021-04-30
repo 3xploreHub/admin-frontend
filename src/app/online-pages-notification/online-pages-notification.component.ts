@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./online-pages-notification.component.scss']
 })
 export class OnlinePagesNotificationComponent implements OnInit {
+  public show=true;
   public pages: any;
   public processData: any;
   public onlineData: any;
@@ -61,10 +62,12 @@ export class OnlinePagesNotificationComponent implements OnInit {
 
   
   displayCurrentPage(data) {
+    this.show=false
     this.route.queryParams.subscribe(params => {
       if (params) {
         data.forEach(page => {
           if (page._id == params.pageId) {
+            this.show = true
             this.openModal(page)
           }
         });

@@ -13,6 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./pending.component.scss']
 })
 export class PendingComponent implements OnInit {
+  public show = true
   @ViewChild(MatPaginator) paginator: MatPaginator
   bookingAccount: any;
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
@@ -24,6 +25,7 @@ export class PendingComponent implements OnInit {
 
   }
   ngOnInit() {
+    this.show = true
     this.adminService.notification.subscribe(
       (data: any) => {
         if (data.booking && data.booking.status == "Processing" || data.booking && data.booking.status == "Cancelled") {
@@ -34,6 +36,7 @@ export class PendingComponent implements OnInit {
   }
   getBookings() {
     this.adminService.getAllBookings('Processing').subscribe((data) => {
+      this.show = false
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
       this.populateTable()
