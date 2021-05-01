@@ -80,6 +80,7 @@ export class AdminService {
     let token = localStorage.getItem("token")
     return this.http.post(`${this.apiUrl}/setPageStatus`, data, { headers: { authorization: `bearer ${token}` } })
   }
+  
   setBookingStatus(data) {
     let token = localStorage.getItem("token")
     return this.http.post(`${this.apiUrl}/setBookingStatus`, data, { headers: { authorization: `bearer ${token}` } })
