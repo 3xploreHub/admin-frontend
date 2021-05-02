@@ -12,11 +12,11 @@ import { MatMenuTrigger } from '@angular/material/menu';
 })
 export class DetailsComponent implements OnInit {
   @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
-  public pageName:string;
+  public pageName: string;
   public pageLocation: string;
   public pageCreator: string
   public photo: string = "";
-  public booking: any  =  {_id:"", tourist: {_id: ""}, pageId:{_id:""}}
+  public booking: any = { _id: "", tourist: { _id: "" }, pageId: { _id: "" } }
   public bookingData: any
   public modalContainerHeight: number;
   public selectedService = []
@@ -29,15 +29,15 @@ export class DetailsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data
 
 
-  ) { 
+  ) {
     // this.bookingData =  {_id:"", tourist: {_id: ""}, pageId:{_id:""}}
   }
   ngOnInit() {
-    
+
     this.booking = this.data;
     this.bookingData = this.data.bookingInfo;
     console.log(this.data, 'booking');
-    
+
     // this.data.selectedServices[0].data.defaultName.splice("quantity",1)
     this.selectedService = this.data.selectedServices;
     this.page = Array.of(this.data.pageId);
@@ -46,16 +46,16 @@ export class DetailsComponent implements OnInit {
     //   return comp
     // })
     console.log(this.bookingData);
-    
+
     this.modalContainerHeight = window.innerHeight - 200;
     const pageNameComp = this.getDefaultValue("pageName")
     const barangay = this.getDefaultValue("barangay")
     const municipality = this.getDefaultValue("municipality")
     const province = this.getDefaultValue("province")
     this.pagePhoto = this.getItemValue(this.page[0].components, "photo", true)
-    this.pageName = pageNameComp.length > 0 ? pageNameComp[0].data.text: "Untitled"
+    this.pageName = pageNameComp.length > 0 ? pageNameComp[0].data.text : "Untitled"
     this.pageCreator = this.page[0].creator.fullName
-    this.pageLocation = barangay[0].data.text+", "+municipality[0].data.text+", "+province[0].data.text
+    this.pageLocation = barangay[0].data.text + ", " + municipality[0].data.text + ", " + province[0].data.text
   }
 
   getDefaultValue(type) {
@@ -88,26 +88,27 @@ export class DetailsComponent implements OnInit {
     return result
   }
 
-  getItemValue(components, type, notDefault= false) {
+  getItemValue(components, type, notDefault = false) {
     let value = "--------"
     components.forEach(element => {
 
       if (!notDefault && element.data.defaultName == type) {
         value = element.data.text
       } else if (notDefault && element.type == type) {
-          value = element.data.length ? element.data[0].url: null
+        value = element.data.length ? element.data[0].url : null
       }
     });
     return value
   }
 
-  checkAvailability(data) {
+  checkAvailability(data, type) {
     return new Promise((resolve, reject) => {
       let hasAvailable = true;
       data.selectedServices.forEach(item => {
         const service = item.service
         let quantity = this.getValue(service.data, "quantity")
-        if (service.booked + service.manuallyBooked + service.toBeBooked + 1 > quantity) {
+        if (type == "to_processing") item.pending = item.pending - item.quantity;
+        if (service.booked + service.manuallyBooked + service.toBeBooked + service.pending + item.quantity > quantity) {
           this.dialogService.openConfirmedDialog(this.getValue(service.data, "name") + " has no more available item")
           hasAvailable = false
           return;
@@ -118,7 +119,7 @@ export class DetailsComponent implements OnInit {
   }
 
   toBooked(booking) {
-    const pageName = this.page[0].components.name
+    const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     let valid = true;
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
@@ -163,13 +164,14 @@ export class DetailsComponent implements OnInit {
 
 
   toOnProcess(booking) {
-    const pageName = this.page[0].components.name
+    const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe(
       (bookingData: any) => {
         let servicesToUpdate = bookingData.selectedServices.map(item => {
           const serviceData = item.service
-          let service = { _id: serviceData._id, bookingData: { toBeBooked: serviceData.toBeBooked + item.quantity } }
+
+          let service = { _id: serviceData._id, bookingData: { toBeBooked: serviceData.toBeBooked + item.quantity, pending: serviceData.pending - item.quantity } }
           return service
         })
         const notif = {
@@ -185,26 +187,26 @@ export class DetailsComponent implements OnInit {
           touristReceiver: booking.tourist._id
         }
 
-        this.checkAvailability(bookingData).then(hasAvailable => {
-          if (hasAvailable) {
+        // this.checkAvailability(bookingData).then(hasAvailable => {
+          // if (hasAvailable) {
             this.adminService.setBookingStatus(notif).subscribe((data: any) => {
               this.adminService.notify({ user: this.adminService.user, booking: data, type: "Processing_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
               this.dialogRef.close(data._id)
 
             });
-          }
-        })
+        //   }
+        // })
       }
     )
   }
 
   returnToOnProcess(booking) {
-    const pageName = this.page[0].components.name
+    const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
         const serviceData = item.service
-        let service = { _id: serviceData._id, bookingData: { toBeBooked: serviceData.toBeBooked + item.quantity} }
+        let service = { _id: serviceData._id, bookingData: { toBeBooked: serviceData.toBeBooked + item.quantity } }
         if (booking.status == "Booked") {
           service.bookingData["booked"] = serviceData.booked - item.quantity
         }
@@ -231,22 +233,24 @@ export class DetailsComponent implements OnInit {
   }
 
   toPending(booking) {
-    const pageName = this.page[0].components.name
+    const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate;
-      if (bookingData.status == "Processing") {
-        servicesToUpdate = bookingData.selectedServices.map(item => {
-          let service = { _id: item.service._id }
-          const serviceData = item.service
-          if (bookingData.status == "Booked") {
-            service["bookingData"] = { booked: serviceData.booked - item.quantity }
-          } else if (bookingData.status == "Processing") {
-            service["bookingData"] = { toBeBooked: serviceData.toBeBooked - item.quantity }
-          }
-          return service
-        })
-      }
+
+      servicesToUpdate = bookingData.selectedServices.map(item => {
+        let service = { _id: item.service._id }
+        const serviceData = item.service
+        if (bookingData.status == "Booked") {
+          service["bookingData"] = { booked: serviceData.booked - item.quantity, pending: serviceData.pending + item.quantity }
+        } else if (bookingData.status == "Processing") {
+          service["bookingData"] = { toBeBooked: serviceData.toBeBooked - item.quantity, pending: serviceData.pending + item.quantity }
+        } else if (bookingData.status == "Rejected") {
+          service["bookingData"] = { pending: serviceData.pending + item.quantity }
+        }
+        return service
+      })
+
       const notif = {
         bookingId: booking._id,
         pageName: pageName,
@@ -267,16 +271,16 @@ export class DetailsComponent implements OnInit {
   }
 
   returnToPending(booking) {
-    const pageName = this.page[0].components.name
+    const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
         let service = { _id: item.service._id }
         const serviceData = item.service
         if (bookingData.status == "Booked") {
-          service["bookingData"] = { booked: serviceData.booked - item.quantity }
+          service["bookingData"] = { booked: serviceData.booked - item.quantity, pending: serviceData.pending + item.quantity }
         } else if (bookingData.status == "Processing") {
-          service["bookingData"] = { toBeBooked: serviceData.toBeBooked - item.quantity }
+          service["bookingData"] = { toBeBooked: serviceData.toBeBooked - item.quantity, pending: serviceData.pending + item.quantity }
         }
         return service
       })
@@ -302,20 +306,22 @@ export class DetailsComponent implements OnInit {
   }
 
   declinedFunction(booking) {
-    const pageName = this.page[0].components.name
+    const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
       let servicesToUpdate = bookingData.selectedServices.map(item => {
         let service = { _id: item.service._id }
         const serviceData = item.service
         if (bookingData.status == "Booked") {
-          service["bookingData"] = { booked: serviceData.booked - item.quantity}
+          service["bookingData"] = { booked: serviceData.booked - item.quantity }
         } else if (bookingData.status == "Processing") {
           service["bookingData"] = { toBeBooked: serviceData.toBeBooked - item.quantity }
+        } else if (bookingData.status == "Pending") {
+          service["bookingData"] = { pending: serviceData.pending - item.quantity }
         }
         return service
       })
-      const notif = {
+      const notif = { 
         bookingId: booking._id,
         pageName: pageName,
         servicesToUpdate: servicesToUpdate,
