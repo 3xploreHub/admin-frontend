@@ -81,7 +81,7 @@
                                 </ul>
                             </div>
                             <ng-template #notList>
-                                
+
                                 <p class="value">{{ displayValue(item.value, item.inputFieldType)}}</p>
                             </ng-template>
                         </div>
@@ -101,8 +101,8 @@
                     <span class="material-icons">sync</span>
                 </button>
                 <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-declined-button"
-                (click)="declinedFunction(booking)">Declined
-                <span class="material-icons">event_busy</span></button>
+                    (click)="declinedFunction(booking)">Declined
+                    <span class="material-icons">event_busy</span></button>
             </div>
         </div>
 
@@ -138,9 +138,7 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="returnToOnProcess(booking)">On Process</button>
                     <button mat-menu-item (click)="returnToPending(booking)">New Bookings</button>
-
                 </mat-menu>
-
             </div>
         </div>
         <div class="modalFooter" *ngIf="booking.status === 'Rejected'">

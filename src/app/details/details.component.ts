@@ -107,8 +107,9 @@ export class DetailsComponent implements OnInit {
       data.selectedServices.forEach(item => {
         const service = item.service
         let quantity = this.getValue(service.data, "quantity")
-        if (type == "to_processing") item.pending = item.pending - item.quantity;
-        if (service.booked + service.manuallyBooked + service.toBeBooked + service.pending + item.quantity > quantity) {
+        let total = service.booked + service.manuallyBooked + service.toBeBooked + service.pending
+        if (type == "counted") total = total - item.quantity;
+        if (total + item.quantity > quantity) {
           this.dialogService.openConfirmedDialog(this.getValue(service.data, "name") + " has no more available item")
           hasAvailable = false
           return;
@@ -153,10 +154,15 @@ export class DetailsComponent implements OnInit {
           messageForTourist: `Your booking to "${pageName}" has been granted`,
           touristReceiver: booking.tourist._id
         }
-        this.adminService.setBookingStatus(notif).subscribe((data: any) => {
-          this.adminService.notify({ user: this.adminService.user, booking: data, type: "Booked_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
-          this.dialogRef.close(data._id)
-        });
+        const type = booking.status == "Rejected" ? "" : "counted"
+        this.checkAvailability(bookingData, "").then(hasAvailable => {
+          if (hasAvailable) {
+            this.adminService.setBookingStatus(notif).subscribe((data: any) => {
+              this.adminService.notify({ user: this.adminService.user, booking: data, type: "Booked_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Your booking status was set to Processing` })
+              this.dialogRef.close(data._id)
+            });
+          }
+        })
       }
     })
   }
@@ -186,16 +192,16 @@ export class DetailsComponent implements OnInit {
           messageForTourist: `Your booking to "${pageName}" is now on process`,
           touristReceiver: booking.tourist._id
         }
-
-        // this.checkAvailability(bookingData).then(hasAvailable => {
-          // if (hasAvailable) {
+        const type = booking.status == "Rejected" ? "" : "counted"
+        this.checkAvailability(bookingData, type).then(hasAvailable => {
+          if (hasAvailable) {
             this.adminService.setBookingStatus(notif).subscribe((data: any) => {
               this.adminService.notify({ user: this.adminService.user, booking: data, type: "Processing_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
               this.dialogRef.close(data._id)
 
             });
-        //   }
-        // })
+          }
+        })
       }
     )
   }
@@ -224,11 +230,14 @@ export class DetailsComponent implements OnInit {
         messageForTourist: `Your booking to "${pageName}" has been set back to processing`,
         touristReceiver: booking.tourist._id
       }
-
-      this.adminService.setBookingStatus(notif).subscribe((data: any) => {
-        this.adminService.notify({ user: this.adminService.user, booking: data, type: "Processing_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
-        this.dialogRef.close(data._id)
-      });
+      this.checkAvailability(bookingData, "counted").then(hasAvailable => {
+        if (hasAvailable) {
+          this.adminService.setBookingStatus(notif).subscribe((data: any) => {
+            this.adminService.notify({ user: this.adminService.user, booking: data, type: "Processing_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
+            this.dialogRef.close(data._id)
+          });
+        }
+      })
     })
   }
 
@@ -263,10 +272,14 @@ export class DetailsComponent implements OnInit {
         messageForTourist: `Your booking to "${pageName}" has been set back to pending`,
         touristReceiver: booking.tourist._id
       }
-      this.adminService.setBookingStatus(notif).subscribe((data: any) => {
-        this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
-        this.dialogRef.close(data._id)
-      });
+      this.checkAvailability(bookingData, "").then(hasAvailable => {
+        if (hasAvailable) {
+          this.adminService.setBookingStatus(notif).subscribe((data: any) => {
+            this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
+            this.dialogRef.close(data._id)
+          });
+        }
+      })
     })
   }
 
@@ -297,11 +310,14 @@ export class DetailsComponent implements OnInit {
         touristReceiver: booking.tourist._id
       }
       console.log(notif);
-
-      this.adminService.setBookingStatus(notif).subscribe((data: any) => {
-        this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
-        this.dialogRef.close(data._id)
-      });
+      this.checkAvailability(bookingData, "counted").then(hasAvailable => {
+        if (hasAvailable) {
+          this.adminService.setBookingStatus(notif).subscribe((data: any) => {
+            this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
+            this.dialogRef.close(data._id)
+          });
+        }
+      })
     })
   }
 
@@ -321,7 +337,7 @@ export class DetailsComponent implements OnInit {
         }
         return service
       })
-      const notif = { 
+      const notif = {
         bookingId: booking._id,
         pageName: pageName,
         servicesToUpdate: servicesToUpdate,
