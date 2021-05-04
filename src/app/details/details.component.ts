@@ -150,12 +150,12 @@ export class DetailsComponent implements OnInit {
           page: booking.pageId._id,
           status: "Booked",
           mainReceiver: booking.tourist._id,
-          messageForServiceProvider: `${touristName}'s booking has been confirmed`,
-          messageForTourist: `Your booking to "${pageName}" has been granted`,
+          messageForServiceProvider: `${touristName}'s booking request has been confirmed`,
+          messageForTourist: `Your booking request to "${pageName}" has been granted`,
           touristReceiver: booking.tourist._id
         }
         const type = booking.status == "Rejected" ? "" : "counted"
-        this.checkAvailability(bookingData, "").then(hasAvailable => {
+        this.checkAvailability(bookingData, type).then(hasAvailable => {
           if (hasAvailable) {
             this.adminService.setBookingStatus(notif).subscribe((data: any) => {
               this.adminService.notify({ user: this.adminService.user, booking: data, type: "Booked_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Your booking status was set to Processing` })
@@ -176,8 +176,8 @@ export class DetailsComponent implements OnInit {
       (bookingData: any) => {
         let servicesToUpdate = bookingData.selectedServices.map(item => {
           const serviceData = item.service
-
-          let service = { _id: serviceData._id, bookingData: { toBeBooked: serviceData.toBeBooked + item.quantity, pending: serviceData.pending - item.quantity } }
+          const pending = booking.status == "Pending" ? serviceData.pending - item.quantity: serviceData.pending
+          let service = { _id: serviceData._id, bookingData: { toBeBooked: serviceData.toBeBooked + item.quantity, pending: pending } }
           return service
         })
         const notif = {
@@ -188,8 +188,8 @@ export class DetailsComponent implements OnInit {
           page: booking.pageId._id,
           status: "Processing",
           mainReceiver: booking.tourist._id,
-          messageForServiceProvider: `${touristName}'s booking is on process`,
-          messageForTourist: `Your booking to "${pageName}" is now on process`,
+          messageForServiceProvider: `${touristName}'s booking request is on process`,
+          messageForTourist: `Your booking request to "${pageName}" is now on process`,
           touristReceiver: booking.tourist._id
         }
         const type = booking.status == "Rejected" ? "" : "counted"
@@ -226,8 +226,8 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         mainReceiver: booking.tourist._id,
         status: "Processing",
-        messageForServiceProvider: `${touristName}'s booking has been set back to processing`,
-        messageForTourist: `Your booking to "${pageName}" has been set back to processing`,
+        messageForServiceProvider: `${touristName}'s booking request has been set back to processing`,
+        messageForTourist: `Your booking request to "${pageName}" has been set back to processing`,
         touristReceiver: booking.tourist._id
       }
       this.checkAvailability(bookingData, "counted").then(hasAvailable => {
@@ -268,11 +268,11 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         mainReceiver: booking.tourist._id,
         status: "Pending",
-        messageForServiceProvider: `${touristName}'s has been set back to pending`,
-        messageForTourist: `Your booking to "${pageName}" has been set back to pending`,
+        messageForServiceProvider: `${touristName}'s booking request has been set back to pending`,
+        messageForTourist: `Your booking to "${pageName}" has booking request been set back to pending`,
         touristReceiver: booking.tourist._id
       }
-      this.checkAvailability(bookingData, "").then(hasAvailable => {
+      this.checkAvailability(bookingData, booking.status == "Rejected" ? "": "counted").then(hasAvailable => {
         if (hasAvailable) {
           this.adminService.setBookingStatus(notif).subscribe((data: any) => {
             this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
@@ -305,8 +305,8 @@ export class DetailsComponent implements OnInit {
         serviceProviderReceiver: booking.pageId.creator._id,
         mainReceiver: booking.tourist._id,
         status: "Pending",
-        messageForServiceProvider: `${touristName}'s has been set back to pending`,
-        messageForTourist: `Your booking to "${pageName}" has been set back to pending`,
+        messageForServiceProvider: `${touristName}'s booking request has been set back to pending`,
+        messageForTourist: `Your booking to "${pageName}" has booking request been set back to pending`,
         touristReceiver: booking.tourist._id
       }
       console.log(notif);
@@ -345,8 +345,8 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         mainReceiver: booking.tourist._id,
         status: "Rejected",
-        messageForServiceProvider: `${touristName}'s booking was declined`,
-        messageForTourist: `Your booking to "${pageName}" was declined`,
+        messageForServiceProvider: `${touristName}'s booking request was declined`,
+        messageForTourist: `Your booking request to "${pageName}" was declined`,
         touristReceiver: booking.tourist._id
       }
       this.adminService.setBookingStatus(notif).subscribe((data: any) => {
