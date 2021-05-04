@@ -39,7 +39,7 @@ export class NotificationCardComponent implements OnInit {
             return notif
           })
         }
-
+        this.mainService.updateNotificationCount.emit()
         const type = this.notificationGroup.type
         if (type.split("-")[0] == ("booking")) {
           const status = { Pending: "new", Processing: "pending", Booked: "booked", Rejected: "declined" }
