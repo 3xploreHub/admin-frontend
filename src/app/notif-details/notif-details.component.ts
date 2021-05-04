@@ -74,6 +74,7 @@ export class NotifDetailsComponent implements OnInit {
       message: `Your page "${pageName}" status has been set back to Pending`,
     }
     this.adminService.setPageStatus(notif).subscribe((data) => {
+      this.adminService.updatePendingPagesCount.emit()
       this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page "${pageName}" status has been set back to Pending` })
       this.closeDialog("Pending")
     })
@@ -96,6 +97,7 @@ export class NotifDetailsComponent implements OnInit {
     }
     // this.adminService.notify({ user: this.adminService.user, bookingId: this.booking._id, type: "Cancelled_booking-provider", receiver: notificationData.receiver, message: notificationData.message })
     this.adminService.setPageStatus(notif).subscribe((data) => {
+      this.adminService.updatePendingPagesCount.emit()
       this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: message })
       this.closeDialog("Processing")
     })
@@ -116,6 +118,7 @@ export class NotifDetailsComponent implements OnInit {
       message: `Your page "${pageName}" is now online`,
     }
     this.adminService.setPageStatus(notif).subscribe((data) => {
+      this.adminService.updatePendingPagesCount.emit()
       this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page "${pageName}" is now online` })
       this.closeDialog("Online")
     })

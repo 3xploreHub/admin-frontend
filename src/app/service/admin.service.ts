@@ -16,6 +16,8 @@ export class AdminService {
   public user: any;
   public notify: any;
   public notification: EventEmitter<any> = new EventEmitter();
+  public updatePendingBookingCount: EventEmitter<any> = new EventEmitter();
+  public updatePendingPagesCount: EventEmitter<any> = new EventEmitter();
   constructor(private http: HttpClient) {
   }
   receiveNotification(data) {
@@ -75,6 +77,14 @@ export class AdminService {
   // getOnlinePage(pageId){
   //   return this.http.get(`${this.apiUrl}/getOnlinePage/${pageId}`)
   // }
+
+  getPendingPagesCount() {
+    return this.http.get(`${this.apiUrl}/getPendingPagesCount`)
+  }
+
+  getPendingBookingsCount() {
+    return this.http.get(`${this.apiUrl}/getPendingBookingsCount`)
+  }
 
   setPageStatus(data) {
     let token = localStorage.getItem("token")

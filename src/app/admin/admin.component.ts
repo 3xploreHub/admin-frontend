@@ -14,26 +14,36 @@ export class AdminComponent implements OnInit {
   public pages: any
   constructor(public adminService: AdminService,
     public router: Router) { }
-
+    
   ngOnInit(): void {
-    this.adminService.getAllBookings("Pending").subscribe((data) => {
-      this.bookings = data
-      if(this.bookings.length === 0){
-        this.counter1 ="";
-      }else{
-        this.counter1 = this.bookings.length
-      }
+    this.getPendingBookingsCount()
+    this.getPendingPagesCount()
 
+    this.adminService.notification.subscribe((data: any) => {
+      if (data.type == "page-submission") {
+        this.getPendingPagesCount()
+      }
+      if (data.booking && data.booking.status == "Pending" || data.booking && data.booking.status == "Cancelled") {
+        this.getPendingBookingsCount()
+      }
     })
+    this.adminService.updatePendingBookingCount.subscribe(data => {
+      this.getPendingBookingsCount()
+    })
+    this.adminService.updatePendingPagesCount.subscribe(data => {
+      this.getPendingPagesCount()
+    })
+  }
 
-    this.adminService.getAllPendingNotifications("Pending").subscribe((data) => {
-      this.pages = data   
-      if(this.pages.length === 0){
-        this.counter2=="";
-      }else{
-        this.counter2 = this.pages.length
-      }
+  getPendingBookingsCount() {
+    this.adminService.getPendingBookingsCount().subscribe(count => {
+      this.counter1 =  count != 0 ? count : ""
+    })
+  }
 
+  getPendingPagesCount() {
+    this.adminService.getPendingPagesCount().subscribe(count => {
+      this.counter2 = count != 0 ? count : ""
     })
   }
   logOut() {

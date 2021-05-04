@@ -26,12 +26,6 @@ export class BookingNotificationComponent implements OnInit {
       this.counter1 = this.bookings.length
     
     })
-    
-    this.adminService.getAllPendingNotifications("Pending").subscribe((data)=>{
-      this.pages = data
-      this.counter2 = this.pages.length
-      
-    })
   }
 
   searchThis(event: any) {
