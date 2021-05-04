@@ -26,7 +26,7 @@
 <div class="container">
     <mat-card class="example-card" *ngFor="let approve of onlineData" (click)="openModal(approve)">
         <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
+            <div mat-card-avatar class="example-header-image" [ngStyle]="{'background-image': 'url(http://localhost:3000/'+ approve.creator.profile + ')'}"></div>
             <mat-card-title>{{ approve.creator.fullName }}</mat-card-title>
             <mat-card-subtitle>Owner</mat-card-subtitle>
         </mat-card-header>
