@@ -32,5 +32,8 @@
                 <button type="submit" mat-stroked-button (click)="onSubmit()" [disabled]="loginForm.invalid">LOGIN</button>
             </form>
         </mat-card>
+        <div class="overlay" *ngIf="!show">
+            <div class="loader"></div>
+        </div>
     </div>
 </body>

@@ -22,6 +22,7 @@ import { DataSource } from '@angular/cdk/table';
 
 
 export class NewNotificationComponent implements OnInit {
+  public show = true;
   bookingAccount: any[];
   @Input() passData: { bookingAccount };//data to pass pra nis filter wa ni gana huhuhuh
   @Output() searchBooking = new EventEmitter<String>();
@@ -37,6 +38,7 @@ export class NewNotificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.show = true
     this.adminService.notification.subscribe(
       (data:any) => {
         if (data.booking && data.booking.status == "Pending" || data.booking && data.booking.status == "Cancelled") {
@@ -48,6 +50,7 @@ export class NewNotificationComponent implements OnInit {
 
   getBookings() {
     this.adminService.getAllBookings('Pending').subscribe((data: any[]) => {
+      this.show = false
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
       this.populateTable()

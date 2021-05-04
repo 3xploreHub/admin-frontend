@@ -12,6 +12,7 @@ import { notification } from '../Interface/notifications';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
+  public show = true
   public notifications: any[] = []
   public loading: boolean = true;
   public counter1: any
@@ -19,6 +20,7 @@ export class NotificationsComponent implements OnInit {
   constructor(public mainService: AdminService, public router: Router) { }
 
   ngOnInit() {
+    this.show = true
     this.getNotifications();
     this.mainService.notification.subscribe(
       (data: any) => {
@@ -28,8 +30,10 @@ export class NotificationsComponent implements OnInit {
   }
 
   getNotifications(hideLoading = false) {
+   
     this.mainService.getNotifications().subscribe(
       (notifications: any) => {
+        this.show = false
         notifications = notifications.map(notif => {
           const msgNotif = notif.notifications.filter(n => n.isMessage)
           if (msgNotif.length > 0) {

@@ -3,6 +3,10 @@
     <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search via full name..." />
     </mat-form-field>
+    <div class="overlay" *ngIf="show">
+        <div class="loader"></div>
+    </div>
+    <div *ngIf = "!show">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef class="head"></th>
@@ -27,5 +31,6 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openModal(row)"></tr>
     </table>
     <mat-paginator class="pagination" [pageSizeOptions]="[5,8,10]" showFirstLastButtons></mat-paginator>
+    </div>
 </div>
 <!-- <app-new-notification></app-new-notification> -->

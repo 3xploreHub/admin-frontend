@@ -150,8 +150,8 @@ export class DetailsComponent implements OnInit {
           page: booking.pageId._id,
           status: "Booked",
           mainReceiver: booking.tourist._id,
-          messageForServiceProvider: `${touristName}'s booking request has been confirmed`,
-          messageForTourist: `Your booking request to "${pageName}" has been granted`,
+          messageForServiceProvider: `<b>${touristName}'s</b> booking request has been confirmed`,
+          messageForTourist: `Your booking request to <b>${pageName}</b> has been confirmed`,
           touristReceiver: booking.tourist._id
         }
         const type = booking.status == "Rejected" ? "" : "counted"
@@ -188,8 +188,8 @@ export class DetailsComponent implements OnInit {
           page: booking.pageId._id,
           status: "Processing",
           mainReceiver: booking.tourist._id,
-          messageForServiceProvider: `${touristName}'s booking request is on process`,
-          messageForTourist: `Your booking request to "${pageName}" is now on process`,
+          messageForServiceProvider: `<b>${touristName}'s</b> booking request is on process`,
+          messageForTourist: `The status of your booking request to <b>${pageName}</b> has been set to <b>Processing</b>`,
           touristReceiver: booking.tourist._id
         }
         const type = booking.status == "Rejected" ? "" : "counted"
@@ -227,8 +227,8 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         mainReceiver: booking.tourist._id,
         status: "Processing",
-        messageForServiceProvider: `${touristName}'s booking request has been set back to processing`,
-        messageForTourist: `Your booking request to "${pageName}" has been set back to processing`,
+        messageForServiceProvider: `<b>${touristName}'s</b> booking request status has been set back to <b>Processing</b>`,
+        messageForTourist: `The status of your booking request to <b>${pageName}</b> has been set back to <b>Processing</b>`,
         touristReceiver: booking.tourist._id
       }
       this.checkAvailability(bookingData, "counted").then(hasAvailable => {
@@ -270,8 +270,8 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         mainReceiver: booking.tourist._id,
         status: "Pending",
-        messageForServiceProvider: `${touristName}'s booking request has been set back to pending`,
-        messageForTourist: `Your booking to "${pageName}" has booking request been set back to pending`,
+        messageForServiceProvider: `<b>${touristName}'s</b> booking request status has been set back to <b>Pending</b>`,
+        messageForTourist: `The status of your booking to <b>${pageName}</b> has been set back to <b>Pending</b>`,
         touristReceiver: booking.tourist._id
       }
       this.checkAvailability(bookingData, booking.status == "Rejected" ? "" : "counted").then(hasAvailable => {
@@ -308,8 +308,8 @@ export class DetailsComponent implements OnInit {
         serviceProviderReceiver: booking.pageId.creator._id,
         mainReceiver: booking.tourist._id,
         status: "Pending",
-        messageForServiceProvider: `${touristName}'s booking request has been set back to pending`,
-        messageForTourist: `Your booking to "${pageName}" has booking request been set back to pending`,
+        messageForServiceProvider: `<b>${touristName}'s</b> booking request status has been set back to <b>Pending</b>`,
+        messageForTourist: `The status of your booking request to <b>${pageName}</b> has been set back to <b>Pending</b>`,
         touristReceiver: booking.tourist._id
       }
       this.checkAvailability(bookingData, "counted").then(hasAvailable => {
@@ -348,8 +348,8 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         mainReceiver: booking.tourist._id,
         status: "Rejected",
-        messageForServiceProvider: `${touristName}'s booking request was declined`,
-        messageForTourist: `Your booking request to "${pageName}" was declined`,
+        messageForServiceProvider: `<b>${touristName}'s</b> booking request was declined`,
+        messageForTourist: `Your booking request to <b>${pageName}</b> was declined`,
         touristReceiver: booking.tourist._id
       }
       this.adminService.setBookingStatus(notif).subscribe((data: any) => {

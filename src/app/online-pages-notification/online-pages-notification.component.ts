@@ -13,7 +13,9 @@ export class OnlinePagesNotificationComponent implements OnInit {
   public pages: any;
   public processData: any;
   public onlineData: any;
-  public length:any
+  public length:any;
+  public show = true;
+
   constructor(private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -51,10 +53,12 @@ export class OnlinePagesNotificationComponent implements OnInit {
 
   
   displayCurrentPage(data) {
+    this.show = false
     this.route.queryParams.subscribe(params => {
       if (params) {
         data.forEach(page => {
           if (page._id == params.pageId) {
+            this.show = true
             this.openModal(page)
           }
         });

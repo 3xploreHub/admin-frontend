@@ -17,6 +17,7 @@ export class PendingPagesNotificationComponent implements OnInit {
   public pendingCount: any;
   public processCount: any;
   public pageNumCount: any
+  public show = true;
 
 
   constructor(private router: Router,
@@ -43,10 +44,12 @@ export class PendingPagesNotificationComponent implements OnInit {
   }
 
   displayCurrentPage(data) {
+    this.show = false
     this.route.queryParams.subscribe(params => {
       if (params) {
         data.forEach(page => {
           if (page._id == params.pageId) {
+            this.show = true
             this.openModal(page)
           }
         });

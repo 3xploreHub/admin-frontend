@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { AdminService } from './../service/admin.service';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-admin',
@@ -47,8 +48,19 @@ export class AdminComponent implements OnInit {
     })
   }
   logOut() {
-    this.adminService.deleteToken();
-    this.router.navigate(['login']);
+    Swal.fire({
+      // toast:true,
+      position: 'top-end',
+      title: 'Are you sure you want to logout?',
+      confirmButtonText: `Yes`,
+      confirmButtonColor: 'rgb(11, 155, 30)',
+      width: 400,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.adminService.deleteToken();
+        this.router.navigate(['login']);
+      }
+    })
   }
   goTo(clicked) {
     this.adminService.currentPath = clicked

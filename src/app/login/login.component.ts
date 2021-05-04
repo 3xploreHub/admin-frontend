@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 
 export class LoginComponent implements OnInit {
   public alert = false;
+  public show = true;
   constructor(private authService: AdminService, private router: Router,
               private dialogService: DialogService ) { }
   
@@ -27,11 +28,13 @@ export class LoginComponent implements OnInit {
 
   }
   onSubmit() {
+    this.show = false
     let partialDataHandler;
     this.authService.login(this.credentialsForm).subscribe((user:any) => {
       partialDataHandler = user;
       if (partialDataHandler.status != false) {
         this.authService.setToken(user.token);
+        this.show=true;
         this.router.navigate(['admin/bookingNotif']);
       } else {
         // if(!this.alert ){
