@@ -26,6 +26,9 @@ export class BookingNotificationComponent implements OnInit {
       this.counter1 = this.bookings.length
     
     })
+    this.adminService.changeTab.subscribe(tab => {
+      this.adminService.currentPath = tab
+    })
   }
 
   searchThis(event: any) {
@@ -35,7 +38,7 @@ export class BookingNotificationComponent implements OnInit {
   }
 
   goTo(clicked) {
-    this.adminService.currentPath = clicked
+    this.adminService.changeTab.emit(clicked)
     this.router.navigate(["/admin/bookingNotif/"+clicked])
   }
 

@@ -25,13 +25,18 @@ export class AppComponent implements OnInit ,AfterViewInit, OnDestroy {
         this.processingTimeEnded = true;
         setTimeout(() => {
           this.processingTimeEnded = false;
-        }, 5000);
+        }, 9000);
       }
     )
   }
 
   ngAfterViewInit() {
       this.notifHandler.init();
+  }
+
+  goToProcessingTab() {
+    this.processingTimeEnded = false
+    this.adminService.changeTab.emit("processing")
   }
 
   ngOnDestroy() {

@@ -31,7 +31,7 @@ const routes: Routes = [
           // { path: 'allNotif', component: AllNotifComponent, data: { isHidden: true } },
           { path: '', component: NewNotificationComponent },
           { path: 'new', component: NewNotificationComponent },
-          { path: 'pending', component: PendingComponent },
+          { path: 'processing', component: PendingComponent },
           { path: 'booked', component: BookedComponent },
           { path: 'declined', component: DeclinedComponent },
         ], canActivate: [AuthGuard],
