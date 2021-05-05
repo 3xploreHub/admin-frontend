@@ -16,7 +16,8 @@ export class PendingComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator
   public show = true;
   bookingAccount: any;
-  displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
+  public interval: any;
+  displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess', 'timeLeft'];
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog,
     private adminService: AdminService, public route: ActivatedRoute,) {
@@ -45,7 +46,6 @@ export class PendingComponent implements OnInit {
           console.log(params)
           if (params && params.bookingId) {
             this.bookingAccount.forEach(booking => {
-              console.log(booking._id == params.bookingId)
               if (booking._id == params.bookingId) {
                 this.openModal(booking);
               }
@@ -53,6 +53,7 @@ export class PendingComponent implements OnInit {
           }
         }
       )
+      this.startTime()
     }
     );
   }
@@ -85,5 +86,49 @@ export class PendingComponent implements OnInit {
   applyFilter(value: string) {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
+
+
+  startTime() {
+    this.interval = setInterval(async () => {
+      this.updateTime().then((updated) => {
+        this.bookingAccount = updated;
+        const notExpired = this.bookingAccount.filter(booking => booking["displayTime"] != "Time is up")
+        if (notExpired.length == 0) {
+          clearInterval(this.interval);
+        }
+      });
+    }, 1000);
+  }
+
+  async updateTime() {
+    return await this.bookingAccount.map((booking) => {
+      if (booking.timeLeft && booking.timeLeft > 0) {
+        var min = booking.timeLeft / 60;
+        min = min.toString().includes(".")
+          ? Number(min.toString().split(".")[0])
+          : min;
+        var sec = booking.timeLeft % 60;
+        if (sec == 0) {
+          if (min == 0) {
+            booking.timeLeft = 0;
+          } else {
+            min--;
+            sec = 59;
+          }
+        } else {
+          sec--;
+        }
+        booking.timeLeft--;
+        booking["displayTime"] = min + ":" + (sec.toString().length > 1 ? sec : "0" + sec);
+        if (booking.timeLeft <= 0) {
+          booking["displayTime"] = "Time is up"
+        }
+      } else  {
+        booking["displayTime"] = "Time is up"
+      }
+      return booking;
+    });
+  }
+
 
 }

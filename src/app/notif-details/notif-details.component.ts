@@ -71,18 +71,18 @@ export class NotifDetailsComponent implements OnInit {
       subject: page._id,
       type: "page-provider",
       status: "Pending",
-      message: `Your page "${pageName}" status has been set back to Pending`,
+      message: `Your page <b>${pageName}</b> status has been set back to <b>Pending</b>`,
     }
     this.adminService.setPageStatus(notif).subscribe((data) => {
       this.adminService.updatePendingPagesCount.emit()
-      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page "${pageName}" status has been set back to Pending` })
+      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page <b>${pageName}</b> status has been set back to <b>Pending</b>` })
       this.closeDialog("Pending")
     })
   }
 
   getProcessPage(page) {
     const pageName = this.getPageName(page)
-    const message = (page.status == "Online")? `Your page "${pageName}" status has been set back to "Processing"`: `Your page "${pageName}" is already on the process`
+    const message = (page.status == "Online")? `Your page <b>${pageName}</b> status has been set back to <b>Processing</b>`: `Your page <b>${pageName}</b> status has been set to <b>Processing</b>`
     const notif = {
       page: page._id,
       pageName: pageName,
@@ -115,11 +115,11 @@ export class NotifDetailsComponent implements OnInit {
       subject: page._id,
       type: "page-provider",
       status: "Online",
-      message: `Your page "${pageName}" is now online`,
+      message: `Your page <b>${pageName}</b> is now online`,
     }
     this.adminService.setPageStatus(notif).subscribe((data) => {
       this.adminService.updatePendingPagesCount.emit()
-      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page "${pageName}" is now online` })
+      this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page <b>${pageName}</b> is now online` })
       this.closeDialog("Online")
     })
   }
