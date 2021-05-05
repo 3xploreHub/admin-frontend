@@ -1,6 +1,9 @@
+<div *ngIf="loading" class="loadingOverlay">
+    <div class="loader"></div>
+</div>
 <mat-tab-group>
     <mat-tab label="Information">
-
+        
         <div [ngStyle]="{'height.px': modalContainerHeight}" class="modalContainer">
             <div id="modal-content-wrapper">
                 <div *ngFor="let pageDetails of page">
@@ -95,13 +98,13 @@
 
                 <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
                     <span class="material-icons"></span>Back</button>
-                <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-action-button"
+                <button mat-raised-button  cdkFocusInitial id="modal-action-button"
                     (click)="toOnProcess(booking)">
                     On Process
                     <span class="material-icons">sync</span>
                 </button>
-                <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-declined-button"
-                    (click)="declinedFunction(booking)">Declined
+                <button mat-raised-button cdkFocusInitial id="modal-declined-button"
+                    (click)="declinedFunction(booking)">Rejected
                     <span class="material-icons">event_busy</span></button>
             </div>
         </div>
@@ -118,16 +121,17 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="toPending(booking)">New Bookings</button>
                 </mat-menu>
-                <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-booked-button"
+                <button mat-raised-button cdkFocusInitial id="modal-booked-button"
                     (click)="toBooked(booking)">Booked
                     <span class="material-icons">event_available</span></button>&nbsp;&nbsp;&nbsp;
-                <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial id="modal-declined-button"
-                    (click)="declinedFunction(booking)">Declined
+                <button mat-raised-button  cdkFocusInitial id="modal-declined-button"
+                    (click)="declinedFunction(booking)">Rejected
                     <span class="material-icons">event_busy</span></button>
 
             </div>
         </div>
         <div class="modalFooter" *ngIf="booking.status === 'Booked'">
+            
             <div class="modal-footer" align="start">
                 <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
                     <span class="material-icons"></span>Back

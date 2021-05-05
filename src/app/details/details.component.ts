@@ -15,6 +15,7 @@ export class DetailsComponent implements OnInit {
   public pageName: string;
   public pageLocation: string;
   public pageCreator: string
+  public loading: boolean = false;
   public photo: string = "";
   public booking: any = { _id: "", tourist: { _id: "" }, pageId: { _id: "" } }
   public bookingData: any
@@ -112,7 +113,9 @@ export class DetailsComponent implements OnInit {
         if (total + item.quantity > quantity) {
           this.dialogService.openConfirmedDialog(this.getValue(service.data, "name") + " has no more available item")
           hasAvailable = false
+          this.loading = false;
           return;
+
         }
       })
       resolve(hasAvailable)
@@ -120,6 +123,7 @@ export class DetailsComponent implements OnInit {
   }
 
   toBooked(booking) {
+    this.loading = true;
     const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     let valid = true;
@@ -160,7 +164,12 @@ export class DetailsComponent implements OnInit {
             this.adminService.setBookingStatus(notif).subscribe((data: any) => {
               this.adminService.notify({ user: this.adminService.user, booking: data, type: "Booked_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Your booking status was set to Processing` })
               this.dialogRef.close(data._id)
+              this.loading = false;
+
             });
+          } else {
+            this.loading = false;
+
           }
         })
       }
@@ -170,6 +179,7 @@ export class DetailsComponent implements OnInit {
 
 
   toOnProcess(booking) {
+    this.loading = true;
     const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe(
@@ -199,8 +209,12 @@ export class DetailsComponent implements OnInit {
               this.adminService.updatePendingBookingCount.emit()
               this.adminService.notify({ user: this.adminService.user, booking: data, type: "Processing_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
               this.dialogRef.close(data._id)
+              this.loading = false;
 
             });
+          } else {
+            this.loading = false;
+
           }
         })
       }
@@ -208,6 +222,7 @@ export class DetailsComponent implements OnInit {
   }
 
   returnToOnProcess(booking) {
+    this.loading = true;
     const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
@@ -235,15 +250,21 @@ export class DetailsComponent implements OnInit {
         if (hasAvailable) {
           this.adminService.setBookingStatus(notif).subscribe((data: any) => {
             this.adminService.updatePendingBookingCount.emit()
+            this.loading = false;
+
             this.adminService.notify({ user: this.adminService.user, booking: data, type: "Processing_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Processing` })
             this.dialogRef.close(data._id)
           });
+        } else {
+          this.loading = false;
+
         }
       })
     })
   }
 
   toPending(booking) {
+    this.loading = true;
     const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
@@ -278,15 +299,21 @@ export class DetailsComponent implements OnInit {
         if (hasAvailable) {
           this.adminService.setBookingStatus(notif).subscribe((data: any) => {
             this.adminService.updatePendingBookingCount.emit()
+            this.loading = false;
+
             this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
             this.dialogRef.close(data._id)
           });
+        } else {
+          this.loading = false;
+
         }
       })
     })
   }
 
   returnToPending(booking) {
+    this.loading = true;
     const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
@@ -315,16 +342,21 @@ export class DetailsComponent implements OnInit {
       this.checkAvailability(bookingData, "counted").then(hasAvailable => {
         if (hasAvailable) {
           this.adminService.setBookingStatus(notif).subscribe((data: any) => {
+            this.loading = false;
+
             this.adminService.updatePendingBookingCount.emit()
             this.adminService.notify({ user: this.adminService.user, booking: data, type: "Pending_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin moved a booking to Pending` })
             this.dialogRef.close(data._id)
           });
+        } else {
+          this.loading = false;
         }
       })
     })
   }
 
   declinedFunction(booking) {
+    this.loading = true;
     const pageName = this.pageName
     const touristName = this.booking.tourist.fullName
     this.adminService.getBooking(booking._id).subscribe((bookingData: any) => {
@@ -348,13 +380,14 @@ export class DetailsComponent implements OnInit {
         page: booking.pageId._id,
         mainReceiver: booking.tourist._id,
         status: "Rejected",
-        messageForServiceProvider: `<b>${touristName}'s</b> booking request was declined`,
-        messageForTourist: `Your booking request to <b>${pageName}</b> was declined`,
+        messageForServiceProvider: `<b>${touristName}'s</b> booking request was rejected`,
+        messageForTourist: `Your booking request to <b>${pageName}</b> was rejected`,
         touristReceiver: booking.tourist._id
       }
       this.adminService.setBookingStatus(notif).subscribe((data: any) => {
+        this.loading = false;
         this.adminService.updatePendingBookingCount.emit()
-        this.adminService.notify({ user: this.adminService.user, booking: data, type: "Rejected_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin declined a booking` })
+        this.adminService.notify({ user: this.adminService.user, booking: data, type: "Rejected_booking-fromAdmin", receiver: [data.pageId.creator, data.tourist._id], message: `Admin rejected a booking` })
         this.dialogRef.close(data._id)
       });
     })
