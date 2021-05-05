@@ -92,7 +92,7 @@ export class PendingComponent implements OnInit {
     this.interval = setInterval(async () => {
       this.updateTime().then((updated) => {
         this.bookingAccount = updated;
-        const notExpired = this.bookingAccount.filter(booking => booking["displayTime"] != "Time is up")
+        const notExpired = this.bookingAccount.filter(booking => !booking["timesUp"])
         if (notExpired.length == 0) {
           clearInterval(this.interval);
         }
@@ -121,10 +121,10 @@ export class PendingComponent implements OnInit {
         booking.timeLeft--;
         booking["displayTime"] = min + ":" + (sec.toString().length > 1 ? sec : "0" + sec);
         if (booking.timeLeft <= 0) {
-          booking["displayTime"] = "Time is up"
+          booking['timesUp'] = true
         }
       } else  {
-        booking["displayTime"] = "Time is up"
+        booking['timesUp'] = true
       }
       return booking;
     });

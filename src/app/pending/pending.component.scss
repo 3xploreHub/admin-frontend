@@ -56,6 +56,15 @@ tr.mat-header-row {
     padding-right: 45px;
 }
 
+.timesUp {
+  background-color:rgb(252, 235, 235) !important;
+}
+
+.timesUpText {
+  color:rgb(250, 8, 8) !important;
+  font-weight: bold;
+}
+
 mat-form-field {
     margin-left: 7%;
     width: 300px;
