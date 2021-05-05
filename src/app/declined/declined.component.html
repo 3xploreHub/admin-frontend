@@ -34,6 +34,6 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openModal(row)"></tr>
         </table>
         <mat-paginator *ngIf="bookingAccount.length && bookingAccount.length > 5" class="pagination" [pageSizeOptions]="[5,8,10]" showFirstLastButtons></mat-paginator>
+        <div *ngIf="!bookingAccount.length" style="margin:0 45px; text-align: center;font-size: 18px; padding:40px; color: lightslategray; background-color: rgb(245, 245, 245);">No declined bookings.</div>
     </div>
-    <div *ngIf="!bookingAccount.length" style="margin:0 45px; text-align: center;font-size: 18px; padding:40px; color: lightslategray; background-color: rgb(245, 245, 245);">No declined bookings.</div>
 </div>
