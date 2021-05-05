@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
 export class DeclinedComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator
   public show = true
-  bookingAccount: any;
+  bookingAccount: any[] =[]
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog,
@@ -41,7 +41,7 @@ export class DeclinedComponent implements OnInit {
   }
 
   getBookings() {
-    this.adminService.getAllBookings('Rejected').subscribe((data) => {
+    this.adminService.getAllBookings('Rejected').subscribe((data:any[]) => {
       this.show = false
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)

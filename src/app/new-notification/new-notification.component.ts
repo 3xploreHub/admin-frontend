@@ -23,7 +23,7 @@ import { DataSource } from '@angular/cdk/table';
 
 export class NewNotificationComponent implements OnInit {
   public show = true;
-  bookingAccount: any[];
+  bookingAccount: any[] = []
   @Input() passData: { bookingAccount };//data to pass pra nis filter wa ni gana huhuhuh
   @Output() searchBooking = new EventEmitter<String>();
   @ViewChild(MatPaginator) paginator: MatPaginator

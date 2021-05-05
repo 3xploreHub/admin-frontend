@@ -15,7 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class PendingComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator
   public show = true;
-  bookingAccount: any;
+  bookingAccount: any[] = []
   public interval: any;
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess', 'timeLeft'];
   dataSource: MatTableDataSource<any>;
@@ -36,7 +36,7 @@ export class PendingComponent implements OnInit {
     )
   }
   getBookings() {
-    this.adminService.getAllBookings('Processing').subscribe((data) => {
+    this.adminService.getAllBookings('Processing').subscribe((data: any[]) => {
       this.show = false
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)

@@ -42,7 +42,7 @@ export class NotificationCardComponent implements OnInit {
         this.mainService.updateNotificationCount.emit()
         const type = this.notificationGroup.type
         if (type.split("-")[0] == ("booking")) {
-          const status = { Pending: "new", Processing: "pending", Booked: "booked", Rejected: "declined" }
+          const status = { Pending: "new", Processing: "processing", Booked: "booked", Rejected: "declined" }
           if (status[this.notificationGroup.booking.status]) {
             this.router.navigate([`/admin/bookingNotif/${status[this.notificationGroup.booking.status]}`], { queryParams: { bookingId: this.notificationGroup.booking._id } })
           } else {
