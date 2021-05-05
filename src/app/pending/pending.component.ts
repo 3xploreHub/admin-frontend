@@ -34,6 +34,9 @@ export class PendingComponent implements OnInit {
         }
       }
     )
+    if(this.interval) {
+      clearInterval(this.interval)
+    } 
   }
   getBookings() {
     this.adminService.getAllBookings('Processing').subscribe((data: any[]) => {
@@ -89,6 +92,9 @@ export class PendingComponent implements OnInit {
 
 
   startTime() {
+    if(this.interval) {
+      clearInterval(this.interval)
+    }
     this.interval = setInterval(async () => {
       this.updateTime().then((updated) => {
         this.bookingAccount = updated;

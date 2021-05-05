@@ -31,23 +31,26 @@ export class NewNotificationComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess', 'timeLeft'];
   dataSource: MatTableDataSource<any>;
-  constructor(public dialog: MatDialog, 
-    private adminService: AdminService, public route: ActivatedRoute, ) {
+  constructor(public dialog: MatDialog,
+    private adminService: AdminService, public route: ActivatedRoute,) {
     this.getBookings()
   }
 
   ngOnInit(): void {
     this.show = true
     this.adminService.notification.subscribe(
-      (data:any) => {
+      (data: any) => {
         if (data.booking && data.booking.status == "Pending" || data.booking && data.booking.status == "Cancelled") {
           this.getBookings()
         }
       }
     )
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
   }
 
-  getBookings() {
+  getBookings(doNotOpen = false) {
     this.adminService.getAllBookings('Pending').subscribe((data: any[]) => {
       this.show = false
       this.bookingAccount = data;
@@ -60,7 +63,7 @@ export class NewNotificationComponent implements OnInit {
             this.bookingAccount.forEach(booking => {
               console.log(booking._id == params.bookingId)
               if (booking._id == params.bookingId) {
-                this.openModal(booking);
+                if (!doNotOpen) this.openModal(booking);
               }
             })
           }
@@ -71,7 +74,7 @@ export class NewNotificationComponent implements OnInit {
 
   openModal(id: any) {
     const dialogRef = this.dialog.open(DetailsComponent, {
-      disableClose: false,
+      disableClose: true,
       id: 'modal-component',
       data: id,
       panelClass: 'custom-modalbox'
@@ -79,11 +82,9 @@ export class NewNotificationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-      if (result == "messagedTourist") {
-          this.getBookings()
-        }
-        this.bookingAccount = this.bookingAccount.filter(booking => booking._id != result)
-        this.populateTable()
+        this.getBookings(true)
+        // this.bookingAccount = this.bookingAccount.filter(booking => booking._id != result)
+        // this.populateTable()
       }
     });
   }
@@ -91,13 +92,13 @@ export class NewNotificationComponent implements OnInit {
   populateTable() {
     this.dataSource = new MatTableDataSource<any>(this.bookingAccount);
 
-      setTimeout(() => {
-        this.dataSource.paginator = this.paginator;
-      }, 0)
-      
-      this.dataSource.filterPredicate = function (data, filter: string): boolean {
-        return data.tourist.fullName.toLocaleLowerCase().includes(filter)
-      }
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+    }, 0)
+
+    this.dataSource.filterPredicate = function (data, filter: string): boolean {
+      return data.tourist.fullName.toLocaleLowerCase().includes(filter)
+    }
   }
 
   applyFilter(value: string) {
@@ -105,6 +106,9 @@ export class NewNotificationComponent implements OnInit {
   }
 
   startTime() {
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
     this.interval = setInterval(async () => {
       this.updateTime().then((updated) => {
         this.bookingAccount = updated;
@@ -140,7 +144,7 @@ export class NewNotificationComponent implements OnInit {
           booking['timesUp'] = true
           this.adminService.processingTimeEnded.emit("A response timer has ended!")
         }
-      } else  {
+      } else {
         booking['timesUp'] = true
       }
       return booking;
