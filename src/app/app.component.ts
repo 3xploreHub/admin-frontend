@@ -9,7 +9,8 @@ import { AdminService } from './service/admin.service';
 })
 export class AppComponent implements OnInit ,AfterViewInit, OnDestroy {
   @ViewChild(NotificationHandlerComponent) public notifHandler: NotificationHandlerComponent;
-  title = 'admin-explorehub';
+  title:string = 'admin-explorehub';
+  processingTimeEnded:boolean = false;
 
   constructor(public adminService: AdminService) {
   }
@@ -19,6 +20,14 @@ export class AppComponent implements OnInit ,AfterViewInit, OnDestroy {
     if (this.notifHandler) {
       this.notifHandler.init()
     }
+    this.adminService.processingTimeEnded.subscribe(
+      data => {
+        this.processingTimeEnded = true;
+        setTimeout(() => {
+          this.processingTimeEnded = false;
+        }, 5000);
+      }
+    )
   }
 
   ngAfterViewInit() {

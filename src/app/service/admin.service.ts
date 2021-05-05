@@ -19,6 +19,7 @@ export class AdminService {
   public updatePendingBookingCount: EventEmitter<any> = new EventEmitter();
   public updatePendingPagesCount: EventEmitter<any> = new EventEmitter();
   public updateNotificationCount: EventEmitter<any> = new EventEmitter();
+  public processingTimeEnded: EventEmitter<any> = new EventEmitter();
   constructor(private http: HttpClient) {
   }
   receiveNotification(data) {
