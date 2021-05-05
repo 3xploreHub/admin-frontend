@@ -393,7 +393,7 @@ export class DetailsComponent implements OnInit {
     })
   }
 
-  closeModal() {
-    this.dialogRef.close();
+  closeModal(messagedTourist = null) {
+    this.dialogRef.close(messagedTourist);
   }
 }

@@ -122,7 +122,7 @@ export class PendingComponent implements OnInit {
         booking["displayTime"] = min + ":" + (sec.toString().length > 1 ? sec : "0" + sec);
         if (booking.timeLeft <= 0) {
           booking['timesUp'] = true
-          this.adminService.processingTimeEnded.emit()
+          this.adminService.processingTimeEnded.emit("A booking processing time has ended!")
         }
       } else  {
         booking['timesUp'] = true

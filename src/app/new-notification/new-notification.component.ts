@@ -23,14 +23,13 @@ import { DataSource } from '@angular/cdk/table';
 
 export class NewNotificationComponent implements OnInit {
   public show = true;
+  public interval: any;
   bookingAccount: any[] = []
   @Input() passData: { bookingAccount };//data to pass pra nis filter wa ni gana huhuhuh
   @Output() searchBooking = new EventEmitter<String>();
   @ViewChild(MatPaginator) paginator: MatPaginator
 
-
-
-  displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess'];
+  displayedColumns: string[] = ['id', 'fullName', 'location', 'dateProcess', 'timeLeft'];
   dataSource: MatTableDataSource<any>;
   constructor(public dialog: MatDialog, 
     private adminService: AdminService, public route: ActivatedRoute, ) {
@@ -53,6 +52,7 @@ export class NewNotificationComponent implements OnInit {
       this.show = false
       this.bookingAccount = data;
       this.bookingAccount = this.bookingAccount.filter(booking => !booking.isManual)
+      this.startTime()
       this.populateTable()
       this.route.queryParams.subscribe(
         (params: any) => {
@@ -79,6 +79,9 @@ export class NewNotificationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+      if (result == "messagedTourist") {
+          this.getBookings()
+        }
         this.bookingAccount = this.bookingAccount.filter(booking => booking._id != result)
         this.populateTable()
       }
@@ -99,6 +102,49 @@ export class NewNotificationComponent implements OnInit {
 
   applyFilter(value: string) {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
+  startTime() {
+    this.interval = setInterval(async () => {
+      this.updateTime().then((updated) => {
+        this.bookingAccount = updated;
+        const notExpired = this.bookingAccount.filter(booking => !booking["timesUp"])
+        if (notExpired.length == 0) {
+          clearInterval(this.interval);
+        }
+      });
+    }, 1000);
+  }
+
+  async updateTime() {
+    return await this.bookingAccount.map((booking) => {
+      if (booking.timeLeft && booking.timeLeft > 0) {
+        var min = booking.timeLeft / 60;
+        min = min.toString().includes(".")
+          ? Number(min.toString().split(".")[0])
+          : min;
+        var sec = booking.timeLeft % 60;
+        if (sec == 0) {
+          if (min == 0) {
+            booking.timeLeft = 0;
+          } else {
+            min--;
+            sec = 59;
+          }
+        } else {
+          sec--;
+        }
+        booking.timeLeft--;
+        booking["displayTime"] = min + ":" + (sec.toString().length > 1 ? sec : "0" + sec);
+        if (booking.timeLeft <= 0) {
+          booking['timesUp'] = true
+          this.adminService.processingTimeEnded.emit("A response timer has ended!")
+        }
+      } else  {
+        booking['timesUp'] = true
+      }
+      return booking;
+    });
   }
 
 }

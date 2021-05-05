@@ -96,7 +96,7 @@
         <div class="modalFooter" *ngIf="booking.status === 'Pending'">
             <div class="modal-footer" align="start">
 
-                <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
+                <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal('messagedTourist')">
                     <span class="material-icons"></span>Back</button>
                 <button mat-raised-button  cdkFocusInitial id="modal-action-button"
                     (click)="toOnProcess(booking)">
