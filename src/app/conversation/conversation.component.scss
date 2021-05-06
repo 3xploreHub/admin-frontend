@@ -36,6 +36,23 @@
 
 }
 
+.downer {
+    position: absolute;
+    bottom: 70px;
+    width:100%;
+    text-align: center;
+    background-color:none;
+
+    div {
+        box-shadow: 0 3px 9px rgb(165, 165, 165);
+        background-color: rgb(234, 240, 248);
+        border-radius: 30px;
+        color:dodgerblue;
+        padding:10px 20px;
+        display: inline-block;
+    }
+}
+
 
 .pageContainer {
     box-sizing: none;

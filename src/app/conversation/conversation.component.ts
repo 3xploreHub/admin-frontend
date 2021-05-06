@@ -31,12 +31,13 @@ export enum receiver {
   styleUrls: ['./conversation.component.scss'],
 })
 export class ConversationComponent implements OnInit {
-  @ViewChild('messagesCont') private messagesContainer: ElementRef;
+  @ViewChild('messagesCont') public messagesContainer: ElementRef;
   public screenHeight: number;
   public message: string;
   @Input() bookingId: string;
   @Input() pageId: string;
   @Input() tourist: string;
+  showGoToBottom = true;
   public conversation: conversation;
   public messages: any[] = []
   constructor(public route: ActivatedRoute, public mainService: AdminService) { }
@@ -51,6 +52,8 @@ export class ConversationComponent implements OnInit {
             this.messages = this.conversation.messages
             this.formatData()
           }
+    console.log("test: ",this.messagesContainer.nativeElement.scrollTop)
+
           setTimeout(() => {
             this.scrollToBottom()
           }, 400)
@@ -65,6 +68,8 @@ export class ConversationComponent implements OnInit {
             this.messages = this.conversation.messages
             this.formatData()
           }
+    console.log("test: ",this.messagesContainer.nativeElement.scrollTop)
+
           setTimeout(() => {
             this.scrollToBottom()
           }, 400)
@@ -95,12 +100,28 @@ export class ConversationComponent implements OnInit {
         }
       }
     )
+
+    this.mainService.viewConversation.subscribe(data => {
+      setTimeout(() => {
+        this.scrollToBottom()
+       
+      }, 500)
+    })
+  }
+
+  scroll(e){
+    console.log(e);
+    console.log("etxt: ", this.messagesContainer.nativeElement.scrollTop)
   }
 
   scrollToBottom(): void {
+    console.log(this.messagesContainer.nativeElement.scrollHeight)
     try {
-      this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight + 600;
-    } catch (err) { }
+      this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollTop + this.messagesContainer.nativeElement.scrollHeight;
+      console.log("total: ", this.messagesContainer.nativeElement.scrollTop + this.messagesContainer.nativeElement.scrollHeight)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   send() {
@@ -115,7 +136,7 @@ export class ConversationComponent implements OnInit {
       message: 'Admin sent you a message',
       type: this.bookingId ? "booking-tourist" : "page-provider",
     }
-    if (this.message) {
+    if (this.message) { 
       if (!this.conversation) {
         if (!this.bookingId) {
 
@@ -140,7 +161,7 @@ export class ConversationComponent implements OnInit {
                 this.messages = this.conversation.messages
                 this.formatData();
                 this.scrollToBottom()
-                this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: [this.tourist], message: `You have new message` })
+              this.mainService.notify({ user: this.mainService.user, bookingId: this.bookingId, conversation: this.conversation, type: "message-booking", receiver: [this.tourist], message: `You have new message` })
               }
             }
           )

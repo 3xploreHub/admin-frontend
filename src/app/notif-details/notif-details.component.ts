@@ -134,6 +134,7 @@ export class NotifDetailsComponent implements OnInit {
 
   closeDialog(status) {
     this.dialogRef.close(status);
+    this.loading = false
   }
 
 }

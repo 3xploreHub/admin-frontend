@@ -67,6 +67,10 @@ export class DetailsComponent implements OnInit {
     })
   }
 
+  shift() {
+    alert('adf')
+  }
+
   displayValue(value, type) {
     if (type == "date-input") {
       return `${value.month.text} ${value.day.text}, ${value.year.text}`

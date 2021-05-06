@@ -21,6 +21,7 @@ export class AdminService {
   public updateNotificationCount: EventEmitter<any> = new EventEmitter();
   public processingTimeEnded: EventEmitter<any> = new EventEmitter();
   public changeTab: EventEmitter<any> = new EventEmitter();
+  public viewConversation: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) {
   }

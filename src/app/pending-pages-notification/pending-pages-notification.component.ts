@@ -49,7 +49,7 @@ export class PendingPagesNotificationComponent implements OnInit {
       if (params) {
         data.forEach(page => {
           if (page._id == params.pageId) {
-            this.show = true
+            this.show = false
             this.openModal(page)
           }
         });
@@ -75,7 +75,6 @@ export class PendingPagesNotificationComponent implements OnInit {
           }
         })
         this.pages = this.pages.filter(page => page)
-
       }
     });
   }

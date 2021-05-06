@@ -58,7 +58,7 @@ export class OnlinePagesNotificationComponent implements OnInit {
       if (params) {
         data.forEach(page => {
           if (page._id == params.pageId) {
-            this.show = true
+            this.show = false
             this.openModal(page)
           }
         });
