@@ -74,7 +74,6 @@ export class BookedComponent implements OnInit {
   }
 
   openModal(data) {
-    console.log(data);
 
     const dialogRef = this.dialog.open(BookedDetailsComponent, {
       disableClose: false,

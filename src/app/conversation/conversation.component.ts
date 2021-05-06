@@ -132,7 +132,7 @@ export class ConversationComponent implements OnInit {
             }
           )
         } else {
-          const data = { notificationData: notificationData, booking: this.bookingId, page: this.pageId, message: this.message, receiver: this.mainService.user._id }
+          const data = { notificationData: notificationData,fromAdmin: true, booking: this.bookingId, page: this.pageId, message: this.message, receiver: this.mainService.user._id }
           this.mainService.createConversation(data).subscribe(
             (response: any) => {
               if (!response.noConversation) {
