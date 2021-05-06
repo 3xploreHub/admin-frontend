@@ -109,18 +109,12 @@ export class ConversationComponent implements OnInit {
     })
   }
 
-  scroll(e){
-    console.log(e);
-    console.log("etxt: ", this.messagesContainer.nativeElement.scrollTop)
-  }
 
   scrollToBottom(): void {
     console.log(this.messagesContainer.nativeElement.scrollHeight)
     try {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollTop + this.messagesContainer.nativeElement.scrollHeight;
-      console.log("total: ", this.messagesContainer.nativeElement.scrollTop + this.messagesContainer.nativeElement.scrollHeight)
     } catch (err) {
-      console.log(err)
     }
   }
 

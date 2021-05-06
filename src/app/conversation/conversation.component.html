@@ -4,11 +4,17 @@
             [position]="message.sender == mainService.user._id? 'right':'left'"></app-message-box>
         <app-message-box [position]="'left'"></app-message-box>
     </div>
+    <div class="noMessages" *ngIf="messages.length == 0">
+        <div>
+
+            <p>No messages yet.</p>
+            
+        </div>
+    </div>
 </div>
 
-<div class="noMessages" *ngIf="messages.length == 0">No messages yet.</div>
-<div class="downer" (onScroll)="scroll($event)" *ngIf="messagesCont.scrollHeight > messagesCont.scrollTop">
-    <div (click)="scrollToBottom()">
+<div class="downer" *ngIf="messages.length > 10 && messagesCont.scrollHeight > messagesCont.scrollTop && showGoToBottom">
+    <div (click)="scrollToBottom(); showGoToBottom = false">
         Go to the last message
     </div>
 </div>
@@ -17,7 +23,6 @@
         class="inputMessage" type="text">
       </textarea>
     <div class="send boxShadowed2" (click)="send()">
-
         <span class="material-icons" id="send">send</span>
     </div>
 </div>
