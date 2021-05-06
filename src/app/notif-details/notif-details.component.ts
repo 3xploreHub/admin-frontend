@@ -11,6 +11,7 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
 export class NotifDetailsComponent implements OnInit {
   public services: any;
   public modalContainerHeight: number;
+  public loading: boolean = false;
   public pagesData: any
   public types = {"date-input": "Date Input", "text-input": "Text Input", "number-input": "Number Input", "choices-input": "Choices Input"}
   tabIndex;
@@ -60,6 +61,7 @@ export class NotifDetailsComponent implements OnInit {
   }
 
   getPendingPage(page) {
+    this.loading = true
     const pageName = this.getPageName(page)
     const notif = {
       page: page._id,
@@ -77,10 +79,12 @@ export class NotifDetailsComponent implements OnInit {
       this.adminService.updatePendingPagesCount.emit()
       this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page <b>${pageName}</b> status has been set back to <b>Pending</b>` })
       this.closeDialog("Pending")
+      this.loading = false
     })
   }
 
   getProcessPage(page) {
+    this.loading = true
     const pageName = this.getPageName(page)
     const message = (page.status == "Online")? `Your page <b>${pageName}</b> status has been set back to <b>Processing</b>`: `Your page <b>${pageName}</b> status has been set to <b>Processing</b>`
     const notif = {
@@ -100,10 +104,12 @@ export class NotifDetailsComponent implements OnInit {
       this.adminService.updatePendingPagesCount.emit()
       this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: message })
       this.closeDialog("Processing")
+      this.loading = false
     })
   }
 
   toApprove(page) {
+    this.loading = true
     const pageName = this.getPageName(page)
     const notif = {
       page: page._id,
@@ -121,6 +127,7 @@ export class NotifDetailsComponent implements OnInit {
       this.adminService.updatePendingPagesCount.emit()
       this.adminService.notify({ user: this.adminService.user, pageId: page._id, type: "page-provider", receiver: [page.creator._id], message: `Your page <b>${pageName}</b> is now online` })
       this.closeDialog("Online")
+      this.loading = false
     })
   }
 

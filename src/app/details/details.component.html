@@ -3,7 +3,7 @@
 </div>
 <mat-tab-group>
     <mat-tab label="Information">
-        
+
         <div [ngStyle]="{'height.px': modalContainerHeight}" class="modalContainer">
             <div id="modal-content-wrapper">
                 <div *ngFor="let pageDetails of page">
@@ -12,7 +12,8 @@
                         <div class="containerHeader leftInfo">Tourist Information</div>
 
                         <div class="cardPhotoHolder">
-                            <div class="cardPhoto" [ngStyle]="{'background-image': 'url(http://localhost:3000/'+ booking.tourist.profile + ')'}">
+                            <div class="cardPhoto"
+                                [ngStyle]="{'background-image': 'url(http://localhost:3000/'+ booking.tourist.profile + ')'}">
                                 <span class="material-icons " id="iconPhoto" *ngIf="!booking.tourist.profile">T</span>
                             </div>
                         </div>
@@ -96,10 +97,10 @@
         <div class="modalFooter" *ngIf="booking.status === 'Pending'">
             <div class="modal-footer" align="start">
 
-                <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal('messagedTourist')">
+                <button mat-button mat-dialog-close color="primary" id="modal-cancel-button"
+                    (click)="closeModal('messagedTourist')">
                     <span class="material-icons"></span>Close</button>
-                <button mat-raised-button  cdkFocusInitial id="modal-action-button"
-                    (click)="toOnProcess(booking)">
+                <button mat-raised-button cdkFocusInitial id="modal-action-button" (click)="toOnProcess(booking)">
                     On Process
                     <span class="material-icons">sync</span>
                 </button>
@@ -121,17 +122,16 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="toPending(booking)">New Bookings</button>
                 </mat-menu>
-                <button mat-raised-button cdkFocusInitial id="modal-booked-button"
-                    (click)="toBooked(booking)">Booked
+                <button mat-raised-button cdkFocusInitial id="modal-booked-button" (click)="toBooked(booking)">Booked
                     <span class="material-icons">event_available</span></button>&nbsp;&nbsp;&nbsp;
-                <button mat-raised-button  cdkFocusInitial id="modal-declined-button"
+                <button mat-raised-button cdkFocusInitial id="modal-declined-button"
                     (click)="declinedFunction(booking)">Rejected
                     <span class="material-icons">event_busy</span></button>
 
             </div>
         </div>
         <div class="modalFooter" *ngIf="booking.status === 'Booked'">
-            
+
             <div class="modal-footer" align="start">
                 <button mat-button mat-dialog-close color="primary" id="modal-cancel-button" (click)="closeModal()">
                     <span class="material-icons"></span>Close
@@ -163,8 +163,16 @@
 
     </mat-tab>
     <mat-tab label="Conversation">
-        <app-conversation [bookingId]="booking._id" [pageId]="booking.pageId._id" [tourist]="booking.tourist._id">
-        </app-conversation>
+        <div class="convoHolder">
+
+            <app-conversation [bookingId]="booking._id" [pageId]="booking.pageId._id" [tourist]="booking.tourist._id">
+            </app-conversation>
+            <button class="closeModal" mat-button mat-dialog-close 
+                (click)="closeModal(true)">
+                <span class="material-icons"></span>
+                Close
+            </button>
+        </div>
     </mat-tab>
 </mat-tab-group>
 

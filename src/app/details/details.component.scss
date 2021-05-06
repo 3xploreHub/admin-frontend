@@ -473,6 +473,24 @@ mat-dialog-content {
     padding: 0 111px !important;
 }
 
+.closeModal {
+    background-color: #fcfbfa !important;
+    margin-top: 5px;
+    position: absolute;
+    color: #f31d0d;
+    z-index: 9999999;
+    margin: 0 8px;
+    padding: 0 20px;
+    font-size: 12px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    bottom: 6px;
+}
+.convoHolder {
+    position: relative;
+}
+
 .loadingOverlay {
     position: fixed;
     display: flex;
