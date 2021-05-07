@@ -1,16 +1,15 @@
 <div *ngIf="message.message" (click)="showDate = !showDate" [class.right]="position == 'right'" class="messageBox">
-  <div class="boxHeader">
-    <div *ngIf="!message.noSender && adminService.user._id != message.sender" class="profilePhoto">
+  <div class="boxHeader" *ngIf="!message.noSender && adminService.user._id != message.sender">
+    <div  class="profilePhoto">
       <div class="pPhoto">
         <span class="material-icons"></span>
       </div>
     </div>
 
     <div class="userInfo">
-      <div class="userName" *ngIf="!message.noSender && adminService.user._id != message.sender">
+      <div class="userName">
         {{message.senderFullName}}</div>
-      <div *ngIf="showDate || message.createdAt == 'Sending...'" class="date">{{ message.createdAt == "Sending..." ?
-        "Sending..." : message.createdAt | date:'short'}}</div>
+      
     </div>
   </div>
   <div class="messageHolder">
@@ -19,4 +18,6 @@
       <div class="messageContent">{{message.message}} </div>
     </ng-template>
   </div>
+  <div [class.ownMessageDate]="position == 'right'" class="date">{{ message.createdAt == "Sending..." ?
+        "Sending..." : message.createdAt | date:'short'}}</div>
 </div>
