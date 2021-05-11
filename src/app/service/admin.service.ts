@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AdminService {
   // public userIDToken = "";private helper: JwtHelperService,
-  private apiUrl = `${environment.apiUrl}/admin`;
+  private apiUrl = `${environment.apiUrl}api/admin`;
   public currentPath: string;
   public bookingId: string;
   public socket: any;

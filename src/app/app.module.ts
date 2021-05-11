@@ -50,7 +50,7 @@ import { NotificationHandlerComponent } from './notification-handler/notificatio
 import { ConversationComponent } from './conversation/conversation.component';
 import { NotificationCardComponent } from './notification-card/notification-card.component';
 import { AdminComponent } from './admin/admin.component'; 
-const config: SocketIoConfig = { url: "http://localhost:3000", options: {} };
+const config: SocketIoConfig = { url:environment.apiUrl, options: {} };
 
 // export function tokenGetter() {
 //   return localStorage.getItem('access_token');
