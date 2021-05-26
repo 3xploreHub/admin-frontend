@@ -15,8 +15,7 @@ export class LoginComponent implements OnInit {
   public alert = false;
   public show = true;
   constructor(private authService: AdminService, private router: Router,
-              private dialogService: DialogService ) { }
-  
+    private dialogService: DialogService) { }
   public eye = false;
   public passwordOrText = 'password';
   public credentialsForm = {
@@ -30,24 +29,24 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.show = false
     let partialDataHandler;
-    this.authService.login(this.credentialsForm).subscribe((user:any) => {
+    this.authService.login(this.credentialsForm).subscribe((user: any) => {
       partialDataHandler = user;
+      this.show = true;
       if (partialDataHandler.status != false) {
         this.authService.setToken(user.token);
-        this.show=true;
         this.router.navigate(['admin/bookingNotif']);
       } else {
         // if(!this.alert ){
-          this.alert == true;
-          this.dialogService.openConfirmedDialog(partialDataHandler.sms);
-          this.router.navigate(['']);
+        this.alert == true;
+        this.dialogService.openConfirmedDialog(partialDataHandler.sms);
+        this.router.navigate(['']);
         // }
-       
+
       }
     });
   }
-  showAndHide(){
-   this.eye = !this.eye;
+  showAndHide() {
+    this.eye = !this.eye;
   }
 
   goToAboutPage() {

@@ -6,6 +6,10 @@ body {
     // opacity: 0.5;
 }
 
+.logoHolder{
+    text-align: center;
+}
+
 .example-card {
     height: 100%;
     width: 100%;
@@ -17,16 +21,16 @@ body {
         z-index: 99;
         width: 370px;
         height: 400px;
-        background: rgb(255 255 255 / 83%);
+        background: rgb(255 255 255);
         box-shadow: 0px 2px 23px -1px #47494a;
         // background: rgba(255, 255, 255, 0.685);
         display: inline-block;
         .account {
+            width:60px;
+            height: auto;
+            margin-top: 20px;
             font-size: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: -15%;
+            display: inline-block;
             color: rgb(37, 221, 253);
         }
         .mat-card-title:not(:first-child),
@@ -106,8 +110,8 @@ input:-webkit-autofill:active {
 .eye {
     position: absolute;
     right: 31px;
-    top: 96px;
-    font-size: 29px;
+    top: 130px;
+    font-size: 20px;
 }
 
 .lock,
@@ -127,11 +131,11 @@ input:-webkit-autofill:active {
 }
 
 .user {
-    top: 127px;
+    top: 189px;
 }
 
 .lock {
-    top: 184px;
+    top: 246px;
 }
 .loader {
     color: #13e7f6;

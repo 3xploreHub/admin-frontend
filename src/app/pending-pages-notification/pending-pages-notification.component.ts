@@ -39,7 +39,7 @@ export class PendingPagesNotificationComponent implements OnInit {
       this.pages = data
       this.displayCurrentPage(this.pages)
       this.pendingCount = this.pages.length
-      console.log(this.pages);
+      console.log("Pages: ",this.pages);
     })
   }
 
@@ -55,6 +55,15 @@ export class PendingPagesNotificationComponent implements OnInit {
         });
       }
     })
+  }
+  getPhoto(components: any[]) {
+    let photo = "";
+    components.forEach(element => {
+      if (element.type == "photo") {
+        photo = !photo? element.data[0].url: photo
+      }
+    });
+    return photo
   }
   openModal(page) {
     const dialogRef = this.dialog.open(NotifDetailsComponent, {

@@ -65,6 +65,16 @@ export class OnlinePagesNotificationComponent implements OnInit {
       }
     })
   }
+  getPhoto(components: any[]) {
+    let photo = "";
+    components.forEach(element => {
+      if (element.type == "photo") {
+        photo = !photo? element.data[0].url: photo
+        return;
+      }
+    });
+    return photo
+  }
   openModal(page) {
     const dialogRef= this.dialog.open(NotifDetailsComponent, {
       disableClose : false,

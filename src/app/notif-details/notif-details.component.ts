@@ -13,41 +13,57 @@ export class NotifDetailsComponent implements OnInit {
   public modalContainerHeight: number;
   public loading: boolean = false;
   public pagesData: any
-  public types = {"date-input": "Date Input", "text-input": "Text Input", "number-input": "Number Input", "choices-input": "Choices Input"}
+  public types = { "date-input": "Date Input", "text-input": "Text Input", "number-input": "Number Input", "choices-input": "Choices Input" }
+  public inputType = {
+    "date-input": { startDate: "Booking Starting Date", endDate: "Booking End Date", none: "Ordinary Date Input" },
+    "text-input": { gmail: "Gmail", none: "Ordinary Text Input" },
+    "number-input": { mobileNumber: "Mobile Phone Number", none: "Amount Input", otherType: "Others (With specified length)" }
+  }
   tabIndex;
 
   constructor(public route: ActivatedRoute, public dialogRef: MatDialogRef<NotifDetailsComponent>,
     private adminService: AdminService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data
-    ) { 
+  ) {
 
-      this.goToConversation()
-    }
+    this.goToConversation()
+  }
 
   ngOnInit() {
     this.modalContainerHeight = window.innerHeight - 200;
     this.pagesData = Array.of(this.data)
     this.services = this.data.services
-    
+    console.log("Services: ", this.services);
+
+
 
     this.services = this.services.map(comp => {
       comp.data = comp.data.filter(data => data.defaultName != "quantity")
       return comp
     })
   }
-
+  getPhoto(components: any[]) {
+    let photo;
+    components.forEach(element => {
+      if (element.type == "photo") {
+        photo = !photo? element.data[0].url: photo
+        return;
+      }
+    });
+    return photo
+  }
   goToConversation() {
 
-      this.route.queryParams.subscribe(
-        (params: any) => {
+    this.route.queryParams.subscribe(
+      (params: any) => {
 
-          if (params.pageId) {
-            console.log(params.pageId)
-            this.tabIndex = 2;
-          }
+        if (params.pageId) {
+          console.log(params.pageId)
+          this.tabIndex = 2;
         }
-      )
+      }
+    )
   }
 
   getPageName(page) {
@@ -86,7 +102,7 @@ export class NotifDetailsComponent implements OnInit {
   getProcessPage(page) {
     this.loading = true
     const pageName = this.getPageName(page)
-    const message = (page.status == "Online")? `Your page <b>${pageName}</b> status has been set back to <b>Processing</b>`: `Your page <b>${pageName}</b> status has been set to <b>Processing</b>`
+    const message = (page.status == "Online") ? `Your page <b>${pageName}</b> status has been set back to <b>Processing</b>` : `Your page <b>${pageName}</b> status has been set to <b>Processing</b>`
     const notif = {
       page: page._id,
       pageName: pageName,
